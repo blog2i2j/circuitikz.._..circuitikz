@@ -1366,7 +1366,7 @@ All can be varied using the \verb!\ctikzset! command, anywhere in the code.
 Note that the details of the parameters that are not described in the manual can change in the future, so be ready to use a fixed version of the package (the ones with the specific number, like \verb|circuitikz-0.9.3|) if you dig into them.
 
 \paragraph{Components size}\label{sec:pgfcircRlen}
-Perhaps the most important parameter is \IndexKey{bipoles/length}  (default \SI{1.4}{cm}), which
+Perhaps the most important parameter is \IndexKey{bipoles/length}  (default \SI{1.4}{cm}, you can use the currently set value with \verb!\ctikzvalof{bipoles/length}!), which
 can be interpreted as the length of a resistor (including reasonable connections): all other lengths are relative to this value. For instance:
 
 \begin{LTXexample}[pos=t,varwidth=true]
