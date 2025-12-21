@@ -9,6 +9,7 @@ The major changes among the different CircuiTikZ versions are listed here. See <
     - Add the option to *not* draw the wiper in rotary switches, suggested by [@kabenyuk and @cis in this Q&A](https://tex.stackexchange.com/questions/755499/circuitkiz-customize-the-style-of-the-rotary-switch-position-display)
     - Fix a problem with dc symbol dashes, see [this issue on GitHub](https://github.com/circuitikz/circuitikz/issues/897)
     - Minor fixes in the manual (thanks [quark67](https://github.com/circuitikz/circuitikz/issues/891)!)
+    - Make the value of `bipoles/length` usable by `\ctikzvalof` (by [Jonathan P. Spratte](https://github.com/circuitikz/circuitikz/pull/900))
 
 * Version 1.8.3 (2025-11-23)
 
