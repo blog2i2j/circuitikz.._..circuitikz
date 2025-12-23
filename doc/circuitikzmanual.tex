@@ -2410,7 +2410,7 @@ For the \texttt{photoresistor} and the two ``flavors'' of the light-dependent re
     \rdivider{1}\rdivider{2}\rdivider{3}\rdivider{4}
 \end{center}}
 
-\paragraph{Details of American (``zig-zag'') resistors.\label{sec:zigzag-details}} American (zig-zag) resistors have a little joining problem\footnote{Noticed by \href{https://github.com/circuitikz/circuitikz/issues/811}{user Dr4UX on GitHub} and later \href{https://github.com/circuitikz/circuitikz/discussions/814}{discussed here}.} with the leading wires if the thickness is greater than two. In the following drawing you can see the problem when the thickness grows from 1 to 4.
+\paragraph{Details of American (``zig-zag'') resistors.\label{sec:zigzag-details}} American (zig-zag) resistors have a little joining problem\footnote{Noticed by \href{https://github.com/circuitikz/circuitikz/issues/811}{Jakob Leide on GitHub} and later \href{https://github.com/circuitikz/circuitikz/discussions/814}{discussed here}.} with the leading wires if the thickness is greater than two. In the following drawing you can see the problem when the thickness grows from 1 to 4.
 
 \splat
 
@@ -3040,7 +3040,7 @@ Notice that if you choose the dashed style, the noise sources are fillable:
     \endgroup
 \end{groupdesc}
 
-The transformer shapes vector group options can be specified for the primary (\IndexKey[prim]{prim=\emph{value}}), the secondary (\IndexKey[sec]{sec=\emph{value}}) and tertiary (\IndexKey[tert]{tert=\emph{value}}) three-phase vector groups: the value can be one of \IndexKey{delta}, \IndexKey{wye}, \IndexKey{eyw}\footnote{The \IndexKey{eyw} symbol was suggested by \href{https://github.com/circuitikz/circuitikz/pull/742}{Jakob ``DraUX'' on GitHub}} and \IndexKey{zig}.
+The transformer shapes vector group options can be specified for the primary (\IndexKey[prim]{prim=\emph{value}}), the secondary (\IndexKey[sec]{sec=\emph{value}}) and tertiary (\IndexKey[tert]{tert=\emph{value}}) three-phase vector groups: the value can be one of \IndexKey{delta}, \IndexKey{wye}, \IndexKey{eyw}\footnote{The \IndexKey{eyw} symbol was suggested by \href{https://github.com/circuitikz/circuitikz/pull/742}{Jakob Leide on GitHub}} and \IndexKey{zig}.
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -3689,7 +3689,7 @@ Here you'll find bipoles that are not easily grouped in the categories above.
     \circuitdescbip*{afuse}{Asymmetric fuse}{asymmetric fuse}
     \circuitdescbip{wfuse}{``wiggly'' fuse}{wiggly fuse}()[left/110/0.2, right/70/0.2]
     \circuitdescbip*{relais}{Relais\footnotemark}{}
-    \footnotetext{Contributed by \href{https://github.com/circuitikz/circuitikz/pull/795}{Jakob ``DraUX''}}
+    \footnotetext{Contributed by \href{https://github.com/circuitikz/circuitikz/pull/795}{Jakob Leide}}
     \circuitdescbip{squid}{Squid}{}
     \circuitdescbip{barrier}{Barrier}{}
     \circuitdescbip{openbarrier}{Open barrier}{}
@@ -3955,7 +3955,7 @@ While the horizontal line will be drawn with the current path values, you can ch
 The main arrow shapes in \Circuitikz{} are really shapes, used as pseudo-arrows in lot of places in the packages (for transistors, flows, currents, and so on). The first three arrows are magnified by a factor~3 in the boxes below; for the \texttt{trarrow}, the anchor \texttt{tip} is exactly on the tip and \texttt{btip} is slightly receded.
 
 \begin{groupdesc}
-    \circuitdesc[3]{currarrow}{Arrow for current and voltage}{}(center/0/0.2)
+    \circuitdesc[3]{currarrow}{Arrow for current and voltage}{}(center/45/0.2,tip/-45/0.2)
     \circuitdesc[3]{inputarrow}{Arrow that is anchored at its tip, useful for block diagrams.}{}(center/0/0.2)
     \circuitdesc[3]{trarrow}{Arrow the same size of \texttt{currarrow} but only filled.}{}(center/90/0.2, tip/0/0.2, btip/-90/0.2)
     \circuitdesc{flowarrow}{Arrow used for the flows}{$I_p$}(south/-90/0.2, east/0/0.2, west/180/0.2, center/45/0.2)
@@ -6747,7 +6747,7 @@ These are all of the to-style type:
     \circuitdescbip[cncs]{closing normal closed switch}{Closing normally closed switch}{cncs}
     \circuitdescbip[onos]{opening normal open switch}{Opening normally open switch}{onos}
     \circuitdescbip[cnos]{closing normal open switch}{Closing normally open switch\footnotemark}{cnos}
-    \footnotetext{These last four were contributed by \href{https://tex.stackexchange.com/questions/693446/new-switch-components-for-circuitikz}{Jakob ``DraUX''}}
+    \footnotetext{These last four were contributed by \href{https://tex.stackexchange.com/questions/693446/new-switch-components-for-circuitikz}{Jakob Leide}}
     \circuitdescbip[pushbutton]{push button}{Normally open push button}{normally open push button, nopb}(tip/0/0.2, mid/-90/0.2)
     \circuitdescbip[ncpushbutton]{normally closed push button}{Normally closed push button}{ncpb}(tip/0/0.2, mid/-90/0.2)
     \circuitdescbip[pushbuttonc]{normally open push button closed}{Normally open push button (in closed position)}{nopbc}(tip/0/0.2, mid/-90/0.2)
@@ -9124,7 +9124,7 @@ However, you can override the properties \IndexKey{voltage/distance from node} (
 \end{LTXexample}
 
 You can also use a global \texttt{ctikzset} on the key \texttt{voltage/distance from node} (and similar) that will act as a default value. Notice however that the specific component value \textbf{overrides} the global one, and several components have pre-defined overrides, so they will ignore the default value. The components that have out of the box predefined overrides for \IndexKey[distance from node, override]{distance from node} are \texttt{generic}, \texttt{ageneric}, \texttt{fullgeneric} and \texttt{memristor} (set to \texttt{0.4}), and the ones that have it for \texttt{bump b} are
-\texttt{generic}, \texttt{ageneric}, \texttt{fullgeneric}, \texttt{memristor}, \texttt{tline}, \texttt{varistor}, \texttt{photoresistor}, \texttt{thermistor}, \texttt{thermistorntc}, \texttt{thermistorptc}, \texttt{ccapacitor}, \texttt{emptyzzdiode}, \texttt{fullzzdiode}, \texttt{emptythyristor}, \texttt{fullthyristor}, \texttt{emptytriac} and \texttt{fulltriac},, with several values (you can look at them in the file \texttt{pgfcirc.defines.tex})
+\texttt{generic}, \texttt{ageneric}, \texttt{fullgeneric}, \texttt{memristor}, \texttt{tline}, \texttt{varistor}, \texttt{photoresistor}, \texttt{thermistor}, \texttt{thermistorntc}, \texttt{thermistorptc}, \texttt{ccapacitor}, \texttt{emptyzzdiode}, \texttt{fullzzdiode}, \texttt{emptythyristor}, \texttt{fullthyristor}, \texttt{emptytriac} and \texttt{fulltriac},, with several values (you can look at them in the file \texttt{pgfcirc.defines.tex}).\footnote{To achieve consistent results of \texttt{voltage/distance from node=0} refer to this solution by Jakob Leide on \href{https://tex.stackexchange.com/questions/757418/circuitikz-inconsistent-behaviour-of-voltage-distance-from-node}{tex.stackexchange.com}.}
 
 
 Notice also that normally \texttt{distance from node} is a relative displacement, computed on the node-component wire. So that this will put the start and stop point $1/4$ of the way between node and component:
@@ -9977,7 +9977,7 @@ The meaning of the anchors is the following:
 \item
     \IndexKey{Vcont1} and \IndexKey{Vcont2} are the control points for the curved arrow (see the examples above); in the case of straight arrows or american-style voltages, they are set at the midpoint between \texttt{Vfrom} and \texttt{Vto}.
 \item
-    \IndexKey{Vlab} is where the text label for the voltage is normally positioned. The anchor used for such label is available using the auxiliary macro \verb|\ctikzgetanchor| (see below)
+    \IndexKey{Vlab} is where the text label for the voltage is normally positioned. The anchor used for such label is available using the auxiliary macro \verb|\ctikzgetanchor| (see below). Consider the default \verb|inner sep=2pt| of voltage label nodes.
 \item
     \IndexKey{Ipos} and \IndexKey{Fpos} are the position for the arrowhead or the small flow arrow (which is a \texttt{currarrow} or \texttt{flowarrow} node normally) is positioned, respectively. The label is then added to the correct side of it using the anchor available via \verb|\ctikzgetanchor| (see below,~\ref{sec:advances-aux-info}). In this case, the exact position of the label is not available if you do not position the element, for this there is no \texttt{Flab} or \texttt{Ilab} coordinate; you have to use the \texttt{Fpos} and \texttt{Ipos} coordinate with the corresponding \IndexKey{Ilab} and \IndexKey{Flab} anchors.
 \end{itemize}
@@ -10136,8 +10136,8 @@ Using the advanced voltage interface mechanism, you can for example design volta
     \coordinate (#2-Vcenter) at ($(#2-Vfrom)!0.5!(#2-Vto)$);
     % draw an arrow of a fixed size around that center and on the same line
     \draw[-Triangle, #4] ($(#2-Vcenter)!#1!(#2-Vfrom)$) -- ($(#2-Vcenter)!#1!(#2-Vto)$);
-    % position the label as in the normal voltages
-    \node[anchor=\ctikzgetanchor{#2}{Vlab}, #4] at (#2-Vlab) {#3};
+    % position the label as in the normal voltages (inner sep of voltage labels is 2pt per default)
+    \node[anchor=\ctikzgetanchor{#2}{Vlab}, inner sep=2pt, #4] at (#2-Vlab) {#3};
 }
 \end{lstlisting}
 \NewDocumentCommand{\fixedvlen}{O{0.5cm} m m O{}}{% [semilength]{node}{label}[extra options]
@@ -10146,7 +10146,7 @@ Using the advanced voltage interface mechanism, you can for example design volta
     % draw an arrow of a fixed size around that center and on the same line
     \draw[-Triangle, #4] ($(#2-Vcenter)!#1!(#2-Vfrom)$) -- ($(#2-Vcenter)!#1!(#2-Vto)$);
     % position the label as in the normal voltages
-    \node[anchor=\ctikzgetanchor{#2}{Vlab}, #4] at (#2-Vlab) {#3};
+    \node[anchor=\ctikzgetanchor{#2}{Vlab}, inner sep=2pt, #4] at (#2-Vlab) {#3};
 }
 
 \begin{LTXexample}[varwidth=true, basicstyle=\scriptsize\ttfamily, pos=t]
