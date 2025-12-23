@@ -78,10 +78,10 @@ The major changes among the different CircuiTikZ versions are listed here. See <
 
     There are no big changes here, but the change to the resistor code (maybe one of the most used by the package) well deserves a minor version bump. A couple of new components, and several minor fixes.
 
-    - New component: new kind of current tap (suggested by [EEpchi and Dr4UX on GitHub](https://github.com/circuitikz/circuitikz/issues/807))
+    - New component: new kind of current tap (suggested by [EEpchi and Jakob Leide on GitHub](https://github.com/circuitikz/circuitikz/issues/807))
     - New arrow tip `Jack Tap` to help drawing jack connectors (suggested by [Anisio Rogerio Braga](https://github.com/circuitikz/circuitikz/issues/806))
-    - Change the drawing of the thermocouple (suggested by [Dr4UX on GitHub](https://github.com/circuitikz/circuitikz/issues/811))
-    - Change and enhancement to the drawing of the American resistors (triggered by [Dr4UX on GitHub](https://github.com/circuitikz/circuitikz/issues/814)), fixing a long-standing small asymmetry that nobody noticed
+    - Change the drawing of the thermocouple (suggested by [Jakob Leide on GitHub](https://github.com/circuitikz/circuitikz/issues/811))
+    - Change and enhancement to the drawing of the American resistors (triggered by [Jakob Leide on GitHub](https://github.com/circuitikz/circuitikz/issues/814)), fixing a long-standing small asymmetry that nobody noticed
     - Minor adjustment for joins in `viscoe` component
     - Minor additions (`rectjoinfill`) and fixes in documentation
 
@@ -89,7 +89,7 @@ The major changes among the different CircuiTikZ versions are listed here. See <
 
     Several new components and a bug fix for a nasty long-standing bug about switching diode types.
 
-    - Added a Relais-Shape (contributed by [Jakob "DraUX" on GitHub](https://github.com/circuitikz/circuitikz/pull/795)
+    - Added a Relais-Shape (contributed by [Jakob Leide on GitHub](https://github.com/circuitikz/circuitikz/pull/795))
     - Added a center tap anchor for tube filament (suggested by [user bogger33 on GitHub](https://github.com/circuitikz/circuitikz/issues/792))
     - Added neon lamps (two versions, suggested by [user bogger33 on GitHub](https://github.com/circuitikz/circuitikz/issues/793))
     - Added a configurable spark gap (suggested by [user bogger33 on GitHub](https://github.com/circuitikz/circuitikz/issues/800))
@@ -141,9 +141,9 @@ The major changes among the different CircuiTikZ versions are listed here. See <
 
     - The symbol in European logic ports is now rotation-invariant, and its font can be customized (suggested by [user `@sputeanus` on GitHub](https://github.com/circuitikz/circuitikz/issues/730))
     - Added a couple of "blank" (no symbol) European logic ports
-    - Added new "traditional" switches (contributed by [Jakob "DraUX" on GitHub](https://github.com/circuitikz/circuitikz/issues/734))
+    - Added new "traditional" switches (contributed by [Jakob Leide on GitHub](https://github.com/circuitikz/circuitikz/issues/734))
     - Added configurability (color, thickness, dash) to switch arrows
-    - Added "eyw"-symbol (reverse star) for "oo"-type sources (contributed by [Jakob "DraUX" on GitHub](https://github.com/circuitikz/circuitikz/pull/742))
+    - Added "eyw"-symbol (reverse star) for "oo"-type sources (contributed by [Jakob Leide on GitHub](https://github.com/circuitikz/circuitikz/pull/742))
     - Added configurable open shape to the sinusoidal current source (contributed by [Maximilian Martin](https://github.com/circuitikz/circuitikz/pull/737))
     - Documentation fixes
 
