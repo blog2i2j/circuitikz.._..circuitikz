@@ -38,36 +38,129 @@ To rapidly compile just once, to check you have not introduced any error, at lea
 ## Appendix 2: minimal git workflow 
 
 The best way to start learning GIT is reading [Pro GIT](https://git-scm.com/book/en/v2), a really nice book about it. 
-But basically, a possible workflow is: 
 
+But basically, a possible workflow is (notice that you have to go through point 1 only once!) is described here. The example is based on a Linux system, but it should be easy to adapt to any operating system with a decent command line terminal and with `git` and `ssh` installed. 
 
-1) fork the repo in your github account and clone it locally.
+**Point 1:** *You do that just once!* :fork the repo in your GitHub account and clone it locally.
 
-2) go to the clone and setup the upstream reference:
+For the following example commands, I have forked the main `circuitikz` repository, https://github.com/circuitikz/circuitikz, to my personal one, https://github.com/Rmano/circuitikz. If you do the same, you  will have full write access to your fork, but just read access to the main one.
 
-        git remote add upstream  https://github.com/original/original.git
+Now you have to clone your fork to your computer. Under the "<> Code" button you'll find various ways of cloning it (I use ssh; you can use https instead, but [setting up a ssh key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh) will simplify things later).
 
-3) to keep the repo synced:
+![cloning instructions](pics/cloning.png)  
 
-        git checkout master
-        git fetch upstream
-        #... check
-        git merge upstream/master
+So I go to a directory of my choice, for example `~/software/myforks/` and clone it.
 
-4) to contribute create a local branch and push it
+```
+cd ~/sofware/myforks
+git clone git@github.com:Rmano/circuitikz.git
 
-        git checkout -b mybranch
-        
-5) code code code... if while you are coding, the master changes, then do step 3 to keep in sync, and rebase your branch before pushing it with `git checkout -b branch; git rebase master`, and continue.
+```
+Now I have my local, personal copy of `circuitikz` in my computer, in the folder `~/software/myforks/circuitikz`. Let tell it this copy where the upstream version is, to simplify keeping it in sync (this step is optional, you can do it via the interface on GitHub, but I think it's easier to have it available in the local repository.
 
-6) push it on your repo:
+Go to the clone and setup the upstream reference:
 
-        git push -u origin mybranch
+```
+git remote add upstream git@github.com:circuitikz/circuitikz.git
+```
+Notice that the "link" here is the same as the clone target; so if you are using https, you probably need something like `git remote add upstream  https://github.com/circuitikz/circuitikz.git`. Adapt to your case!
 
-7) go to the `circuitikz` github page (the main one) and now you can generate the pull request
+**Point 2:** *Keep it in sync.* Now suppose that while you are waiting to write your contribution, the (evil) maintainer of the main repository has added things. `git` is able to solve a lot of conflicts caused by that, but it could happen that the maintainer not so much. It is better to keep the repo synced and to always work "against" the current code. To keep your repo synced with the "upstream" one, you just do
 
-8) after/if the pull is accepted, *optionally* tidy up removing branches
+```
+git checkout master
+git fetch upstream
+```
+You will have a summary of the new objects retrieved (the first time it will be quite a long thing...); you have to merge them into your tree now:
 
-        git branch -d mybranch
-        git push --delete origin mybranch
+```
+git merge upstream/master
+```
+
+If there have been no changes, you'll have a nice `Already up to date` message. Otherwise, your local `master` branch will be synchronized with upstream, hopefully without problems.
+
+If you have conflicts here you need to solve them. Clearly, the maintainer of the upstream `circuitikz` can also solve them, but I bet they'll prefer to receive *clean* PRs...
+
+**Point 3:** *Contribute*
+
+So you want to propose adding something or change something in `circuitikz`, and you want to propose the change (that is what a "PR" is) to the upstream maintainer(s). The first thing you do is create a branch in your repository: 
+
+    git checkout -b mybranch
+    
+and now you do your changes. Edit all the files you need to edit, check that things still work ok (see the Appendix 1 above!), commit them to your branch (yes, you need to grok a bit of git to continue). 
+
+Suppose that the (even more evil) maintainer upstream commit a change before you finish. The best thing you can do to simplify the maintainer's life is to resync your master (steps in point 2 above), and then *rebase* your changes:
+
+```
+git checkout -b branch; git rebase master
+```
+...and solve any conflicts that could arise (again, it's you or the maintainer).  After you are done, check the checklist in "Preferred way of contributing" above, clean up your commit, and proceed. Do not forget to add your attribution to the changelog and where you want in the manual.
+
+You can check your changes with `git diff`:
+
+```
+git diff master..
+```
+which will, for example, print:
+
+```diff
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index ebd53e5..2e11ae9 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,7 +1,7 @@
+ <!--- CircuiTikz - Changelog --->
+ The major changes among the different CircuiTikZ versions are listed here. See <https://github.com/circuitikz/circuitikz/commits> for a full list of changes.
+ 
+-* Version 1.8.4 (unreleased)
++* Version 1.8.4 (unreleased with a change)
+ 
+     The main highlights of this release is a new appearance (optional!)
+```
+**Point 4:** *Create the PR* 
+
+The first step is to push it on your repo; that will make it publicly available:
+
+```
+git push -u origin mybranch
+```
+
+And you will have, for example:
+
+```
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 317 bytes | 317.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+remote: 
+remote: Create a pull request for 'mybranch' on GitHub by visiting:
+remote:      https://github.com/Rmano/circuitikz/pull/new/mybranch
+remote: 
+To github.com:Rmano/circuitikz.git
+ * [new branch]      mybranch -> mybranch
+branch 'mybranch' set up to track 'origin/mybranch'
+```
+As suggested, you can now go to the GitHub page and do the PR, or continue working. Notice that if you make more changes, and then commit them and push them, they will be automatically added to your publicly available branch and to the PR. 
+
+In the GitHub interface you'll have this:
+
+![PR creation instructions](pics/createPR.png)  
+
+If you look the first row in the grey box, GitHub explains that you want to "send" your code (branch `mybranch`  of `Rmano/circuitikz` repository) to the master branch of the main one. Correct!
+
+Fill the title, add the info that you think is relevant, and create the PR. The maintainer will be informed and will be able to act on it: accept, ask for changes (that you can do and then commit and push on your branch, and it will be updated automatically), or (sometimes it happens) reject it. 
+
+**Point 5:** *Cleanup*
+
+After/if the PR is accepted, *optionally* tidy up removing branches (or you can preserve them, whatever you like)
+
+```        
+git branch -d mybranch
+git push --delete origin mybranch
+```
+
+It is very important, after the PR is accepted, that you repeat the synchronization of point 2, so that you have everything tidied up for your next PR.
 
