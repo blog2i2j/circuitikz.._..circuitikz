@@ -2379,11 +2379,12 @@
         \advance\pgf@circ@res@other by \pgf@circ@res@step
         \pgfcirc@twoport@maybedash
         % draw outer box
+        \pgfstartlinewidth=\pgflinewidth
         \pgf@circ@twoportbox
         \pgf@circ@inputarrow
-        \pgfsetdash{}{0pt}	% always draw solid line for inner symbol
+        \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
         \pgfsetarrows{-} %never draw arrows
-        \pgfsetlinewidth{0.05mm}
+        \pgfstartlinewidth=\pgflinewidth
         % draw grid
         \foreach \line in {-1,-.5,...,1}
         {
