@@ -5950,6 +5950,7 @@ The RF elements can be scaled using the key \IndexKey{RF/scale}, default \texttt
 \subsubsection{Microstrip customization}
 
 The microstrip linear components' (\texttt{mstline}, \texttt{mslstub}, \texttt{msport}) heights can be changed by setting the parameter \IndexKey{bipoles/mstline/height} (for the three of them, default 0.3). The widths are specified in \IndexKey{bipoles/mstline/width} for the first two and by \IndexKey{monopoles/msport/width} for the port (defaults: 1.2, 0.5).
+Finally, you can change the size of the smaller circle (the connecting part) of \texttt{msrstub} with the parameter \IndexKey{monopoles/msrstub/radius} (default \texttt{0.25}; using \texttt{0} will suppress the smaller circle\footnote{suggested by \href{https://tex.stackexchange.com/a/757589/38080}{user cis on TeX.SX}}).
 
 For the length parameter of the transmission line there is a shortcut in the form of the direct parameter \IndexKey{mstlinelen}.
 
@@ -5961,7 +5962,8 @@ For the length parameter of the transmission line there is a shortcut in the for
         coordinate(here) -- ++(0.5,0) node[mslstub, fill=yellow]{stub}
         (here) -- ++(0,0.5) node[mslstub, rotate=90, mstlinelen=0.5]{short};
         \draw (there) to[short, o-]  ++(0, 0.5) node[msrstub]{};
-        \draw (here) -- ++(0, -0.5) node[msrstub, yscale=-1]{};
+        \draw (here) -- ++(0, -0.5) node[msrstub, yscale=-1,
+            circuitikz/monopoles/msrstub/radius=0]{};
 \end{circuitikz}
 \end{LTXexample}
 

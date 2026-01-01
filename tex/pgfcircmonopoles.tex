@@ -409,6 +409,8 @@
 \ctikzset{monopoles/msport/width/.initial=.5}
 \ctikzset{monopoles/msrstub/height/.initial=1.0}
 \ctikzset{monopoles/msrstub/width/.initial=0.6}%
+% suggested by the TeX-SX answer https://tex.stackexchange.com/a/757589/38080
+\ctikzset{monopoles/msrstub/radius/.initial=0.25}% public, thanks to @cis suggestion!
 %>>>
 
 %% Node shapes for RF bipoles%<<<
@@ -1048,15 +1050,18 @@
         \pgfextractx{\pgf@circ@res@right}{\southeast}
         \pgfextractx{\pgf@circ@res@left}{\northwest}
         \pgfextracty{\pgf@circ@res@down}{\southeast}
-        \pgfmathsetlength{\pgf@circ@res@step}{0.25*\pgf@circ@res@up}
+        \pgfmathsetlength{\pgf@circ@res@step}{\ctikzvalof{monopoles/msrstub/radius}*\pgf@circ@res@up}
         \pgfstartlinewidth=\pgflinewidth
         \pgfscope
             \pgfpathmoveto{\pgfpointorigin}
-            \pgfpathlineto{\pgfpoint{0pt}{\pgf@circ@res@step}}
-            \pgfusepath{draw}
             \pgf@circ@setlinewidth{bipoles}{\pgfstartlinewidth}
-            \pgfpathmoveto{\pgfpointpolar{135}{\pgf@circ@res@step}}
-            \pgfpatharc{135}{45}{\pgf@circ@res@step}
+            \ifdim\pgf@circ@res@step>0pt
+                % avoid drawing the smaller arc if the user selected 0!
+                \pgfpathlineto{\pgfpoint{0pt}{\pgf@circ@res@step}}
+                \pgfusepath{draw}
+                \pgfpathmoveto{\pgfpointpolar{135}{\pgf@circ@res@step}}
+                \pgfpatharc{135}{45}{\pgf@circ@res@step}
+            \fi
             \pgfpathlineto{\pgfpointpolar{45}{\pgf@circ@res@up}}
             \pgfpatharc{45}{135}{\pgf@circ@res@up}
             \pgfpathclose
