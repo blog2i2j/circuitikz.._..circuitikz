@@ -84,12 +84,12 @@ This file may be distributed and/or modified
 1. under the LaTeX Project Public License and/or
 2. under the GNU Public License.
 
-Copyright 2018-2025 by Romano Giannetti
+Copyright 2018-2026 by Romano Giannetti
 
-Copyright 2015-2025 by Stefan Lindner
+Copyright 2015-2026 by Stefan Lindner
 
-Copyright 2013-2025 by Stefan Erhardt
+Copyright 2013-2026 by Stefan Erhardt
 
-Copyright 2007-2025 by Massimo Redaelli
+Copyright 2007-2026 by Massimo Redaelli
 
 
