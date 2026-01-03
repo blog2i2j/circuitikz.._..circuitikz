@@ -1810,6 +1810,9 @@
     \ifpgf@circuit@boxed
         \pgfsetlinewidth{\pgfstartlinewidth}
         % draw solid line for inner symbol if no box is drawn and not fully dashed
+        % set inner symbol options
+        \pgf@circ@subset@color{blocks/inner color}
+        \pgf@circ@set@relative@thickness{inner thickness}
         \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
         \pgf@circ@res@step=.7\pgf@circ@res@step % scale amp symbol when inside a box
     \else
@@ -2132,6 +2135,16 @@
 
 %% Node shapes for  Block elements %<<<
 %
+\def\pgcirc@twoport@additional@northwest@anchors{%
+    \savedmacro{\blockleftanchorpos}{\edef\blockleftanchorpos{\ctikzvalof{block left anchors pos}}}
+    \savedmacro{\blockrightanchorpos}{\edef\blockrightanchorpos{\ctikzvalof{block right anchors pos}}}
+    \anchor{left down}{\northwest\pgf@y=-\blockleftanchorpos\pgf@y}
+    \anchor{right down}{\northwest\pgf@x=-\pgf@x\pgf@y=-\blockrightanchorpos\pgf@y}
+    \anchor{right up}{\northwest\pgf@x=-\pgf@x\pgf@y=\blockrightanchorpos\pgf@y}
+    \anchor{left up}{\northwest\pgf@y=\blockleftanchorpos\pgf@y}
+    \anchor{up}{\northwest\pgf@x=0pt\relax}
+    \anchor{down}{\northwest\pgf@y=-\pgf@y\pgf@x=0pt\relax}
+}
 % utility macro for the anchors
 \def\pgf@circ@circular@rf@anchors#1{%
     \savedanchor\northwest{
@@ -2162,8 +2175,7 @@
     }
     \pgfcirc@northwest@symmetric@geoanchors
     \anchor{geocenter}{\pgfpointorigin}
-    \anchor{up}{\northwest\pgf@x=0pt}
-    \anchor{down}{\northwest\pgf@x=0pt\pgf@y=-\pgf@y}
+    \pgcirc@twoport@additional@northwest@anchors
     % Deprecated number anchors
     \anchor{1}{\northwest\pgf@y=0pt}
     \anchor{2}{\northwest\pgf@y=-\pgf@y\pgf@x=0pt}
@@ -2176,10 +2188,6 @@
     \anchor{in 2}{\northwest\pgf@y=-\pgf@y\pgf@x=0pt}
     \anchor{in2}{\northwest\pgf@y=-\pgf@y\pgf@x=0pt}
     \anchor{out}{\northwest\pgf@y=0pt\pgf@x=-\pgf@x}
-    \anchor{left down}{\northwest\pgf@y=-0.5\pgf@y}
-    \anchor{right down}{\northwest\pgf@x=-\pgf@x\pgf@y=-0.5\pgf@y}
-    \anchor{right up}{\northwest\pgf@x=-\pgf@x\pgf@y=0.5\pgf@y}
-    \anchor{left up}{\northwest\pgf@y=0.5\pgf@y}
     \savedanchor{\textoffset}{%
         \pgf@x= -.5\wd\pgfnodeparttextbox  % (set)
         \pgf@y= \dimexpr-.5\dp\pgfnodeparttextbox+.5\ht\pgfnodeparttextbox\relax % (sum)
@@ -2201,6 +2209,8 @@
         \pgf@circ@res@step=.7\pgf@circ@res@step
         % draw solid line for inner symbol if no box is drawn and not fully dashed
         \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
+        \pgf@circ@subset@color{blocks/inner color}
+        \pgf@circ@set@relative@thickness{inner thickness}
     \else
         \pgf@circ@setlinewidth{bipoles}{\pgfstartlinewidth}
     \fi
@@ -2228,6 +2238,8 @@
             % draw solid line for inner symbol if no box is drawn and not fully dashed
             \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
             \pgfsetlinewidth{\pgfstartlinewidth}
+            \pgf@circ@subset@color{blocks/inner color}
+            \pgf@circ@set@relative@thickness{inner thickness}
             \pgfpathmoveto{\pgfpointorigin}
             \pgfpathmoveto{\pgfpointpolar{135}{0.5\pgf@circ@res@step}}
             \pgfpathlineto{\pgfpointpolar{-45}{0.5\pgf@circ@res@step}}
@@ -2257,6 +2269,8 @@
             % draw solid line for inner symbol if no box is drawn and not fully dashed
             \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
             \pgfsetlinewidth{\pgfstartlinewidth}
+            \pgf@circ@subset@color{blocks/inner color}
+            \pgf@circ@set@relative@thickness{inner thickness}
             \pgfpathmoveto{\pgfpointorigin}
             \pgfpathmoveto{\pgfpointpolar{0}{0.3\pgf@circ@res@step}}
             \pgfpathlineto{\pgfpointpolar{180}{0.3\pgf@circ@res@step}}
@@ -2295,6 +2309,8 @@
             % draw solid line for inner symbol if no box is drawn and not fully dashed
             \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
             \pgfsetlinewidth{\pgfstartlinewidth}
+            \pgf@circ@subset@color{blocks/inner color}
+            \pgf@circ@set@relative@thickness{inner thickness}
             \pgfsetcornersarced{\pgfpointorigin}% do not use rounded corners!
             \pgfpathmoveto{\pgfpoint{-0.3\pgf@circ@res@step}{0\pgf@circ@res@step}}
             \pgfpathsine{\pgfpoint{.15\pgf@circ@res@step}{.15\pgf@circ@res@step}}
@@ -2324,6 +2340,8 @@
             % draw solid line for inner symbol if no box is drawn and not fully dashed
             \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
             \pgfsetlinewidth{\pgfstartlinewidth}
+            \pgf@circ@subset@color{blocks/inner color}
+            \pgf@circ@set@relative@thickness{inner thickness}
             \pgfsetarrowsend{latex}
             \pgfpathmoveto{\pgfpoint{-0.25\pgf@circ@res@step}{0}}
             \pgfpatharc{180}{-90} {0.25\pgf@circ@res@step}
@@ -2351,15 +2369,10 @@
             \pgf@x=.5\pgf@x
     }
     \pgfcirc@northwest@symmetric@geoanchors
+    \pgcirc@twoport@additional@northwest@anchors
     \anchor{center}{\pgfpointorigin}
-    \anchor{up}{\northwest\pgf@x=0pt}
-    \anchor{down}{\northwest\pgf@x=0pt\pgf@y=-\pgf@y}
     \anchor{right}{\northwest\pgf@y=0pt\pgf@x=-\pgf@x}
     \anchor{left}{\northwest\pgf@y=0pt}
-    \anchor{left down}{\northwest\pgf@y=-0.5\pgf@y}
-    \anchor{right down}{\northwest\pgf@x=-\pgf@x\pgf@y=-0.5\pgf@y}
-    \anchor{right up}{\northwest\pgf@x=-\pgf@x\pgf@y=0.5\pgf@y}
-    \anchor{left up}{\northwest\pgf@y=0.5\pgf@y}
     % text anchor, in the south-east corner
     \savedanchor{\textheight}{%
         \pgf@y= \ht\pgfnodeparttextbox %
@@ -2390,29 +2403,30 @@
         \ifpgf@circuit@full@dashed\else\pgfsetdash{}{0pt}\fi
         \pgfsetarrows{-} %never draw arrows
         \pgfstartlinewidth=\pgflinewidth
+        \pgf@circ@subset@color{blocks/inner color}
+        \pgf@circ@set@relative@thickness{inner thickness}
         % draw grid
         \ifodd\gridlines
         	\edef\gridmiddleline{\numexpr(\gridlines+1)/2\relax}
         \else
         	\edef\gridmiddleline{\numexpr\gridlines/2+1\relax}
        	\fi
-        
-	    \foreach \line in {\gridmiddleline,...,\gridlines}
+        \foreach \line in {\gridmiddleline,...,\gridlines}
        	{
-        	\pgfmathsetmacro\relpos{4*\line/(\gridlines+1) - 3}
-           	\pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@right}{\pgf@circ@res@up}}
-           	\pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\relpos\pgf@circ@res@up}}
-           	\pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@left}{\pgf@circ@res@up}}
-	        \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\relpos\pgf@circ@res@up}}
+            \pgfmathsetmacro\relpos{4*\line/(\gridlines+1) - 3}
+            \pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@right}{\pgf@circ@res@up}}
+            \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\relpos\pgf@circ@res@up}}
+            \pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@left}{\pgf@circ@res@up}}
+            \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\relpos\pgf@circ@res@up}}
         }
         %prevent from draw the inner cross twice
-	    \foreach \line in {1,...,\numexpr\gridmiddleline-1\relax}
-	    {
-        	\pgfmathsetmacro\relpos{1 - 4*\line/(\gridlines+1)}
-	        \pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@right}{\pgf@circ@res@down}}
-	        \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\relpos\pgf@circ@res@down}}
-	        \pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@left}{\pgf@circ@res@down}}
-		    \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\relpos\pgf@circ@res@down}}
+        \foreach \line in {1,...,\numexpr\gridmiddleline-1\relax}
+        {
+            \pgfmathsetmacro\relpos{1 - 4*\line/(\gridlines+1)}
+            \pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@right}{\pgf@circ@res@down}}
+            \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\relpos\pgf@circ@res@down}}
+            \pgfpathmoveto{\pgfpoint{\relpos\pgf@circ@res@left}{\pgf@circ@res@down}}
+            \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\relpos\pgf@circ@res@down}}
       	}
         \pgfusepath{draw}
     }

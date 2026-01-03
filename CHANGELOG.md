@@ -9,6 +9,7 @@ The major changes among the different CircuiTikZ versions are listed here. See <
     - Add the option to *not* draw the wiper in rotary switches, suggested by [@kabenyuk and @cis in this Q&A](https://tex.stackexchange.com/questions/755499/circuitkiz-customize-the-style-of-the-rotary-switch-position-display)
     - Add an option to change the aspect of `msrstub` (thanks to user cis, see [relevant chat on TeX.SX](https://chat.stackexchange.com/transcript/message/68629615#68629615))
     - Fix a problem with dc symbol dashes, see [this issue on GitHub](https://github.com/circuitikz/circuitikz/issues/897)
+    - Fix position of the left/right up/down anchors for node-type blocks (they did not obey the `pos` keys) and for amplifier-type blocks when boxed
     - Minor fixes in the manual (thanks [quark67](https://github.com/circuitikz/circuitikz/issues/891)!)
     - Make the value of `bipoles/length` usable by `\ctikzvalof` (by [Jonathan P. Spratte](https://github.com/circuitikz/circuitikz/pull/900))
     - Added a key to customise the number of lines of the \texttt{gridnode} inner drawing (by [Jakob Leide](https://github.com/circuitikz/circuitikz/pull/906))
