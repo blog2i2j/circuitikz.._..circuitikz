@@ -302,6 +302,30 @@
     \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@down}}
     \pgfusepath{draw}
 }
+
+%% generic with sine wave
+\pgfcircdeclarebipolescaled{resistors}
+{}
+{\ctikzvalof{bipoles/generic/height}}
+{singeneric}
+{\ctikzvalof{bipoles/generic/height}}
+{\ctikzvalof{bipoles/generic/width}}
+{
+	\pgfpathrectanglecorners{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@down}}
+	\pgf@circ@setlinewidth{bipoles}{\pgfstartlinewidth}
+	\pgf@circ@draworfill
+	% sine
+	\pgfscope
+        \pgf@circ@set@relative@thickness{modifier thickness}
+		\pgfpathmoveto{\pgfpoint{.8\pgf@circ@res@left}{0cm}}
+		\pgfpathsine{\pgfpoint{.4\pgf@circ@res@right}{.5\pgf@circ@res@up}}
+		\pgfpathcosine{\pgfpoint{.4\pgf@circ@res@right}{-.5\pgf@circ@res@up}}
+		\pgfpathsine{\pgfpoint{.4\pgf@circ@res@right}{-.5\pgf@circ@res@up}}
+		\pgfpathcosine{\pgfpoint{.4\pgf@circ@res@right}{.5\pgf@circ@res@up}}
+		\pgfusepath{draw}
+	\endpgfscope
+}
+
 %% Generic empty tunable
 \pgfcircdeclarebipolescaled{resistors}
 {
@@ -837,6 +861,7 @@
 \pgfcirc@activate@bipole@simple{l}{tgeneric}
 \pgfcirc@activate@bipole@simple{l}{xgeneric}
 \pgfcirc@activate@bipole@simple{l}{sgeneric}
+\pgfcirc@activate@bipole@simple{l}{singeneric}
 \pgfcirc@activate@bipole@simple{l}{fullgeneric}
 \pgfcirc@activate@bipole@simple{l}{tfullgeneric}
 \pgfcirc@activate@bipole@simple{l}{short}
