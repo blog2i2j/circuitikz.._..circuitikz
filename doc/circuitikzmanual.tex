@@ -4625,6 +4625,17 @@ Most of the inner block drawings can be customized, without affecting the extern
 \end{circuitikz}
 \end{LTXexample}
 
+The key \IndexKey{blocks/gridnode/gridlines} controls the number of lines in the \texttt{gridnode} block, defined as parallel lines in one diagonal. This can be customised using the key, which accepts any positive integer (default is \texttt{7}).\footnote{Contributed by Jakob Leide}
+
+\begin{LTXexample}[varwidth=true]
+\begin{circuitikz}
+  \node[gridnode] at (0,0) {};
+  \node[gridnode,gridlines=3] at (2,0) {};
+  \ctikzset{blocks/gridnode/gridlines=10}
+  \node[gridnode] at (4,0) {};
+\end{circuitikz}
+\end{LTXexample}
+
 \paragraph{Block filter grid customization.}\label{sec:block-filter-grid-cust}
 In the ``plot''-type filter blocks, you can change the appearance of the fake semi-logarithmic grid using the following parameters (with \verb!\ctikzset!, under the family \IndexKey{blocks/filter grid/})
 
