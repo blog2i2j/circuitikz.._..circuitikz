@@ -12,6 +12,8 @@ The major changes among the different CircuiTikZ versions are listed here. See <
     - Minor fixes in the manual (thanks [quark67](https://github.com/circuitikz/circuitikz/issues/891)!)
     - Make the value of `bipoles/length` usable by `\ctikzvalof` (by [Jonathan P. Spratte](https://github.com/circuitikz/circuitikz/pull/900))
     - Added a key to customise the number of lines of the \texttt{gridnode} inner drawing (by [Jakob Leide](https://github.com/circuitikz/circuitikz/pull/906))
+    - Added the singeneric (Sine generic bipole) component (by [Jakob Leide](https://github.com/circuitikz/circuitikz/pull/907))
+
 
 * Version 1.8.3 (2025-11-23)
 
