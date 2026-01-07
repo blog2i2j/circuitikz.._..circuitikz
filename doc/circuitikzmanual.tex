@@ -4304,7 +4304,8 @@ Blocks to draw TV/radio system schematics, contributed by \href{https://github.c
 
 \begin{groupdesc}
     \circuitdesc*{fourport}{Generic fourport}{}(port1/180/0.1, port2/0/0.1, port3/0/0.2, port4/180/0.1)
-    \circuitdesc*{coupler}{Coupler}{}(left down/180/0.1, right down/0/0.1, right up/0/0.2, left up/180/0.1)
+    \circuitdesc*{coupler}{Coupler\footnotemark}{}(left down/180/0.1, right down/0/0.1, right up/0/0.2, left up/180/0.1)
+    \footnotetext{Notice that the \texttt{left/right up/down} anchors coincide with \texttt{port1\dots 4} only for the default values of \texttt{block [left/right] anchors pos}.}
     \circuitdesc*{coupler2}{Coupler with rounded arrows}{}
 \end{groupdesc}
 
@@ -4622,7 +4623,7 @@ You can change the general style for the DC symbol using the key \IndexKey{block
 
 
 \paragraph{Blocks inner drawing.}
-Most of the inner block drawings can be customized, without affecting the external box, with the keys \IndexKey{blocks/inner color} (default \texttt{default}, which means ``don't change color'') and \IndexKey{blocks/inner thickness} (default \texttt{1}; this is relative to the class-specified thickness).
+Almost all of the inner block drawing style can be customized, without affecting the external box, with the keys \IndexKey{blocks/inner color} (default \texttt{default}, which means ``don't change color'') and \IndexKey{blocks/inner thickness} (default \texttt{1}; this is relative to the class-specified thickness).
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz} \draw
