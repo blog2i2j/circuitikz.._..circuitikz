@@ -1,19 +1,19 @@
 <!--- CircuiTikz - Changelog --->
 The major changes among the different CircuiTikZ versions are listed here. See <https://github.com/circuitikz/circuitikz/commits> for a full list of changes.
 
-* Version 1.8.4 (unreleased)
+* Version 1.8.4 (2026-01-07)
 
-    The main highlights of this release is a new appearance (optional!) for blocks representing filters, and some option to add style to the inner drawings of blocks.
+    The main highlights of this release is a new appearance (optional!) for blocks representing filters, some option to add style to the inner drawings of blocks (and some fixes for anchors too), and several new options.
 
     - Add a new set of filter blocks, add options for inner block drawings (by Romano)
     - Add the option to *not* draw the wiper in rotary switches, suggested by [@kabenyuk and @cis in this Q&A](https://tex.stackexchange.com/questions/755499/circuitkiz-customize-the-style-of-the-rotary-switch-position-display)
     - Add an option to change the aspect of `msrstub` (thanks to user cis, see [relevant chat on TeX.SX](https://chat.stackexchange.com/transcript/message/68629615#68629615))
+    - Add the singeneric (sine generic bipole) component (by [Jakob Leide](https://github.com/circuitikz/circuitikz/pull/907))
     - Fix a problem with dc symbol dashes, see [this issue on GitHub](https://github.com/circuitikz/circuitikz/issues/897)
     - Fix position of the left/right up/down anchors for node-type blocks (they did not obey the `pos` keys) and for amplifier-type blocks when boxed
     - Minor fixes in the manual (thanks [quark67](https://github.com/circuitikz/circuitikz/issues/891)!)
     - Make the value of `bipoles/length` usable by `\ctikzvalof` (by [Jonathan P. Spratte](https://github.com/circuitikz/circuitikz/pull/900))
-    - Added a key to customise the number of lines of the \texttt{gridnode} inner drawing (by [Jakob Leide](https://github.com/circuitikz/circuitikz/pull/906))
-    - Added the singeneric (Sine generic bipole) component (by [Jakob Leide](https://github.com/circuitikz/circuitikz/pull/907))
+    - Add a key to customise the number of lines of the `gridnode` inner drawing (by [Jakob Leide](https://github.com/circuitikz/circuitikz/pull/906))
 
 
 * Version 1.8.3 (2025-11-23)
