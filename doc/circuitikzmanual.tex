@@ -4217,8 +4217,6 @@ For example, and audio jack can be drawn like this:
     \footnotetext{added by \texttt{matthuszagh}}
     \circuitdesc*{genericsplitter}{generic splitter\footnotemark}{$\SI{-3}{\deci\bel}$}( in/180/0.1, out2/45/0.1, out1/-45/0.1 )
     \footnotetext{added by \texttt{frankplow}}
-    \circuitdesc*{gridnode}{gridnode\footnotemark}{}(left/135/0.2, right/45/0.2, center/-100/0.4, up/90/0.2, down/-45/.2)
-    \footnotetext{added by \texttt{olfline}}
     \circuitdesc*{mzm}{Mach Zehnder Modulator\footnotemark}{}( in/180/0.1, mod/90/0.1, out/0/0.1)
     \footnotetext{added by \texttt{dl1chb}}
 \end{groupdesc}
@@ -4248,8 +4246,11 @@ For example, and audio jack can be drawn like this:
     \circuitdescbip*{dsp}{DSP}{}
     \circuitdescbip*{fft}{FFT}{}
     \circuitdescbip*{amp}{amplifier; use \texttt{t=\dots} to add a text}{}(up/90/0.2, down/-90/0.2)
+    \circuitdescbip*{amp, boxed}{amplifier, boxed; use \texttt{t=\dots} to add a text}{}(up/90/0.2, down/-90/0.2)
     \circuitdescbip*{iamp}{instrumentation amplifier; use \texttt{t=\dots} to add a text}{}(up/90/0.2, down/-90/0.2)
-    \circuitdescbip*{vamp}{VGA}{}
+    \circuitdescbip*{iamp, boxed}{instrumentation amplifier, boxed; use \texttt{t=\dots} to add a text}{}(up/90/0.2, down/-90/0.2)
+    \circuitdescbip*{vamp}{VGA (variable gain amplifier)}{}
+    \circuitdescbip*{vamp, boxed}{VGA, boxed}{}
     \circuitdescbip*{piattenuator}{$\pi$ attenuator}{}
     \circuitdescbip*{vpiattenuator}{var. $\pi$ attenuator}{}
     \circuitdescbip*{tattenuator}{T attenuator}{}
@@ -4273,6 +4274,8 @@ For example, and audio jack can be drawn like this:
     \circuitdescbip*{tacdc}{three phases AC/DC converter}{}(ac up in/135/.3, ac mid in/185/.3, ac down in/-135/.3, dc up out/45/.3, dc down out/-35/.3)
     \circuitdescbip*{tdcac}{three phases AC/DC converter}{}(ac up out/45/0.1, ac mid out/-5/.3, ac down out/-45/.1, dc up in/135/.3, dc down in/185/.3)
     \circuitdescbip*{tacac}{three phases AC/DC converter}{}(ac up in/135/.3, ac mid in/185/.3, ac down in/-135/.3, ac up out/45/.3, ac mid out/-5/.3, ac down out/-45/.3)
+    \circuitdesc*{gridnode}{gridnode\footnotemark}{}(left/135/0.2, right/45/0.2, center/-100/0.4, up/90/0.2, down/-45/.2)
+    \footnotetext{added by \texttt{olfline}}
 \end{groupdesc}
 
 Filters blocks have an alternative, Bode-diagram-like appearance.
@@ -4301,7 +4304,8 @@ Blocks to draw TV/radio system schematics, contributed by \href{https://github.c
 
 \begin{groupdesc}
     \circuitdesc*{fourport}{Generic fourport}{}(port1/180/0.1, port2/0/0.1, port3/0/0.2, port4/180/0.1)
-    \circuitdesc*{coupler}{Coupler}{}(left down/180/0.1, right down/0/0.1, right up/0/0.2, left up/180/0.1)
+    \circuitdesc*{coupler}{Coupler\footnotemark}{}(left down/180/0.1, right down/0/0.1, right up/0/0.2, left up/180/0.1)
+    \footnotetext{Notice that the \texttt{left/right up/down} anchors coincide with \texttt{port1\dots 4} only for the default values of \texttt{block [left/right] anchors pos}.}
     \circuitdesc*{coupler2}{Coupler with rounded arrows}{}
 \end{groupdesc}
 
@@ -4331,16 +4335,20 @@ In addition, since \texttt{v1.6.0},  most blocks also have the \texttt{left up},
 \end{LTXexample}
 
 Since \texttt{1.6.7} you can change the relative position of the lateral generic anchors\footnote{Suggested by \href{https://github.com/circuitikz/circuitikz/issues/769}{user @sputeanus} on GitHub} using the keys \IndexKey{block left anchors pos} and \IndexKey{block right anchor pos} (default \texttt{0.5}, as in previous releases) which set the position as a fraction of the top to center segment.
+Since \texttt{1.8.4} the effect of this keys is also extended to node-type blocks, which is especially useful for the ``boxed'' versions; you can also use the inner styling here.
 
-\begin{LTXexample}[varwidth=true]
+\begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
 \begin{circuitikz}
     \ctikzset{block left anchors pos=0.8, block right anchors pos=0.2}
-    \draw (0,0) to[bandpass, name=bp] ++(2,0)
-    (bp.left up) node[circ, red]{}
-    (bp.left down) node[circ, blue]{}
-    (bp.right up) node[circ, green]{}
-    (bp.right down) node[circ, orange]{}
-;\end{circuitikz}
+    \ctikzset{blocks/inner thickness=3, blocks/inner color=orange}
+    \draw (0,3) to[bandpass, name=bp] ++(2,0)
+    (1,1.5) node[gridnode](g){} (1,0) node[mixer, boxed](bm){};
+    \foreach \n in {bp, bm, g} {\path
+        (\n.left up) node[circ, red]{}
+        (\n.left down) node[circ, blue]{}
+        (\n.right up) node[circ, green]{}
+        (\n.right down) node[circ, orange]{};}
+\end{circuitikz}
 \end{LTXexample}
 
 To set both left and right at the same value, you can use the key \IndexKey{block lateral anchors pos}, which set both to the same number.
@@ -4615,7 +4623,7 @@ You can change the general style for the DC symbol using the key \IndexKey{block
 
 
 \paragraph{Blocks inner drawing.}
-Most of the inner block drawings can be customized, without affecting the external box, with the keys \IndexKey{blocks/inner color} (default \texttt{default}, which means ``don't change color'') and \IndexKey{blocks/inner thickness} (default \texttt{1}; this is relative to the class-specified thickness).
+Almost all of the inner block drawing style can be customized, without affecting the external box, with the keys \IndexKey{blocks/inner color} (default \texttt{default}, which means ``don't change color'') and \IndexKey{blocks/inner thickness} (default \texttt{1}; this is relative to the class-specified thickness).
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz} \draw
