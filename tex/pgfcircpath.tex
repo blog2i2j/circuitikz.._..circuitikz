@@ -22,8 +22,15 @@
 
 % Names
 \ctikzset{name/.style = { n={#1} } } %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@
+\gdef\ctikz@@null{}%
+% safety net for re-naming a ctikz path-to
 \ctikzset{n/.code = {
-	\pgfkeys{/tikz/circuitikz/bipole/name={#1}}
+    \edef\ctikz@@temp{\ctikzvalof{bipole/name}}%
+    \ifx\ctikz@@temp\ctikz@@null\else
+        \pgfutil@packagewarning{circuitikz}{path-to component #1 already had a name, ^^J%
+        (\ctikz@@temp) expect problems and errors!}%
+    \fi
+    \pgfkeys{/tikz/circuitikz/bipole/name={#1}}%
 }}
 
 % Reflect the node along
@@ -59,6 +66,73 @@
     }
 }
 
+%%
+%% implementation of automatic advanced v-i-f labels
+%%
+\gdef\ctikz@vif@queue{}\newcount\ctikz@vif@count
+\newif\ifctikz@hook@set\global\ctikz@hook@setfalse
+\def\ctikz@vif@add#1#2#3#4{%add to the queue the macro \#1{nodename}{#2}{#3}{#4}
+    \edef\ctikz@vif@@name{\ctikzvalof{bipole/name}}%
+    \ifx\ctikz@vif@@name\ctikz@@null
+        % we *need* to be sure we have no repeated nodenames
+        % this should work well for millions of them.
+        \global\advance\ctikz@vif@count by 1 \relax
+        \pgfmathrandominteger{\ctikz@vif@@rand}{100}{999}%
+        \edef\ctikz@vif@@name{ctikz-vif\the\ctikz@vif@count-\ctikz@vif@@rand}%
+        \ctikzset{bipole/name=\ctikz@vif@@name}
+    \fi
+    % \typeout{NODE2: \ctikzvalof{bipole/name}}
+    \edef\ctikz@vif@@temp{%
+        \noexpand\pgfutil@g@addto@macro\noexpand\ctikz@vif@queue{%
+            \expandafter\noexpand\csname #1\endcsname
+            {\ctikz@vif@@name}{#2}{#3}{#4}%
+        }%
+    }%
+    \ctikz@vif@@temp
+}
+%% set up the hooks if possible and if they are not already set for this picture
+\def\ctikz@set@hook{%
+    \ifctikz@hook@set
+    \else
+        \global\ctikz@hook@settrue
+        \ifpgfutil@format@is@latex
+            \ifctikz@latex@has@hooks
+                % we must enable both for circuitikz and tikzpicture (grrr)
+                % \typeout{EXECUTE AddToHook ctikzprocessvif}%
+                \AddToHookNext{env/tikzpicture/end}{\ctikzprocessvif}%
+                \AddToHookNext{env/circuitikz/end}{\ctikzprocessvif}%
+            \else
+                % \typeout{OLD LaTeX, use "use auto vif"}%
+                \pgfutil@packagewarning{circuitikz}{You used automatic advanced v-i-f with a ^^J%
+                old LaTeX, you must add "use auto vif" (see manual)}%
+            \fi
+        \else
+            % this is not LaTeX, I will not touch internals
+            % \typeout{Not on LaTeX, use "use auto vif"}%
+            \pgfutil@packagewarning{circuitikz}{You used automatic advanced v-i-f with a ^^J%
+            non-LaTeX format, you must add "use auto vif" (see manual)}%
+        \fi
+    \fi
+}
+% manually add hooks for non-LaTeX or older LaTeX. Safe to use always.
+\tikzset{use auto vif/.style={execute at end picture={\ctikzprocessvif},
+    execute at begin picture={\global\ctikz@hook@settrue}}}
+% main v-i-f processing macro. Safe to call always.
+\def\ctikzprocessvif{%
+    % execute and clear queue
+    % \typeout{EXECUTE ctikzprocessvif}%
+    \ctikz@vif@queue\relax\gdef\ctikz@vif@queue{}%
+    \global\ctikz@hook@setfalse
+    % clear hooks. Needed because just one of them will be consumed automatically,
+    % and we do not know which.
+    \ifctikz@latex@has@hooks
+        \providecommand\ClearHookNext{}% Added later than \AddToHookNext
+        \ClearHookNext{env/tikzpicture/end}%
+        \ClearHookNext{env/circuitikz/end}%
+    \fi
+}
+% main entry point for automatic v-i-f
+\ctikzset{vif queue add/.code n args={4}{\ctikz@vif@add{#1}{#2}{#3}{#4}\ctikz@set@hook}}
 %
 % expandable IF for the extra nodes (thanks to Henri Menke)
 % see https://chat.stackexchange.com/transcript/message/56560808#56560808

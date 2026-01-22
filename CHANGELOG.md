@@ -3,7 +3,9 @@ The major changes among the different CircuiTikZ versions are listed here. See <
 
 * Version 1.8.5 (unreleased)
 
-    - Bump version number
+     The main highlight of this version is a new mechanism to manage advanced (that is, user-defined) voltage, current and flow elements.
+
+    - Add "automatic advanced voltages/currents/flows" [(by Romano)](https://github.com/circuitikz/circuitikz/discussions/911)
 
 * Version 1.8.4 (2026-01-07)
 

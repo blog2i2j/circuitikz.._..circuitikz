@@ -286,7 +286,7 @@
 %
 %>>>
 
-%% check loaded TikZ/pgf version %<<<`
+%% check loaded TikZ/pgf/LaTeX version %<<<
 %
 % parse the release date, thanks to Skillmon
 % https://github.com/pgf-tikz/pgf/issues/1348#issuecomment-2231681032
@@ -335,6 +335,15 @@
 %
 % usage \ctikz@@ifpgfafter 2023-01-16{true}{false}
 %                                 ^^^ no spaces here, braces needed.
+%% check if the LaTeX is newer than 2020-10-01. We have to check it
+%% in the preamble, because in some version the \IfFormat... must be used here
+%% see https://chastackexchange.com/transcript/message/68697049#68697049
+\newif\ifctikz@latex@has@hooks
+\ifpgfutil@format@is@latex\ctikz@latex@has@hooksfalse\fi
+% if \IfFormat... does not exist is for sure too old!
+\ifdefined\IfFormatAtLeastTF
+    \IfFormatAtLeastTF{2020-10-01}{\ctikz@latex@has@hookstrue}{}%
+\fi
 %
 %>>>
 
