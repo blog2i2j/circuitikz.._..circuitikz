@@ -22,42 +22,34 @@
         \ctikzset{bipole voltage style/.append style={#1}}
 }}
 
-\ctikzset{v^>/.style = {
-        v={#1},
-        \circuitikzbasekey/bipole/voltage/direction = forward,
-        \circuitikzbasekey/bipole/voltage/position = above
-    }
+\def\ctikzactivatevoltagedirections#1{%
+    \ctikzset{#1^>/.style = {#1={##1},
+            \circuitikzbasekey/bipole/voltage/direction = forward,
+            \circuitikzbasekey/bipole/voltage/position = above
+        }}
+    \ctikzset{#1^</.style = {#1={##1},
+            \circuitikzbasekey/bipole/voltage/direction = backward,
+            \circuitikzbasekey/bipole/voltage/position = above
+        }}
+    \ctikzset{#1_>/.style = {#1={##1},
+            \circuitikzbasekey/bipole/voltage/direction = forward,
+            \circuitikzbasekey/bipole/voltage/position = below
+        }}
+    \ctikzset{#1_</.style = {#1={##1},
+            \circuitikzbasekey/bipole/voltage/direction = backward,
+            \circuitikzbasekey/bipole/voltage/position = below
+        }}
+    \ctikzset{#1_/.style = {#1={##1}, \circuitikzbasekey/bipole/voltage/position = below} }
+    \ctikzset{#1^/.style = {#1={##1}, \circuitikzbasekey/bipole/voltage/position  = above} }
+    \ctikzset{#1>/.style = {#1={##1}, \circuitikzbasekey/bipole/voltage/direction = forward} }
+    \ctikzset{#1</.style = {#1={##1}, \circuitikzbasekey/bipole/voltage/direction = backward} }%
 }
-
-\ctikzset{v^</.style = {
-        v={#1},
-        \circuitikzbasekey/bipole/voltage/direction = backward,
-        \circuitikzbasekey/bipole/voltage/position = above
-    }
-}
-
-\ctikzset{v_>/.style = {
-        v={#1},
-        \circuitikzbasekey/bipole/voltage/direction = forward,
-        \circuitikzbasekey/bipole/voltage/position = below
-    }
-}
-
-\ctikzset{v_</.style = {
-        v={#1},
-        \circuitikzbasekey/bipole/voltage/direction = backward,
-        \circuitikzbasekey/bipole/voltage/position = below
-    }
-}
-
-\ctikzset{v_/.style = {v={#1}, \circuitikzbasekey/bipole/voltage/position = below} }
-\ctikzset{v^/.style = {v={#1}, \circuitikzbasekey/bipole/voltage/position  = above} }
-\ctikzset{v>/.style = {v={#1}, \circuitikzbasekey/bipole/voltage/direction = forward} }
-\ctikzset{v</.style = {v={#1}, \circuitikzbasekey/bipole/voltage/direction = backward} }%
+\ctikzactivatevoltagedirections{v}
 
 \newif\ifpgfcirc@do@v@symbols\pgfcirc@do@v@symbolstrue
 \ctikzset{no v symbols/.code={\pgfcirc@do@v@symbolsfalse}}
 \ctikzset{v symbols/.code={\pgfcirc@do@v@symbolstrue}}
+\ctikzset{v label/.style={bipole/voltage/label/name={#1}}}
 
 % Default position varies whether the component is a voltage source
 % or not
