@@ -10231,12 +10231,14 @@ Another possibility is to have the arrow length based on the length of the compo
 
 \endgroup
 
-\subsubsection{Automatic advanced voltages, current and flows}
+\subsubsection{Automatic advanced voltages, current and flows (experimental)}
 
 \begingroup % let's contain definitions here
 
 Since \texttt{v1.8.5}, a new mechanism has been added\footnote{As with all the advanced v–i–f features, this was added by Romano; see the discussion \href{https://github.com/circuitikz/circuitikz/discussions/911}{on
  GitHub}.} to simplify the use of advanced voltages, currents, and flows in circuits. The idea is to avoid the manual invocation of the macros that draw the appropriate symbols and/or labels at the end of a path or picture.
+
+ \emph{\textbf{Please notice} that this feature is \textbf{experimental} --- at least for a couple of releases. The behavior, macro names, and restrictions can change in the next versions.}
 
  The core addition consists of a new \verb!\ctikzset! key, \IndexKey{vif queue add}, which takes four arguments: a macro \emph{name} and three further arguments\footnote{The idea is that this way you can pass to the custom macro a label, options for the labels, and options for the drawing of the symbols; however they can be whatever the user decides.}, which can contain arbitrary content. For example, if you use the following key in a \texttt{to} bipole:
 \begin{lstlisting}[numbers=none]
