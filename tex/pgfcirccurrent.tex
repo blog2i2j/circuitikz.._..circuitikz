@@ -23,73 +23,62 @@
 }}
 
 %% Options
-\ctikzset{i^>/.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = forward,
-        \circuitikzbasekey/bipole/current/x position = after,
-        \circuitikzbasekey/bipole/current/y position = above
-    }
+\def\ctikzactivatecurrentdirections#1{%
+    \ctikzset{#1^>/.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = forward,
+            \circuitikzbasekey/bipole/current/x position = after,
+            \circuitikzbasekey/bipole/current/y position = above
+    }}
+    \ctikzset{#1_>/.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = forward,
+            \circuitikzbasekey/bipole/current/x position = after,
+            \circuitikzbasekey/bipole/current/y position = below
+    }}
+    \ctikzset{#1>^/.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = forward,
+            \circuitikzbasekey/bipole/current/x position = before,
+            \circuitikzbasekey/bipole/current/y position = above
+    }}
+    \ctikzset{#1>_/.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = forward,
+            \circuitikzbasekey/bipole/current/x position = before,
+            \circuitikzbasekey/bipole/current/y position = below
+    }}
+    \ctikzset{#1^</.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = backward,
+            \circuitikzbasekey/bipole/current/x position = after,
+            \circuitikzbasekey/bipole/current/y position = above
+    }}
+    \ctikzset{#1_</.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = backward,
+            \circuitikzbasekey/bipole/current/x position = after,
+            \circuitikzbasekey/bipole/current/y position = below
+    }}
+    \ctikzset{#1<^/.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = backward,
+            \circuitikzbasekey/bipole/current/x position = before,
+            \circuitikzbasekey/bipole/current/y position = above
+    }}
+    \ctikzset{#1<_/.style = {#1={##1},
+            \circuitikzbasekey/bipole/current/direction = backward,
+            \circuitikzbasekey/bipole/current/x position = before,
+            \circuitikzbasekey/bipole/current/y position = below
+    }}
+    \ifpgf@circ@oldvoltagedirection
+        \ctikzset{#1</.style = {#1={##1}, \circuitikzbasekey/bipole/current/direction = backward}}
+    \else
+        \ctikzset{#1</.style = {#1={##1}, \circuitikzbasekey/bipole/current/direction = backward,
+        \circuitikzbasekey/bipole/current/x position = before}}
+    \fi
+    \ctikzset{#1_/.style = {#1={##1}, \circuitikzbasekey/bipole/current/y position = below } }
+    \ctikzset{#1>/.style = {#1={##1}, \circuitikzbasekey/bipole/current/direction = forward } }
+    \ctikzset{#1^/.style = {#1={##1}, \circuitikzbasekey/bipole/current/y position = above } }
 }
-
-\ctikzset{i_>/.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = forward,
-        \circuitikzbasekey/bipole/current/x position = after,
-        \circuitikzbasekey/bipole/current/y position = below
-    }
-}
-
-\ctikzset{i>^/.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = forward,
-        \circuitikzbasekey/bipole/current/x position = before,
-        \circuitikzbasekey/bipole/current/y position = above
-    }
-}
-
-\ctikzset{i>_/.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = forward,
-        \circuitikzbasekey/bipole/current/x position = before,
-        \circuitikzbasekey/bipole/current/y position = below
-    }
-}
-
-\ctikzset{i^</.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = backward,
-        \circuitikzbasekey/bipole/current/x position = after,
-        \circuitikzbasekey/bipole/current/y position = above
-    }
-}
-
-\ctikzset{i_</.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = backward,
-        \circuitikzbasekey/bipole/current/x position = after,
-        \circuitikzbasekey/bipole/current/y position = below
-    }
-}
-
-\ctikzset{i<^/.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = backward,
-        \circuitikzbasekey/bipole/current/x position = before,
-        \circuitikzbasekey/bipole/current/y position = above
-    }
-}
-
-\ctikzset{i<_/.style = {
-        i={#1},
-        \circuitikzbasekey/bipole/current/direction = backward,
-        \circuitikzbasekey/bipole/current/x position = before,
-        \circuitikzbasekey/bipole/current/y position = below
-    }
-}
-
+\ctikzactivatecurrentdirections{i}
 \newif\ifpgfcirc@do@i@symbols\pgfcirc@do@i@symbolstrue
 \ctikzset{no i symbols/.code={\pgfcirc@do@i@symbolsfalse}}
 \ctikzset{i symbols/.code={\pgfcirc@do@i@symbolstrue}}
+\ctikzset{i label/.style={bipole/current/label/name={#1}}}
 
 \ctikzset{i/.code = {
         \pgfcirc@has@itrue
@@ -128,14 +117,6 @@
     }
 }
 
-\ifpgf@circ@oldvoltagedirection
-    \ctikzset{i</.style = { i={#1}, \circuitikzbasekey/bipole/current/direction = backward } }
-\else
-    \ctikzset{i</.style = { i={#1}, \circuitikzbasekey/bipole/current/direction = backward, \circuitikzbasekey/bipole/current/x position = before } }
-\fi
-\ctikzset{i_/.style = { i={#1}, \circuitikzbasekey/bipole/current/y position = below } }
-\ctikzset{i>/.style = {i={#1}, \circuitikzbasekey/bipole/current/direction = forward } }
-\ctikzset{i^/.style = { i={#1}, \circuitikzbasekey/bipole/current/y position = above } }
 
 %% Output routine
 \def\pgf@circ@drawcurrent{

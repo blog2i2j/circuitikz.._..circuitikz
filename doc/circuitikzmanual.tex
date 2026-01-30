@@ -164,7 +164,8 @@ instead of \texttt{circuitikz}. This is also advantageous for ``future resilienc
 
 \subsection{Requirements}
 \begin{itemize}
-    \item \texttt{tikz}, version ${}\ge{}$\texttt{3.1.5b} (it \emph{should} work with any version from 3.0 and up, but better use a newer one);
+    \item \texttt{latex} (if using it), version from \texttt{2019-10-01} (better from \texttt{2020-10-01});
+    \item \texttt{tikz}, version ${}\ge{}$\texttt{3.1.5b} (it \emph{should} work with any version from 3.1.4b and up, but better use a newer one);
     \item \texttt{xstring}, not older than 2009/03/13;
     \item \texttt{siunitx}, if using \texttt{siunitx} option (better \texttt{v2} or newer).
 \end{itemize}
@@ -9904,8 +9905,6 @@ pin={[draw, blue, font=\tiny, align=left]#1:{#2 \\ dir: \ctikzgetdirection{#2#3}
 \end{tikzpicture}
 \end{LTXexample}
 
-
-
 \subsection{Advanced voltages, currents and flows}\label{sec:vif-anchors}
 
 Since version \texttt{1.2.1}\footnote{some options have been added in \texttt{v1.4.1}}, it is possible to access the anchors of the ``ornaments'' --- voltage, current and flows, together with some additional information that makes it possible to personalize them.
@@ -9939,6 +9938,8 @@ Or, for example, to have a different voltage style; normally you would define a 
 \end{circuitikz}
 \end{LTXexample}
 
+\subsubsection{Using standard label with custom symbols}\label{sec:no-symbols}
+
 Since \texttt{v1.4.1} you can also keep the voltage, current and flow labels and suppress the output of the symbols (arrows or plus/minus depending on the style) with the keys \IndexKey{no v symbols}, \IndexKey{no i symbols}, \IndexKey{no f symbols} (there are also the corresponding \IndexKey{v symbols}, \IndexKey{i symbols} and \IndexKey{f symbols} in case you want to switch the behavior off/on  globally). This for example simplify an often requested feature, like having all the current in one color and the voltages in another one, which is not possible natively because the arrows are part of the same path. One possible implementation of that is the following one:
 
 \begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
@@ -9965,7 +9966,7 @@ Since \texttt{v1.4.1} you can also keep the voltage, current and flow labels and
 
 \subsubsection{Activating the anchors}
 
-You will have access to the anchors for voltages, currents and flows when, in the bipole, you have both a \texttt{v}, \texttt{i}, \texttt{f} specification (one or more of them) \textbf{and} a \texttt{name} key, to give the bipole a name. Otherwise, the anchors and the associated functions are not defined.
+You will have access to the anchors for voltages, currents and flows when, in the bipole, you have a \texttt{v}, \texttt{i}, \texttt{f} specification (one or more of them). If you have a \texttt{name} key, to give the bipole a name, they will be easily accessible. Without a \texttt{name} key, a temporary name is generated, to be used by the ``automatic v-i-f'' mechanism (see~\ref{sec:automatic-vif}). Otherwise, the anchors and the associated functions are not defined.
 To suppress the normal output of the \texttt{v}, \texttt{i}, \texttt{f} keys, you can use such keys without any argument, like in the previous example; notice that the \verb|_| and \verb|^| modifiers work as expected.
 
 The following line of resistors has been drawn with the following commands; it is used to show the name of the available anchors.
@@ -10228,9 +10229,209 @@ Another possibility is to have the arrow length based on the length of the compo
 \end{circuitikz}
 \end{LTXexample}
 
-
 \endgroup
 
+\subsubsection{Automatic advanced voltages, current and flows (experimental)}
+
+\begingroup % let's contain definitions here
+
+Since \texttt{v1.8.5}, a new mechanism has been added\footnote{As with all the advanced v–i–f features, this was added by Romano; see the discussion \href{https://github.com/circuitikz/circuitikz/discussions/911}{on
+ GitHub}.} to simplify the use of advanced voltages, currents, and flows in circuits. The idea is to avoid the manual invocation of the macros that draw the appropriate symbols and/or labels at the end of a path or picture.
+
+ \emph{\textbf{Please notice} that this feature is \textbf{experimental} --- at least for a couple of releases. The behavior, macro names, and restrictions can change in the next versions.}
+
+ The core addition consists of a new \verb!\ctikzset! key, \IndexKey{vif queue add}, which takes four arguments: a macro \emph{name} and three further arguments\footnote{The idea is that this way you can pass to the custom macro a label, options for the labels, and options for the drawing of the symbols; however they can be whatever the user decides.}, which can contain arbitrary content. For example, if you use the following key in a \texttt{to} bipole:
+\begin{lstlisting}[numbers=none]
+    to[R, ..., vif queue add={mymacro}{$\alfa$}{red}{foo}]
+\end{lstlisting}
+the effect of the key is to add a macro call of the form:
+\begin{lstlisting}[numbers=none]
+    \mymacro{nodename}{$\alfa$}{red}{foo}
+\end{lstlisting}
+to an internal list of “macros to be executed”. The \emph{nodename} is added automatically; if no explicit \texttt{name} key is given, a temporary name is generated.
+
+It is important that the \texttt{vif queue add} key appears last, or at least after any \texttt{v}, \texttt{i}, \texttt{f}, or \texttt{name} key in the \texttt{to[\dots]} options. Moreover, its correct operation is guaranteed only when the \texttt{to} command places a \Circuitikz{} bipole (in other words, it should not be expected to work with a basic \TikZ{} \texttt{to}, such as \texttt{to[bend left, \dots]}), \textbf{and} when the voltages, current and/or flow anchors are activated (that is, a \texttt{v}, \texttt{i} or \texttt{f} key is present).
+
+In the case you want to delegate to your custom macro only the drawing of the symbols, but let the standard mechanism place the label, you can still use the \texttt{no v symbols} and similar (see~\ref{sec:no-symbols}). In that case you need to use an explicit \texttt{v={label}} to set the value label; notice that this also sets the default ``direction'' of the symbols (that you can override with \texttt{v>=\dots}, \verb!v^=!\texttt{\dots} or similar, of course). If you need to modify the label value without affecting a previously issued \texttt{v\dots=\dots} command, you can use the key \IndexKey{v label} (and the corresponding \IndexKey{i label}, \IndexKey{f label}) that changes \emph{only} the value of the label, without any other action (not even activating the anchors, that is).
+
+The stored macro will be replayed automatically at the end of the environment, in the same order in which they were added to the queue, at least if you are using a recent enough version of \LaTeX; if you are using an older version or a different format (like for example \ConTeXt) you need to add the key \IndexKey{use auto vif} in the options of the \texttt{tikzpicture} environment. If you forget it, a warning will be issued.
+
+You also can ``execute'' the stored commands with the \IndexKey[ctikzprocessvif]{}\verb!\ctikzprocessvif! macro if you need to draw them before the end of the environment. Additional calls to \verb!\ctikzprocessvif! have no effect.
+
+Naturally, you must define the macro(s) that will be called, such as the \verb!\mymacro! shown above. The macro \textbf{must} have three arguments, like this:
+\begin{lstlisting}[numbers=none]
+    \newcommand{\mymacro}[3]{% try not to add spurious spaces
+        % #1 -> node name
+        % #2 -> first user argument
+        % #3 -> second user argument
+    ... code here ...
+    }
+\end{lstlisting}
+
+There is little sense in using the \texttt{vif queue add} key explicitly; it is better hidden behind more specific user-level keys, as shown in the following examples. This also helps remove some arguments when they are not needed.
+
+For example, let's suppose you like the \texttt{raised} voltage notation, but you want the plus and minus signs at a fixed distance from the label, independently on the size of the branch where the component is, and moreover you want to be able to change the color or the style of the signs. We can setup the voltage like this:
+
+\begin{lstlisting}[varwidth=true]
+%% The voltage label (the text) will be managed normally by v...={}
+%% We need just one parameter to specify the coloa/styler of the signs; we
+%% set the other argument to nothing.
+\ctikzset{my v/.style = {
+    voltage=raised, no v symbols, vif queue add={placesigns}{#1}{}{}
+}}
+%% my V: standard labels, drawing the signs at fixed distance.
+%% The macro ALWAYS receive 4 arguments. The first is the node name
+%% (that is, the anchor prefix) and the second, in this case, the color/style.
+\newcommand{\placesigns}[4]{% place the +- signs at a fixed distance
+    \path ($(#1voltage.center)!0.5cm!(#1-Vto)$) node[#2]{$+$};
+    \path ($(#1voltage.center)!0.5cm!(#1-Vfrom)$) node[#2]{$-$};
+}
+\end{lstlisting}
+
+\ctikzset{voltage=raised, !v sym/.style={no v symbols}}
+%% my V: standard labels, drawing the signs at fixed distance.
+%% use one argument for the label (managed by `v` and one for the signs color/style
+\ctikzset{my v/.style = {
+    voltage=raised, no v symbols, vif queue add={placesigns}{#1}{}{}
+}}
+\newcommand{\placesigns}[4]{% place the +- signs at a fixed distance
+    \path ($(#1voltage.center)!0.5cm!(#1-Vto)$) node[#2]{$+$};
+    \path ($(#1voltage.center)!0.5cm!(#1-Vfrom)$) node[#2]{$-$};
+}
+
+\begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
+\begin{circuitikz}
+    \draw (3,0) -- ++(1,0) coordinate(Rbot)
+        to[R=R, name=vR, v={$u_R$}, my v={red}]
+        ++(0,+3) -- ++(-1,0);
+    \draw (Rbot) -- ++(2,0) coordinate(Cbot)
+        to[C=C, name=vC, v>={$u_C$}, my v={draw,blue}]
+        ++(0,+3) -- ++(-2,0);
+        \draw (Cbot) to [L=L, v_>={$u_L$},
+        my v={white,fill=black}] ++(2,0);
+\end{circuitikz}
+\end{LTXexample}
+
+If you have an old \LaTeX{} or are using \ConTeXt, you must add the \texttt{use auto vif} to the options of the environment; the option will not have any negative effect if it is not needed.
+
+\begin{lstlisting}[varwidth=true]
+\begin{tikzpicture}[use auto vif]
+    ... as before
+\end{tikzpicture}
+\end{lstlisting}
+
+Suppose now we want to change the current indication so that we can typeset the label using \verb!\boldmath!, changing the style of the label and the color of the arrow. For example, we could define the following:
+
+\ctikzset{my i/.style n args  = {3}{vif queue add={docurrent}{#1}{#2}{#3}}}
+\newcommand{\docurrent}[4]{
+    \node [currarrow, anchor=center, rotate=\ctikzgetdirection{#1-Iarrow},
+        #3] at (#1-Ipos) {};
+    \node [anchor=\ctikzgetanchor{#1}{Ilab}, outer sep=4pt, inner sep=1pt,
+    #4] at (#1-Ipos) {{\boldmath #2}}; %the double {} are needed!!!
+}
+
+\begin{lstlisting}[varwidth=true]
+%% arguments: label, style for the arrow, style for the label
+\ctikzset{my i/.style n args  = {3}{vif queue add={docurrent}{#1}{#2}{#3}}}
+\newcommand{\docurrent}[4]{
+    \node [currarrow, anchor=center, rotate=\ctikzgetdirection{#1-Iarrow},
+        #3] at (#1-Ipos) {};
+    \node [anchor=\ctikzgetanchor{#1}{Ilab}, outer sep=4pt, inner sep=1pt,
+    #4] at (#1-Ipos) {{\boldmath #2}}; %the double {} are needed!!!
+}
+\end{lstlisting}
+
+\begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
+\begin{circuitikz}
+    % set a default for my v
+    \ctikzset{my v/.default=blue}
+    \draw (3,0) -- ++(0.5,0) coordinate(Rbot)
+        to[R=R, name=vR, v={$u_R$}, my v,
+        i, my i={$i_r$}{red}{draw, color=red}]
+        ++(0,+3) -- ++(-.5,0);
+    \draw (Rbot) -- ++(2,0) coordinate(Cbot)
+        to[C=C, name=vC, v>={$u_C$}, my v]
+        ++(0,+3) -- ++(-2,0);
+    \draw (Cbot) to [L=L, v_>={$u_L$}, my v, i,
+        my i={\rotatebox{90}{$i=0$}}{green}{fill=yellow}]
+        ++(2,0);
+\end{circuitikz}
+\end{LTXexample}
+
+
+\subsubsection{Creating new voltage/current/flows commands}\label{sec:activate-directions}
+
+Sometimes, the need of using the syntax \texttt{v, my v=\dots} can result tedious; unfortunately, it is not possible to add the \texttt{v} to the key \texttt{my v} because it will reset the direction/position of the key. To avoid this problem, you can use the new command
+\verb!\!\IndexKey{ctikzactivatevoltagedirections} (and their sibling \verb!\!\IndexKey{ctikzactivatecurrentdirections} and \verb!\!\IndexKey{ctikzactivateflowdirections}) which will create the full set of personalized voltage (or current or flow) commands with the appended directions. For example, this is how we can reimplement the ``European arrow with signs'' shown in the previous section:
+
+\begin{lstlisting}[varwidth=true]
+\newcommand\eurVPM[4]{% node, label, two ignored arguments
+    \draw [thin, -{Stealth[width=4pt]}, shorten >=5pt, shorten <=5pt]
+    (#1-Vfrom) node[font=\tiny]{$\vphantom{+}-$}
+    .. controls (#1-Vcont1) and (#1-Vcont2)..
+    (#1-Vto) node[font=\tiny]{$+$}
+    node[pos=0.5,anchor=\ctikzgetanchor{#1}{Vlab}]{#2};
+}
+\ctikzset{vpm/.style={european voltages, v, vif queue add={eurVPM}{#1}{}{}}}
+% do magic with vpm
+\ctikzactivatevoltagedirections{vpm}
+\end{lstlisting}
+
+\newcommand\eurVPM[4]{% node, label, two ignored arguments
+    \draw [thin, -{Stealth[width=4pt]}, shorten >=5pt, shorten <=5pt]
+    (#1-Vfrom) node[font=\tiny]{$\vphantom{+}-$}
+    .. controls (#1-Vcont1) and (#1-Vcont2)..
+    (#1-Vto) node[font=\tiny]{$+$}
+    node[pos=0.5,anchor=\ctikzgetanchor{#1}{Vlab}]{#2};
+}
+\ctikzset{vpm/.style={european voltages, v, vif queue add={eurVPM}{#1}{}{}}}
+% do magic with vpm
+\ctikzactivatevoltagedirections{vpm}
+
+\begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
+\begin{circuitikz}[voltage shift=0.5]
+    \draw (0,0)
+        to[R=R1, name=R1, i=$i$, vpm=$v_1$] ++(4,0)
+        to[R, l_=R2, vpm^>=$v_2$] ++(0,-3);
+\end{circuitikz}
+\end{LTXexample}
+
+You can use this trick even with styles with more than one argument, but then you have to be sure to always add both argument \emph{braced}, otherwise very strange errors will be generated.
+
+\newcommand\eurVPMstyled[4]{% node, label, arrow style, one ignored argument
+    \draw [thin, -{Stealth[width=4pt]}, shorten >=5pt, shorten <=5pt, #3]
+    (#1-Vfrom) node[font=\tiny]{$\vphantom{+}-$}
+    .. controls (#1-Vcont1) and (#1-Vcont2)..
+    (#1-Vto) node[font=\tiny]{$+$}
+    node[pos=0.5,anchor=\ctikzgetanchor{#1}{Vlab}]{#2};
+}
+
+\ctikzset{vpms/.style 2 args={european voltages, v, vif queue add={eurVPMstyled}{#1}{#2}{}}}
+\ctikzactivatevoltagedirections{vpms}%
+
+\begin{lstlisting}[varwidth=true]
+\newcommand\eurVPMstyled[4]{% node, label, arrow style, two ignored arguments
+    \draw [thin, -{Stealth[width=4pt]}, shorten >=5pt, shorten <=5pt, #3]
+    (#1-Vfrom) node[font=\tiny]{$\vphantom{+}-$}
+    .. controls (#1-Vcont1) and (#1-Vcont2)..
+    (#1-Vto) node[font=\tiny]{$+$}
+    node[pos=0.5,anchor=\ctikzgetanchor{#1}{Vlab}]{#2};
+}
+\ctikzset{vpms/.style 2 args={european voltages, v,
+    vif queue add={eurVPMstyled}{#1}{#2}{}}}
+\ctikzactivatevoltagedirections{vpms}%
+\end{lstlisting}
+
+\begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
+\begin{circuitikz}[voltage shift=0.5]
+    \draw (0,0)
+        to[R=R1, name=R1, i=$i$, vpms={$v_1$}{dashed}]
+        ++(4,0)
+        to[R, l_=R2, vpms^>={$v_2$}{blue}] ++(0,-3);
+\end{circuitikz}
+\end{LTXexample}
+
+\endgroup % close automatic-vif
 
 \subsection{Integration with {\ttfamily siunitx}}
 
