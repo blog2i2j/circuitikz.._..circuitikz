@@ -10251,7 +10251,7 @@ Another possibility is to have the arrow length based on the length of the compo
 
 \endgroup
 
-\subsubsection{Automatic advanced voltages, current and flows (experimental)}
+\subsubsection{Automatic advanced voltages, current and flows (experimental)}\label{sec:automatic-vif}
 
 \begingroup % let's contain definitions here
 
@@ -10430,7 +10430,7 @@ You can use this trick even with styles with more than one argument, but then yo
 \ctikzactivatevoltagedirections{vpms}%
 
 \begin{lstlisting}[varwidth=true]
-\newcommand\eurVPMstyled[4]{% node, label, arrow style, two ignored arguments
+\newcommand\eurVPMstyled[4]{% node, label, arrow style, one ignored arguments
     \draw [thin, -{Stealth[width=4pt]}, shorten >=5pt, shorten <=5pt, #3]
     (#1-Vfrom) node[font=\tiny]{$\vphantom{+}-$}
     .. controls (#1-Vcont1) and (#1-Vcont2)..
@@ -10452,6 +10452,8 @@ You can use this trick even with styles with more than one argument, but then yo
 \end{LTXexample}
 
 \endgroup % close automatic-vif
+
+You can see a full example at~\ref{sec:example-auto-vif}.
 
 \subsection{Integration with {\ttfamily siunitx}}
 
@@ -11811,6 +11813,57 @@ Here a series of examples, contributed by several people, is shown with their co
     \node[right] at (0, -2) {Iarr: \ctikzgetdirection{inner-r-Iarrow}};
     \node[right] at (0, -2.5) {LAB: \ctikzgetdirection{P2-ledlabel}};
 \end{tikzpicture}
+\end{LTXexample}
+
+\newpage
+\subsection{Automatic user-defined voltages, currents and flows (since \texttt{v1.8.5})}%
+\label{sec:example-auto-vif}
+
+
+\begin{LTXexample}[varwidth=true,pos=t, basicstyle=\footnotesize\ttfamily]
+%% This can go to your preamble and/or a style file!
+%% setup voltage drawing macro: european style, but adding "+" and "-"
+\newcommand\eurVPMstyled[4]{% node, label, style, one ignored arguments
+    \draw [thin, -{Stealth[width=4pt]}, shorten >=5pt, shorten <=5pt, #3]
+        % NOTICE that boldmath requires double braces to work in nodes
+        % see https://tex.stackexchange.com/q/487777/38080
+        (#1-Vfrom) node[font=\tiny]{{\boldmath$\vphantom{+}-$}}
+        .. controls (#1-Vcont1) and (#1-Vcont2)..
+        (#1-Vto) node[font=\tiny]{{\boldmath$+$}}
+        node[pos=0.5,anchor=\ctikzgetanchor{#1}{Vlab}]{#2};
+}
+% voltage shift must go after the "european voltage, v" pair
+\ctikzset{vpms/.style 2 args={european voltages, v, voltage shift=2,
+    vif queue add={eurVPMstyled}{#1}{#2}{}}}
+\ctikzactivatevoltagedirections{vpms}
+% setup flow drawing macro: squiggle for power flux
+%% requires \usetikzlibrary{decorations, decorations.pathmorphing}
+\tikzset{ lray/.style={decorate, decoration={
+    snake, amplitude=2pt,pre length=1pt,post length=2pt, segment length=5pt,},
+    -Triangle}}
+\newcommand\flowpow[4]{% node, label, color
+    \draw [lray, #3  ] (#1-Ffrom) -- (#1-Fto)
+    node [anchor=\ctikzgetanchor{#1}{Flab}, inner sep=4pt]
+    at (#1-Fpos) {#2};}
+\ctikzset{fpow/.style 2 args={f, vif queue add={flowpow}{#1}{#2}{}}}
+\ctikzactivateflowdirections{fpow}
+% setup current drawing macros: 6 mm with Stealth arrow on the line, dark green
+\newcommand{\inlinecurrent}[4]{% node, label
+    \draw [-{Stealth[scale=1.5]}, thick, color=green!50!black]
+    ($(#1-Ipos)!3mm!(#1-Ifrom)$) -- ($(#1-Ipos)!3mm!(#1-Ito)$)
+    node [midway, inner sep=6pt, anchor=\ctikzgetanchor{#1}{Ilab}] {#2};
+}
+\ctikzset{iline/.style ={i, vif queue add={inlinecurrent}{#1}{}{}}}
+\ctikzactivatecurrentdirections{iline}
+%% setup end
+%
+% draw a bit of things...
+%
+\begin{circuitikz}[]
+    \draw (0,0) to[R=$R_1$, iline={$i$}, vpms={$v_1$}{dashed}] ++(4,0)
+    to[R, l_=$R_2$, vpms^>={$v_2$}{blue}, fpow_={$P$}{red}] ++(4,0)
+    to[L=$L$, i=$i$, v=$v_L$, f>^=$P_L$] ++(4,0); % traditional still working!
+\end{circuitikz}
 \end{LTXexample}
 
 
