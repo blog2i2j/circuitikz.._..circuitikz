@@ -10276,11 +10276,11 @@ In the case you want to delegate to your custom macro only the drawing of the sy
 
 The stored macro will be replayed automatically at the end of the environment, in the same order in which they were added to the queue, at least if you are using a recent enough version of \LaTeX; if you are using an older version or a different format (like for example \ConTeXt) you need to add the key \IndexKey{use auto vif} in the options of the \texttt{tikzpicture} environment. If you forget it, a warning will be issued.
 
-You also can ``execute'' the stored commands with the \IndexKey[ctikzprocessvif]{}\verb!\ctikzprocessvif! macro if you need to draw them before the end of the environment. Additional calls to \verb!\ctikzprocessvif! have no effect.
+You also can ``execute'' the stored commands with the \IndexKey[ctikzprocessvif]{}\verb!\ctikzprocessvif! macro if you need to draw them before the end of the environment. This can be important if you define some name in your macros and you need to use them in another part of the circuit; by default all the stored macros are executed at the end of the environment. The call to \verb!\ctikzprocessvif! ``clear'' the queue, so consecutive calls have no effect.
 
 Naturally, you must define the macro(s) that will be called, such as the \verb!\mymacro! shown above. The macro \textbf{must} have three arguments, like this:
 \begin{lstlisting}[numbers=none]
-    \newcommand{\mymacro}[3]{% try not to add spurious spaces
+    \newcommand{\mymacro}[4]{% try not to add spurious spaces
         % #1 -> node name
         % #2 -> first user argument
         % #3 -> second user argument
@@ -11857,9 +11857,10 @@ Here a series of examples, contributed by several people, is shown with their co
 \ctikzactivatecurrentdirections{iline}
 %% setup end
 %
-% draw a bit of things...
+% Let's draw our circuit!
 %
-\begin{circuitikz}[]
+% % "use auto vif" only needed if using old (before 2020) LaTeX or Plain or ConTeXt
+\begin{circuitikz}[use auto vif]
     \draw (0,0) to[R=$R_1$, iline={$i$}, vpms={$v_1$}{dashed}] ++(4,0)
     to[R, l_=$R_2$, vpms^>={$v_2$}{blue}, fpow_={$P$}{red}] ++(4,0)
     to[L=$L$, i=$i$, v=$v_L$, f>^=$P_L$] ++(4,0); % traditional still working!
