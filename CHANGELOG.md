@@ -1,9 +1,9 @@
 <!--- CircuiTikz - Changelog --->
 The major changes among the different CircuiTikZ versions are listed here. See <https://github.com/circuitikz/circuitikz/commits> for a full list of changes.
 
-* Version 1.8.5 (unreleased)
+* Version 1.8.5 (2026-02-4)
 
-     The main highlight of this version is a new mechanism to manage advanced (that is, user-defined) voltage, current and flow elements.
+    The main highlight of this version is a new mechanism for managing advanced (that is, user-defined) voltage, current, and flow elements. Additionally, a new set of shapes for ideal filter blocks has been added.
 
     - Add "automatic advanced voltages/currents/flows" [(by Romano)](https://github.com/circuitikz/circuitikz/discussions/911), marked as experimental for now.
     - Add an `ideal filter` option for plot-type filters, to draw ideal (square) filter shapes.
