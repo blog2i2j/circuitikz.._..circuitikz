@@ -121,6 +121,7 @@
 \tableofcontents
 
 \section{Introduction}
+\label{sec:introduction}
 
 \hfill\begin{minipage}[t]{0.5\textwidth}
     \small\slshape\raggedleft
@@ -131,12 +132,14 @@
 \end{minipage}
 
 \subsection{About}
+\label{sec:about}
 \Circuitikz{} was initiated by Massimo Redaelli in 2007, who was working as a research assistant at the Polytechnic University of Milan, Italy, and needed a tool for creating exercises and exams.
 After he left University in 2010 the development of \Circuitikz\ slowed down, since \LaTeX\ is mainly established in the academic world. In 2015 Stefan Lindner and Stefan Erhardt, both working as research assistants at the University of Erlangen-Nürnberg, Germany, joined the team and now maintain the project together with the initial author. In 2018 Romano Giannetti, full professor of Electronics at Comillas Pontifical University of Madrid, joined the team.
 
 The use of \Circuitikz\ is, of course, not limited to academic teaching. The package gets widely used by engineers for typesetting electronic circuits for articles and publications all over the world.
 
 \subsection{License}
+\label{sec:license}
 Copyright \copyright{}
 2007--2026 by Massimo Redaelli,
 2013--2026 by Stefan Erhardt,
@@ -144,6 +147,7 @@ Copyright \copyright{}
 and 2018--2026 by Romano Giannetti.
 This package is author-maintained. Permission is granted to copy, distribute and/or modify this software under the terms of the \LaTeX\ Project Public License, version 1.3.1, or the GNU Public License. This software is provided ``as is'', without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose.
 \subsection{Loading the package}
+\label{sec:loading-the-package}
 
 \begin{table}[h]
 \centering
@@ -167,6 +171,7 @@ This package is author-maintained. Permission is granted to copy, distribute and
 There is really no support for Plain TeX --- the maintainers are willing to consider patches if somebody is interested.
 
 \subsection{Installing a new version of the package.}
+\label{sec:installing-a-new}
 
 The stable version of the package should come with your \LaTeX\ distribution. Downloading the files from CTAN and installing them locally is, unfortunately, a distribution-dependent task and sometimes not so trivial. If you search for \texttt{local texmf tree} and the name of your distribution on \url{https://tex.stackexchange.com/} you will find a lot of hints.
 
@@ -181,6 +186,7 @@ Now you can just put this file in your local \texttt{texmf} tree, if you have on
 instead of \texttt{circuitikz}. This is also advantageous for ``future resilience''; the authors try hard not to break backward compatibility with new versions, but sometimes, things happen.
 
 \subsection{Requirements}
+\label{sec:requirements}
 \begin{itemize}
     \item \texttt{latex} (if using it), version from \texttt{2019-10-01} (better from \texttt{2020-10-01});
     \item \texttt{tikz}, version ${}\ge{}$\texttt{3.1.5b} (it \emph{should} work with any version from 3.1.4b and up, but better use a newer one);
@@ -205,13 +211,16 @@ Another thing to take into account is that any \TikZ{} figure (and \Circuitikz{}
 Finally, the \TikZ{} library \texttt{bending} is loaded by the package, and its effects (the bending of the arrows on curved paths) will also affect the rest of your drawings.
 
 \subsection{Related and extension packages}
+\label{sec:related-and-extension}
 
 \subsubsection{Related packages}
+\label{sec:related-packages}
 
 At the Friedrich-Alexander-Universität, a group of developers are implementing a graphical user interface to draw circuits with \Circuitikz{}.
 You can find more information \href{https://github.com/circuitikz/circuitikz/issues/782}{in this GitHub issue} or, better, on their \href{https://circuit2tikz.tf.fau.de/}{main site}. You can try out the GUI \href{https://circuit2tikz.tf.fau.de/designer/}{here}.
 
 \subsubsection{Extension packages}
+\label{sec:extension-packages}
 
 \Circuitikz{} is meant to be, as much as possible, format-agnostic (which means that it can be used from \LaTeX{}, plain \TeX{} and~\ConTeXt). It is growing in functionality and components, but not everything can be added to the package. In this section, there is a list of packages, available at CTAN, that extend or enhance \Circuitikz{} but are distributed separately.\footnote{If you have a package or know a package that should be listed here, please contact the \Circuitikz{} authors, or, better, send a pull request to the project and it will be added.}
 
@@ -365,6 +374,7 @@ If you have older projects that show compatibility problems, you have two option
 
 
 \subsection{Feedback}
+\label{sec:feedback}
 The easiest way to contact the authors is via the official GitHub repository: \url{https://github.com/circuitikz/circuitikz/issues}. For general help question, a lot of nice people are  quite active on \url{https://tex.stackexchange.com/questions/tagged/circuitikz} --- be sure to read the help pages for the site and ask!
 
 \subsection{Package options}
@@ -472,6 +482,7 @@ Feel free to load the package with your own cultural options:
 } %\stop the \sloppy processing
 
 \section{Tutorials}
+\label{sec:tutorials}
 
 Before even starting with  \Circuitikz{} you should be sure to have understood the basics of \TikZ{}. It is \emph{hightly recommended} that you read and go through \emph{at least}  the following parts of the \TikZ{} manual:
 \begin{itemize}
@@ -488,6 +499,7 @@ Said that, to draw a circuit, you have to load the  \Circuitikz{} package; this 
 somewhere in your document preamble. It will load automatically the needed packages if not already done before.
 
 \subsection{Getting started with \Circuitikz: a current shunt}
+\label{sec:getting-started-with}
 
 Let's say we want to prepare a circuit to teach how a current shunt works; the idea is to draw a current generator, a couple of resistors in parallel, and the indication of currents and voltages for the discussion.
 
@@ -587,6 +599,7 @@ And finally, this is still \TikZ, so that you can freely mix other graphics elem
 \clearpage
 
 \subsection{A non-inverting op-amp amplifier}
+\label{sec:a-non-inverting}
 
 \begin{minipage}[t]{0.55\linewidth}
 Let's now try to draw a non-inverting amplifier based on op-amps; the canonical implementation can be, for example, \href{https://www.electronics-tutorials.ws/opamp/opamp_3.html}{this one from ``electronics tutorials''}.
@@ -697,6 +710,7 @@ The last step to obtain the final look is to add a bit of styling. We want the o
 The \verb|\ctikzset| command choosing the style is better placed in the preamble, though. Style should be coherent for all the document body, so avoiding stating it for every circuit is normally the best strategy.
 
 \subsubsection{Reusing the circuit: the easy way}
+\label{sec:reusing-the-circuit}
 \begingroup % to keep changes local
 
 The easiest way to reuse the circuit is to put it in a macro. This is a very flexible way of doing it; the only drawback is that the only easy way to position it is using the first coordinate: you will not be able to move the component using ``anchors''; that is more complex and will need the use of subcircuits (but you will lose parameters\dots see section~\ref{sec:subcircuits}).
@@ -746,6 +760,7 @@ And we can use it like in the following:
 \clearpage
 
 \subsection{A transistor-based amplifier}
+\label{sec:a-transistor-based}
 \begingroup % do not propagate to the rest of the manual
 
 The idea is to draw a two-stage amplifier for a lesson, or exercise, on the different qualities of BJT and MOSFET transistors.
@@ -988,6 +1003,7 @@ and you will obtain the following diagram with the exact same code (I just remov
 
 \clearpage
 \subsection{A logic circuit}
+\label{sec:a-logic-circuit}
 
 \begingroup % let's keep the tutorial thing separated.
 \tikzset{sr-ff/.style={flipflop, flipflop def={
@@ -1222,6 +1238,7 @@ Will create the final diagram:
 
 
 \section{The components: usage}
+\label{sec:the-components-usage}
 
 
 Components in \Circuitikz{} come in two forms: path-style, to be used in a \texttt{to[\emph{component},...} path specifications, and node-style, which will be instantiated by a \texttt{node[\emph{component},...]} specification.
@@ -1229,6 +1246,7 @@ Components in \Circuitikz{} come in two forms: path-style, to be used in a \text
 All the shapes defined by Circui\TikZ{} are \texttt{pgf} nodes, so they are usable in both \texttt{pgf} and \TikZ.
 
 \subsection{Path-style components}
+\label{sec:path-style-components}
 
 The path-style components are used as shown below:
 \begin{lstlisting}
@@ -1243,6 +1261,7 @@ Transistors and some other node-style components can also be placed using the sy
 Most path-style components can be used as a node-style components; to access them, you add a \texttt{shape} to the main name of component (for example, \texttt{diodeshape}). Such a ``node-shape name'' is specified in the description of each component.
 
 \subsubsection{Anchors}
+\label{sec:usage-anchors}
 
 Normally, path-style components do not need anchors, although they have them just in case you need them. You have the basic ``geographical'' anchors (bipoles are defined horizontally and then rotated as needed):
 \begin{center}
@@ -1472,6 +1491,7 @@ for example changing the parameter \IndexKey{bipoles/thickness} (default 2). The
 \end{LTXexample}
 
 \paragraph{Shape of the components} (on a per-component-class basis)
+\label{par:shape-of-the}
 
 The shape of the components are adjustable with a lot of parameters; in this manual we will comment the main ones, but you can look into the source files specified above to find more.
 Notice however that the ``internal'' parameters, the ones not commented in this manual, are not part of the public interface so they can disappear or change in future versions.
@@ -1497,7 +1517,9 @@ To change the height, you can use (locally) the class scale parameter and the wi
     \ctikzset{european}
     \tikz \draw (0,0) to[R=1<\ohm>, tallR] (4,0);
 \end{LTXexample}
+
 \subsubsection{Descriptions}
+\label{sec:usage-descriptions}
 
 The typical entry in the component list will be like this:
 
@@ -1517,6 +1539,7 @@ The \emph{Class} of the component (see section~\ref{sec:styling}) is printed at 
 Most path-style components can be used as a node-style components; to access them, normally you add a \texttt{shape} to the main name of component (for example, \texttt{diodeshape}). Sometimes though the ``node name'' is different, so it is specified in the description of each component.
 
 \subsection{Node-style components}
+\label{sec:node-style-components}
 Node-style components (monopoles, multipoles) can be drawn at a specified point with this syntax, where \verb!#1! is the name of the component:
 \begin{lstlisting}
 \begin{circuitikz}
@@ -1572,6 +1595,7 @@ the text of nodes drawn with, respectively,
 
 
 \subsubsection{Anchors}
+\label{sec:anchors}
 
 Node components anchors vary a lot across the various kinds of components, so they will be described better after each category is presented in the manual. In general all components have geographic anchors (\texttt{north}, \texttt{north west}, \dots), but most of the other anchors are very component-specific.
 
@@ -1579,6 +1603,7 @@ Node components anchors vary a lot across the various kinds of components, so th
 Starting from version \texttt{v1.8.2}, you can always refer to the node text of a component using the anchor \texttt{.text} which will point to the baseline of the left edge of the typeset text. Using these anchors is considered an advanced topic, and should be avoided in the normal usage of the package.
 
 \subsubsection{Descriptions}
+\label{sec:descriptions}
 
 The typical entry in the component list will be like this:
 \begin{groupdesc}
@@ -1724,6 +1749,7 @@ For example, \emph{amplifiers} have the legacy class of \texttt{tripoles}, as we
 \textbf{Caveat:} not every component has a ``class'', so you have to play with the available ones (it's specified in the component description) and with the absolute values to have the circuit following your taste. A bit of experimentation will create a kind of \emph{style options} that you could use in all your documents.
 
 \subsubsection{Style files}
+\label{sec:style-files}
 
 When using styles, it is possible to use \emph{style files} (see section~\ref{sec:writingstylefiles}), that then you can load with the command \verb|\ctikzloadstyle|\IndexKey[ctikzloadstyle]{}. For example, in the distribution you have a number of style files: \texttt{legacy}, \texttt{romano}, \texttt{example}. When you load a style name \texttt{\emph{name}}, you will have available a style called \texttt{\emph{name} circuit style} that you can apply to your circuits.
 The last style loaded is not enacted --- you have to explicitly do it if you want the style used by default, by putting for example in the preamble:
@@ -1818,6 +1844,7 @@ Starting from version \texttt{1.3.5}, there is support for generating sub-circui
 A subcircuit is basically a path (and just one path!) of generic \TikZ{} instructions, with a series of accessible coordinates that behave more or less like anchors in the ``real'' shapes. The basic limitation is that a subcircuit can be moved, replicated and placed around but it can't be easily personalized. Even if scaling and rotation is in principle possible, it is not easily done. Nevertheless, they can be quite useful to build complex components and reusable blocks.
 
 \subsubsection{Subcircuit definition}
+\label{sec:subcircuit-definition}
 
 To define a block you use the \verb|\ctikzsubcircuitdef| macro; this macro has 3 arguments:
 \begin{itemize}
@@ -1891,6 +1918,7 @@ After that, we draw our circuit; in this case a LED and a couple of smaller phot
 We also define a coordinate \texttt{-up} (you can define more coordinates, in addition to the anchors, or name elements with \texttt{name=\#1-\emph{something}} for later access) for adding text.
 
 \subsubsection{Using the subcircuit}
+\label{sec:using-the-subcircuit}
 
 To use the subcircuit, an additional step is needed. Somewhere you have to \emph{activate} it. This is needed to calculate the relative positions of anchors using the current set of style parameters. The normal place is to activate it just before usage; to do that you use the command \verb|\ctikzsubcircuitactivate| with the name of the subcircuit. That will define a new command, \texttt{\textbackslash\emph{nameofthesubcircuit}} that you can use then in your paths.
 
@@ -1907,6 +1935,7 @@ So to check your subcircuit while defining it you can use this simple snippet:
 \end{LTXexample}
 
 \paragraph{Scaling, flipping and rotating subcircuits}
+\label{par:scaling-flipping-and}
 
 To scale and rotate a subcircuit you have to include it into a \texttt{scope} with the appropriate \texttt{scale} and rotation commands. Notice that, as in general in \Circuitikz, global scales that affect rotation works only if \IndexKey{transform shape} is issued (see~\ref{sec:bugs}); nesting \texttt{transform shape} normally works, but it has been really lightly tested.
 
@@ -1923,6 +1952,7 @@ To scale and rotate a subcircuit you have to include it into a \texttt{scope} wi
 \end{LTXexample}
 
 \subsubsection{Parameters in subcircuits}
+\label{sec:parameters-in-subcircuits}
 
 There are no additional parameters definable for subcircuit shapes; this is a bit of a pity, because sometimes they could be useful, especially for labels of objects.
 Given the need to use \texttt{transform shape} to translate and rotate them, though, it is better not to add invariant-direction things (like text) into the subcircuit, unless you are sure you will just translate them.
@@ -1968,6 +1998,7 @@ And finally do:
 \end{LTXexample}
 
 \subsubsection{Using \texttt{pic}s (with parameters)}
+\label{sec:using-pic-s}
 
 \begingroup % to isolate the definition of pics/divider
 \tikzset{pics/divider/.style n args={2}{
@@ -2038,6 +2069,7 @@ Finally, if you want to rotate the pic (warning: lightly tested!) remember that 
 \endgroup % to isolate the definition of pics/divider
 
 \subsubsection{Using macros}
+\label{sec:using-macros}
 
 Sometimes, a good old \LaTeX{} macro can solve a problem instead of designing a new component.
 For example, GitHub's user Patrick Jansky asked for a generic ``chopper'' block;\footnote{%
@@ -2151,14 +2183,17 @@ Obtaining:
 
 
 \section{The components: list}
+\label{sec:the-components-list}
 
 This section is dedicated to the full list of available components.
 
 \subsection{Grounds and supply voltages}
+\label{sec:grounds-and-supply}
 
 Ground symbols and power supplies --- they have two different classes for styling.
 
 \subsubsection{Grounds}
+\label{sec:grounds}
 
 For the grounds, the \texttt{center} anchor is put on the connecting point of the symbol, so that you can use them directly in a \texttt{path} specification.
 
@@ -2178,6 +2213,7 @@ For the grounds, the \texttt{center} anchor is put on the connecting point of th
 \end{groupdesc}
 
 \paragraph{Grounds anchors}
+\label{par:grounds-anchors}
 
 Anchors for grounds are a bit strange, given that they have the \texttt{center} spot at the same location than \texttt{north} and all the ground will develop ``going down'':
 
@@ -2186,10 +2222,12 @@ Anchors for grounds are a bit strange, given that they have the \texttt{center} 
 \showanchors[baseline]{ground, scale=1.5}{}(left/135/0.2, right/45/0.2, center/-180/0.2)
 
 \paragraph{Grounds customization}
+\label{par:grounds-customization}
 
 You can change the scale of these components (all the ground symbols together) by setting the key \IndexKey{grounds/scale} (default \texttt{1.0}).
 
 \subsubsection{Power supplies}
+\label{sec:power-supplies}
 
 \begin{groupdesc}
     \circuitdesc{vcc}{VCC/VDD}{}
@@ -2199,6 +2237,7 @@ You can change the scale of these components (all the ground symbols together) b
 The power supplies are normally drawn with the arrows shown in the list above.
 
 \paragraph{Power supply anchors}
+\label{par:power-supply-anchors}
 
 They are similar to ground anchors, and the geographical anchors are correct only for the default arrow.
 
@@ -2208,6 +2247,7 @@ They are similar to ground anchors, and the geographical anchors are correct onl
 
 
 \paragraph{Power supplies customization}
+\label{par:power-supplies-customization}
 
 You can change the scale of the power supplies by setting the key \IndexKey{power supplies/scale} (default \texttt{1.0}).
 
@@ -2258,6 +2298,7 @@ If you want the arrows to behave like the legacy symbols (which are shapes), \em
 
 
 \subsection{Resistive bipoles}
+\label{sec:resistive-bipoles}
 
 \begin{groupdesc}
     \circuitdescbip{short}{Short circuit}{}
@@ -2307,6 +2348,7 @@ Other miscellaneous resistor-like devices:
 
 
 \subsubsection{Potentiometers: wiper position}
+\label{sec:potentiometers-wiper-position}
 
 Since version \texttt{0.9.5}, you can control the position of the wiper in potentiometers using the key \IndexKey{wiper pos}, which is a number in the range $[0,1]$. The default middle position is \texttt{wiper pos=0.5}.
 
@@ -2357,8 +2399,10 @@ Generic sensors have an extra anchor named \IndexKey{label}  to help position th
 The anchor is positioned just on the corner of the segmented line crossing the component.
 
 \subsubsection{Resistive components customization}
+\label{sec:resistive-components-customization}
 
 \paragraph{Geometry.} You can change the scale of these components (all the resistive bipoles together) by setting the key \IndexKey{resistors/scale} (default \texttt{1.0}).  Similarly, you can change the widths by setting \IndexKey{resistors/width} (default \texttt{0.8}).
+\label{par:geometry}
 
 You can change the width of these components (all the resistive bipoles together) by setting the key \IndexKey{resistors/width}  to something different from the default \texttt{0.8}.
 
@@ -2391,6 +2435,7 @@ We can call \emph{modifiers} the elements that are added to the basic shape to e
 \end{LTXexample}
 
 \paragraph{Arrows.\label{sec:tunablearrows}} You can change the arrow tips used in tunable resistors (\texttt{vR}, \texttt{tgeneric}) with the key \IndexKey{tunable end arrow}  and in potentiometers with the key \IndexKey{wiper end arrow} (by default the key is the word ``\texttt{default}'' to obtain the default arrow, which is \texttt{latexslim} for both).
+\label{par:arrows-sec-tunablearrows}
 Also you can change the start arrow with the corresponding \IndexKey{tunable start arrow} or \IndexKey{wiper start arrow} (the default value ``\texttt{default}'' is equivalent to \texttt{\{\}} for both, which means no arrow).
 
 You can change that globally or locally, as ever. The tip specification is the one you can find in the \TikZ{} manual (``Arrow Tip Specifications'').
@@ -2432,6 +2477,7 @@ For the \texttt{photoresistor} and the two ``flavors'' of the light-dependent re
 \end{center}}
 
 \paragraph{Details of American (``zig-zag'') resistors.\label{sec:zigzag-details}} American (zig-zag) resistors have a little joining problem\footnote{Noticed by \href{https://github.com/circuitikz/circuitikz/issues/811}{Jakob Leide on GitHub} and later \href{https://github.com/circuitikz/circuitikz/discussions/814}{discussed here}.} with the leading wires if the thickness is greater than two. In the following drawing you can see the problem when the thickness grows from 1 to 4.
+\label{par:details-of-american}
 
 \splat
 
@@ -2488,8 +2534,10 @@ Finally, here is the detailed shape with thickness 2 (red=0, blue=0.05, green=0.
 
 
 \subsection{Capacitors and inductors: dynamical bipoles}
+\label{sec:capacitors-and-inductors}
 
 \subsubsection{Capacitors}
+\label{sec:capacitors}
 
 \begin{groupdesc}
     \circuitdescbip*{capacitor}{Capacitor}{C}
@@ -2520,6 +2568,7 @@ ferroelectric capacitors that could be used to show the state of the hysteresis 
 There is also the (deprecated\footnote{Thanks to \href{https://tex.stackexchange.com/questions/509594/polar-capacitor-orientation-in-circuitikz-seems-wrong}{Anshul Singhv for noticing}.} --- its polarity is not coherent with the rest of the components) \IndexKey{polar capacitor}; please do not use it.
 
 \subsubsection{Capacitive sensors anchors}
+\label{sec:capacitive-sensors-anchors}
 
 For capacitive sensors, you have the same anchors than in the case of resistive sensors, see section~\ref{sec:sensors-anchors}.
 
@@ -2556,6 +2605,7 @@ If you want that only a specific kind of capacitor has a different value for a k
 
 
 \subsubsection{Inductors}
+\label{sec:inductors}
 
 If the \IndexKey{cuteinductors} option is active (default behaviour), or the style \IndexKey[cute inductors]{[cute inductors]} is used, the inductors are displayed as follows:
 \begin{groupdesc}
@@ -2611,6 +2661,7 @@ Moreover, you can change the number of ``coils'' drawn by setting the key
 \end{LTXexample}
 
 \paragraph{Chokes} can have single and double lines, and can have the line thickness adjusted (the value is relative to the thickness of the inductor). In general, you should use the anchors (see~\ref{sec:inductors-core-anchors}) to add core lines to inductors.
+\label{par:chokes}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}[american]
@@ -2626,10 +2677,12 @@ Moreover, you can change the number of ``coils'' drawn by setting the key
 
 
 \subsubsection{Inductors anchors}
+\label{sec:inductors-anchors}
 
 For inductive sensors, you have the same anchors than in the case of resistive sensors, see section~\ref{sec:sensors-anchors}.
 
 \paragraph{Taps.}
+\label{par:taps}
 Inductors have an additional anchor, called \IndexKey{midtap}, that connects to the center of the coil ``wire''. Notice that this anchor could be on one side or the other of the component, depending on the number of loops of the element; if you need a fixed position, you can use the geographical anchors.
 
 \begin{LTXexample}[varwidth=true]
@@ -2666,6 +2719,7 @@ Inductors have additional anchors to add core lines (for historical reasons, the
 Notice that the core lines will \textbf{not} change the position of labels. You have to move them by hand if needed (or position them on the other side); see~\ref{sec:adjust-label-position}.
 
 \paragraph{Dot anchors.}
+\label{par:dot-anchors}
 Inductances also have ``dot'' anchors\footnote{proposed by Romano in a discussion by \href{https://github.com/circuitikz/circuitikz/issues/618}{GitHub user AndreaDiPietro92}},
 to help positioning dots when specifying mutual inductance signs. The anchors are name \IndexKey{lr dot} (for lower right dot), \IndexKey{ur dot} (upper right) and so on:
 \begin{quote}
@@ -2693,6 +2747,7 @@ You can change the position of the dots by changing the keys \IndexKey{bipoles/i
 Notice that the position of the dot anchors does not coincide with the position of the dots in the transformers (see section~\ref{sec:transformers}), because there they depend on the size of the complete double-bipole more that on the size of the inductances.
 
 \subsection{Diodes and such}
+\label{sec:diodes-and-such}
 
 There are three basic styles for diodes: \texttt{empty} (fillable in color), \texttt{full} (completely filled with the draw color) and \texttt{stroke} (empty, but with a line across them).
 
@@ -2801,6 +2856,7 @@ For basically stylistic reasons, there is a different, more compact, shape avail
 \end{groupdesc}
 
 \subsubsection{Thyristors anchors and customization}
+\label{sec:thyristors-anchors-and}
 
 When inserting a thyristor, a triac or a potentiometer, one needs to refer to the third node-gate (\IndexKey{gate} or \texttt{G}) for the former two; wiper (\IndexKey{wiper} or \texttt{W}) for the latter one. This is done by giving a name to the bipole:
 \label{bipole-naming}
@@ -2909,6 +2965,7 @@ As you can see, you can also have the option to globally change the color, relat
 \end{LTXexample}
 
 \paragraph{Zener and TVS diode options} You can change the shape of the Zener \texttt{ZZener} and \texttt{TVS} diodes using the flag \IndexKey{diode straight whiskers} (and reset it with the option \IndexKey{diode sloped whiskers}); this will change the ``whiskers'' of the diodes to be at a right angle\footnote{Suggested by \href{https://github.com/circuitikz/circuitikz/issues/836}{Dr. Matthias Jung}} instead the sloped normal way.
+\label{par:zener-and-tvs}
 
 \begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
 \begin{tikzpicture}
@@ -2921,10 +2978,12 @@ As you can see, you can also have the option to globally change the color, relat
 \end{LTXexample}
 
 \subsection{Sources and generators}
+\label{sec:sources-and-generators}
 
 Notice that source and generators are divided in three classes that can be styled independently: traditional battery symbols (class \IndexKey{batteries}), independent generators (class \IndexKey{sources}) and dependent generators (class \IndexKey{csources}). This is because they are often treated differently, and so you can choose to, for example, fill the dependent sources but not the independent ones.
 
 \subsubsection{Batteries}
+\label{sec:batteries}
 \begin{groupdesc}
     \circuitdescbip{battery}{Battery}{}
     \circuitdescbip{battery1}{Single battery cell}{}
@@ -2936,6 +2995,7 @@ Notice that source and generators are divided in three classes that can be style
 \end{groupdesc}
 
 \subsubsection{Stationary sources}
+\label{sec:stationary-sources}
 \begin{groupdesc}
     \circuitdescbip*[vsource]{european voltage source}{Voltage source (european style)}{vsource, vsourceEU}
     \circuitdescbip*[vsourceC]{cute european voltage source}{Voltage source (cute european style)}{vsourceC, ceV}
@@ -2969,6 +3029,7 @@ Similarly, if (default behavior) \IndexKey{europeanvoltages} option is active (o
 \end{LTXexample}
 
 \subsubsection{Controlled sources}
+\label{sec:controlled-sources}
 \begin{groupdesc}
     \circuitdescbip*[cvsource]{european controlled voltage source}{Controlled voltage source (european style)}{cvsource, cvsourceEU}
     \circuitdescbip*[cvsourceC]{cute european controlled voltage source}{Voltage source (cute european style)}{cvsourceC, cceV}
@@ -2995,6 +3056,7 @@ The following two behave like the corresponding independent sources, see section
 
 
 \subsubsection{Noise sources}
+\label{sec:noise-sources}
 
 In this case, the ``direction''  of the source is undefined. Noise sources are filled in gray by default, but if you choose the dashed style, they become fillable.
 
@@ -3041,6 +3103,7 @@ Notice that if you choose the dashed style, the noise sources are fillable:
 \end{LTXexample}
 
 \subsubsection{Special sources}
+\label{sec:special-sources}
 \begin{groupdesc}
     \circuitdescbip*[vsourcesquare]{square voltage source}{Square voltage source}{vsourcesquare, sqV}
     \circuitdescbip*{vsourcetri}{Triangle voltage source}{tV}
@@ -3091,6 +3154,7 @@ These two ``sources'' have additional anchors that reach the center of the symbo
 \end{LTXexample}
 
 \subsubsection{Nullator and norator}
+\label{sec:nullator-and-norator}
 
 These are special elements used in some approaches to model ideal amplifiers\footnote{See \href{https://en.m.wikipedia.org/wiki/Nullor}{the Wikipedia article}; suggested by \href{https://github.com/circuitikz/circuitikz/issues/615}{user atticus-sullivan on GitHub}.}.
 
@@ -3146,6 +3210,7 @@ The size of the broken part of the DC current source is configurable by changing
 \subsubsection{Sources customizations}\label{sec:tweak-sources}
 
 \paragraph{Size.}
+\label{par:source-size}
 You can change the scale of the batteries by setting the key \IndexKey{batteries/scale}, for the controlled (dependent) sources with \IndexKey{csources/scale}, and for all the other independent sources and generators with \IndexKey{sources/scale}, to something different from the default \texttt{1.0}.
 
 Notice that the size of the double-circle sources (and of the triple-circle one) are tuned so that the full source occupy more or less the same horizontal space than one of the single-circle one; as a consequence, the circles are much smaller. If you want to have the same circle radius, you have to scale (locally!) those sources by one factor that is \texttt{1.5384} ($1/0.65$) for \texttt{oosource}, \texttt{1.6667} ($1/0.6$) for \texttt{oosourcetrans}, and \texttt{1.8182} ($1/0.55$) for \texttt{ooosource}.
@@ -3175,6 +3240,7 @@ Alternatively, you can use the key \IndexKey{ootrans size} (which has possible v
 \end{LTXexample}
 
 \paragraph{Waveform symbols.}
+\label{par:waveform-symbols}
 Internal symbols of sinusoidal, triangular and square sources are drawn with the same line thickness as the component by default. You can modify this by setting the key \IndexKey{sources/symbol/thickness} for independent sources and the corresponding \texttt{csource/...} for dependent ones. The value used here is relative to the component (i.e. the circle) value.
 
 Normally the symbol is oriented in the same direction as the line, and rotate rigidly with the component; you can change this orientation using the key \IndexKey{sources/symbol/rotate} or \texttt{csource/...}. The default value is \texttt{90} which correspond to the ``line'' direction (remember, path components are defined as horizontal ones).
@@ -3195,6 +3261,7 @@ If instead of an angle value you use \texttt{auto}, the symbol will be rotated s
 
 
 \paragraph{Polarity symbols.}
+\label{par:polarity-symbols}
 The symbols drawn into the \texttt{american voltage source}\footnote{Since version \texttt{1.1.0}, thanks to the suggestions and discussion
 \href{https://tex.stackexchange.com/questions/538723/circuitikz-what-should-i-do-to-put-the-and-on-the-appropriate-places-like-t}{in this TeX.SX question}.} can be changed by using the \verb|\ctikzset|  keys \IndexKey{bipoles/vsourceam/inner plus} and \IndexKey[bipoles/vsourcesam/inner minus]{.../inner minus} (by default they are \verb|$+$| and \verb|$\vphantom{+}-$| respectively, in the current font), and move them nearer of farther away by twiddling \IndexKey{bipoles/vsourceam/margin} (default \texttt{0.7}, less means nearer). The reason of the \verb|\vphantom| can be found in section~\ref{sec:american-voltage-custom}.
 
@@ -3215,6 +3282,7 @@ You can do the same with the \texttt{american controlled voltage sources}, subst
 \end{LTXexample}
 
 \paragraph{Orientation of the polarity symbols.}
+\label{par:orientation-of-the}
 
 When rotating the sources, they usually move rigidly. This results in the fact that American voltage sources look nice when vertical but could be better in other directions. Since \texttt{v1.6.7}\footnote{Thanks to the suggestions and discussion
 \href{https://github.com/circuitikz/circuitikz/issues/773}{by user @jotagah on GitHub}.}, you can choose several rotation modes for those symbols (independent and dependent sources).
@@ -3240,6 +3308,7 @@ If you use \texttt{straight}, the symbols are rotated to be always horizontal. W
 
 
 \paragraph{Three-phase symbols.}
+\label{par:three-phase-symbols}
 The three-phase symbols \texttt{delta}, \texttt{wye}, \texttt{eyw}, and \texttt{zig} follows the line thickness exactly as
 the waveform ones (see above). Additionally, you can scale them up and down by changing the value of the keys
 \IndexKey{sources/symbol/delta scale}, \IndexKey[sources/symbol/wye scale]{.../wye scale}, \IndexKey[sources/symbol/eyw scale]{.../eyw scale}, and \IndexKey[sources/symbol/zig scale]{.../zig scale} (default \texttt{1}).
@@ -3261,6 +3330,7 @@ the waveform ones (see above). Additionally, you can scale them up and down by c
 \end{LTXexample}
 
 \paragraph{Rotating the three-phase symbols.}
+\label{par:rotating-the-three}
 You have several keys to rotate, locally or globally, the three-phase symbols\footnote{Suggested by \href{https://github.com/circuitikz/circuitikz/issues/886}{Jakob Leide}}.
 The symbols can be rotated (with effect on every symbol of that type) with the key \IndexKey{sources/symbol/delta rot} and similar ones for \texttt{eyw}, \texttt{wye} and \texttt{zig}.
 Additionally, you can rotate the symbol on a specific winding by usin the key \IndexKey{sources/symbol/prim rot} and similar ones for \texttt{sec}, \texttt{tert} and \texttt{upper}.
@@ -3275,6 +3345,7 @@ Additionally, you can rotate the symbol on a specific winding by usin the key \I
 \end{LTXexample}
 
 \subsubsection{Source borders}
+\label{sec:source-borders}
 
 Unfortunately, the border of the sources is only easily accessed if some anchor is provided.
 The border anchors of the shapes are not tight on them (see section~\ref{sec:bipoles-border-anchors}), which is not easily changeable, given that the algorithm that positions the labels depends on it.
@@ -3306,6 +3377,7 @@ A similar approach can be used for dependent sources. Just remember that the anc
 \end{LTXexample}
 
 \paragraph{Additional winding.}
+\label{par:additional-winding}
 The \texttt{oosourcetrans} and \texttt{oosourceatrans} components admit an additional winding, called \emph{upper} winding\footnote{Suggested by \href{https://github.com/circuitikz/circuitikz/issues/886}{Jakob Leide}}.
 It can be added by specifying the key \IndexKey{oo upper winding}; you can pass an additional parameter specifying the size (relative to the symbol circle size) of the added circle. The default is \texttt{0.7}, but even the default can be changed by setting the key \IndexKey{bipoles/oosourcetrans/upper circle size default}. The height of the additional winding can be tweaked with the key \IndexKey{bipoles/oosourcetrans/upper circle offset} (default \texttt{\ctikzvalof{bipoles/oosourcetrans/upper circle offset}}, which tries to mimic the shape of \texttt{ooosource}).
 
@@ -3324,6 +3396,7 @@ It can be added by specifying the key \IndexKey{oo upper winding}; you can pass 
 \end{LTXexample}
 
 \paragraph{Additional winding anchors.}
+\label{par:additional-winding-anchors}
 When using the upper winding, you have several additional anchors available.
 
 \begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
@@ -3353,7 +3426,9 @@ When using the upper winding, you have several additional anchors available.
 \end{LTXexample}
 
 \subsection{Instruments}
+\label{sec:instruments}
 \subsubsection{Basic round instruments}
+\label{sec:basic-round-instruments}
 
 \begin{groupdesc}
     \circuitdescbip*{rmeter}{Round meter (use \texttt{t=...} for the symbol)}{}(left/135/0.2, right/45/0.2, center/-90/0.3)
@@ -3384,6 +3459,7 @@ You can define styles if you want to use the new shapes for round instrument sim
 \end{LTXexample}
 
 \subsubsection{Square instruments}
+\label{sec:square-instruments}
 
 Sometimes it is better to use a shape for instruments which is very different from the round symbols used for sources.
 
@@ -3395,6 +3471,7 @@ Sometimes it is better to use a shape for instruments which is very different fr
 \end{groupdesc}
 
 \subsubsection{Oscilloscopes and current probes}
+\label{sec:oscilloscopes-and-current}
 
 \begin{groupdesc}
     \circuitdescbip*[oscope]{oscope}{Oscilloscope\footnotemark}{}(left/135/0.2, right/45/0.2,
@@ -3411,6 +3488,7 @@ Sometimes it is better to use a shape for instruments which is very different fr
 You can change the scale of all the instruments (including the current loops) by setting the key \IndexKey{instruments/scale} to something different from the default \texttt{1.0}.
 
 \paragraph{Current probes.}
+\label{par:current-probes}
 You can change the inner dot in several way, by changing the following keys under the \verb!\ctikzset! key \IndexKey{bipoles/currtap}:
 \begin{center}
     \begin{tabular}{>{\ttfamily}l>{\ttfamily}lp{0.7\linewidth}}
@@ -3441,6 +3519,7 @@ You can change the inner dot in several way, by changing the following keys unde
 \end{LTXexample}
 
 \paragraph{Square instruments index position.} You can change the index position of square
+\label{par:square-instruments-index}
 instruments with the key \IndexKey{bipoles/smeter/index position} (for \texttt{smeter}) or
 \IndexKey{bipoles/qmeter/index position} (for \texttt{qiprobe}, \texttt{qvprobe} and \texttt{qpprobe}).
 Use a value between \texttt{0} and \texttt{100} (the default is \texttt{80}).
@@ -3465,6 +3544,7 @@ Use a value between \texttt{0} and \texttt{100} (the default is \texttt{80}).
 \end{LTXexample}
 
 \paragraph{Oscilloscope waveform.} You can change the waveform shown in the oscilloscope ``screen''\footnote{Suggested by \href{https://tex.stackexchange.com/q/595062/38080}{Mario Tafur on TeX.SX}}. To change it, you just set the key \IndexKey{bipoles/oscope/waveform} to one of the available shape. You have available the shapes in the following list (the default is \texttt{ramps}):
+\label{par:oscilloscope-waveform}
 
 \begin{LTXexample}[pos=t, basicstyle=\small\ttfamily]
 \begin{circuitikz}
@@ -3504,6 +3584,7 @@ If you want more or different shapes, you can define your owns, but you have to 
 
 
 \subsubsection{Rotation-invariant elements}
+\label{sec:rotation-invariant-elements}
 
 The \texttt{oscope} element will not rotate the ``graph'' shown with the component:
 
@@ -3538,6 +3619,7 @@ you can use the key or style \IndexKey{rotated instruments} (the default style i
 
 
 \subsubsection{Instruments as node elements}
+\label{sec:instruments-as-node}
 
 The node-style usage of the \texttt{oscope} is also interesting, using the additional \texttt{in 1} and \texttt{in 2} anchors; notice that in this case you can use the text content of the node to put labels above it.
 Moreover, you can change the size of the oscilloscope by changing \IndexKey{bipoles/oscope/width} and \IndexKey{bipoles/oscope/height} keys (which both default to 0.6).
@@ -3558,6 +3640,7 @@ Moreover, you can change the size of the oscilloscope by changing \IndexKey{bipo
 \end{LTXexample}
 
 \subsubsection{Measuring voltage and currents, multiple ways}
+\label{sec:measuring-voltage-and}
 
 This is the classical (legacy) option, with the \texttt{voltmeter} and \texttt{ammeter}. The problem is that elements are intrinsically horizontal, so they look funny if put in vertically.
 
@@ -3683,6 +3766,7 @@ Or, if you want a more physical structure for the measurement setup:
 
 
 \subsection{Mechanical Analogy}
+\label{sec:mechanical-analogy}
 \begin{groupdesc}
     \circuitdescbip*{damper}{Mechanical Damping}{}
     \circuitdescbip*{inerter}{Mechanical Inerter}{}
@@ -3697,10 +3781,12 @@ Or, if you want a more physical structure for the measurement setup:
 You can change the scale of all the mechanical elements by setting the key \IndexKey{mechanicals/scale} to something different from the default \texttt{1.0}.
 
 \subsection{Miscellaneous bipoles and symbols}
+\label{sec:miscellaneous-bipoles-and}
 
 Here you'll find components that do not fit well in any category, or span several ones.
 
 \subsubsection{Miscellaneous bipoles}
+\label{sec:miscellaneous-bipoles}
 
 Here you'll find bipoles that are not easily grouped in the categories above.
 
@@ -3784,6 +3870,7 @@ You have two types of microphones; \texttt{mic} has protruding connection and \t
 You can change the scale of all the miscellaneous elements by setting the key \IndexKey{misc/scale} to something different from the default \texttt{1.0}; relative thickness can be controlled with \IndexKey{misc/thickness}.
 
 \paragraph{Wiggly fuses.} Wiggly fuses can have (or not have) poles; you can switch between the two forms by setting to \texttt{true} or \texttt{false} (default \texttt{true}) the key \IndexKey{bipoles/wfuse/dots}; if they have poles, you can choose any of the pole shapes with the key \IndexKey{bipoles/wfuse/shape}.
+\label{par:wiggly-fuses}
 The pole nodes are named \texttt{-left} and \texttt{-right} so that you can access their borders.
 
 \begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
@@ -3800,6 +3887,7 @@ The pole nodes are named \texttt{-left} and \texttt{-right} so that you can acce
 \end{LTXexample}
 
 \paragraph{Neon lamps.} Neon lamp ``dot'' size is the same as the size of poles (\texttt{circ} and \texttt{ocirc}), and they can be changed locally:
+\label{par:neon-lamps}
 \begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
 \begin{tikzpicture}
     \draw (0,0) to[neonlampcc, nodes width=0.03] ++(2,0)
@@ -3808,6 +3896,7 @@ The pole nodes are named \texttt{-left} and \texttt{-right} so that you can acce
 \end{LTXexample}
 
 \paragraph{Spark gap.} The \texttt{sparkgap} component is similar to the (American) surge arrester, but it's more configurable; it will render bare (unenclosed) by default, but you can add a (fillable) enclosure with the key \IndexKey{sparkgap/circle} and a dot with \IndexKey{sparkgap/dot} (they are boolean keys, false by default).
+\label{par:spark-gap}
 Moreover, the arrows are configurable like other arrows in the package (see~\ref{sec:tunablearrows}) using the \IndexKey{sparkgap end arrow} key (default \texttt{Triangle[scale=2]}). The gap is tunable with \IndexKey{sparkgap/gap} (default \texttt{0.05}).
 \begin{LTXexample}[varwidth=true, basicstyle=\small\ttfamily]
 \begin{tikzpicture}
@@ -3823,6 +3912,7 @@ Moreover, the arrows are configurable like other arrows in the package (see~\ref
 As in neon lamps, the dot (if activated by the key \texttt{sparkgap/dot}) follows the size of poles and can be changed locally.
 
 \subsubsection{Miscellaneous symbols}
+\label{sec:miscellaneous-symbols}
 
 \begin{groupdesc}
     \circuitdesc{dc symbol}{dc symbol}{text}(left/135/0.2, right/45/0.2, center/-45/0.2)
@@ -3842,6 +3932,7 @@ The symbols for dc or ac voltages or currents can be useful to specify the wavef
 \end{LTXexample}
 
 \subsubsection{Customization of ac/dc symbols.}
+\label{sec:customization-of-ac}
 
 You can change the width and height of the symbols with \IndexKey{dc symbol/width}, \IndexKey{dc symbol/height}, \IndexKey{ac symbol/width}, \IndexKey{ac symbol/height} (at the \texttt{circuitikz} level, the default is \texttt{0.3} for the widths and \texttt{0.15} for both symbols).
 The node text is positioned above the symbol, at a distance controlled by the keys \IndexKey{dc symbol/text offset}  (and the similar \texttt{ac\dots}; default \texttt{6pt}).
@@ -3869,6 +3960,7 @@ Additionally, you can change the relative thickness of the bottom line with the 
 \end{LTXexample}
 
 \subsection{Multiple wires (buses)}
+\label{sec:multiple-wires-buses}
 
 These are simple drawings to indicate multiple wires.
 \begin{groupdesc}
@@ -3890,6 +3982,7 @@ These are simple drawings to indicate multiple wires.
 
 
 \subsection{Crossings}
+\label{sec:crossings}
 
 Path style:
 \begin{groupdesc}
@@ -3941,6 +4034,7 @@ For a more powerful (and elegant) way you can use the crossing nodes:
 Notice that the \texttt{plain crossing} and the \texttt{jump crossing} have a small gap in the straight wire, to enhance the effect of crossing (as a kind of shadow).
 
 \subsubsection{Crossing customization}
+\label{sec:crossing-customization}
 
 The size of the crossing elements can be changed with the key \IndexKey{bipoles/crossing/size} (default 0.2).
 
@@ -4005,6 +4099,7 @@ Moreover, you have the arrow tip \IndexKey{latexslim} which is an arrow similar 
 \end{LTXexample}
 
 \subsubsection{Generic Tunable Arrows}
+\label{sec:generic-tunable-arrows}
 
 The basic passive components (resistors, capacitors and inductors) come with a ``tunable version'' (see for example~\ref{sec:tunablearrows}) that conveys the information that their value is adjustable. For generic components you can obtain a similar effect with the extra macro \verb|\ctikztunablearrow|, introduced in version \texttt{1.4.1}. The macro should be called as:
 \begin{quote}
@@ -4093,6 +4188,7 @@ Be sure to see section~\ref{sec:bipole-nodes} for more usage and configurability
 Connectors have a class by themselves (\IndexKey[connectors/scale]{connectors}), so you can use the \texttt{scale}, \texttt{fill} and \texttt{thickness} properties as usual.
 
 \subsubsection{BNC connector/terminal}
+\label{sec:bnc-connector-terminal}
 
 \begin{groupdesc}
     \circuitdesc*{bnc}{BNC connector}{}(left/135/0.6, right/45/0.6, center/-45/0.6, hot/0/0.6, zero/-135/0.6, shield/-90/0.4)
@@ -4121,6 +4217,7 @@ It also has a \texttt{zero} anchor if you need to rotate it about its real cente
 \end{LTXexample}
 
 \subsubsection{IEC 60617 socket-plug connectors}
+\label{sec:iec-60617-socket}
 
 Plug and socket connectors (modeled on the IEC60617 standard) are available\footnote{Since \texttt{v1.5.0}; thanks to Alexander Sauter for suggesting them and \href{https://github.com/circuitikz/circuitikz/issues/611}{helping in the design}.} both in path-style form and, with separated but matching shapes for plug and socket, in node-style. There are two differently oriented shapes for each type to ease the construction of ``split'' connections (see the examples below). \textbf{Notice} that the elements in the following table are scaled by a factor of 1.5, to better show the position of the anchors.
 
@@ -4223,6 +4320,7 @@ For example, and audio jack can be drawn like this:
 \end{LTXexample}
 
 \subsection{Block diagram components}
+\label{sec:block-diagram-components}
 \noindent Contributed by Stefan Erhardt.
 
 \begin{groupdesc}
@@ -4342,6 +4440,7 @@ Blocks to draw TV/radio system schematics, contributed by \href{https://github.c
 \end{groupdesc}
 
 \subsubsection{Blocks anchors}
+\label{sec:blocks-anchors}
 
 The ports of the \texttt{mixer}, \texttt{adder}, \texttt{oscillator} and \texttt{circulator}  can be addressed with \texttt{west}, \texttt{south}, \texttt{east}, \texttt{north}; the equivalent \texttt{left}, \texttt{down}, \texttt{right}, \texttt{up};  or the shorter \texttt{w, s, e, n} ones:
 
@@ -4508,6 +4607,7 @@ Also they have the simpler \texttt{1, 2, 3, 4} anchors, and although they have n
 \end{LTXexample}
 
 \subsubsection{Blocks customization}
+\label{sec:blocks-customization}
 
 You can change the scale of all the block elements by setting the key \texttt{blocks/scale} to something different from the default \texttt{1.0}.
 
@@ -4536,6 +4636,7 @@ You can also change the width for the generic block:
 \end{LTXexample}
 
 \paragraph{Multi ports}
+\label{par:multi-ports}
 Since inputs and outputs can vary, input arrows can be placed as nodes. Note that you have to rotate the arrow on your own:
 
 \begin{LTXexample}[varwidth=true]
@@ -4571,6 +4672,7 @@ You can use additional anchors to mix different kinds of elements.
 \end{LTXexample}
 
 \paragraph{Labels and custom two-port boxes}
+\label{par:labels-and-custom}
 
 You can use the keys \texttt{t}, \texttt{t1}, \texttt{t2} (shorthands for \texttt{text}, \texttt{text in}, \texttt{text out}) to fill the generic blocks:
 \begin{LTXexample}[varwidth=true]
@@ -4602,6 +4704,7 @@ Each block determines where the text is added:
 \end{LTXexample}
 
 \paragraph{Box option}
+\label{par:box-option}
 Several devices have the possibility to add a box around them with the \IndexKey{box} or \IndexKey{boxed} option. The inner symbol scales down to fit inside the box. For the ``circled'' devices (mixer, adder, oscillator and circulator) the inner circle is normally drawn, unless you use the \IndexKey{box only} or \IndexKey{boxed only} option.\footnote{Since 1.5.0, suggested by \href{https://github.com/circuitikz/circuitikz/issues/621}{GitHub user myzinsky}}
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz} \draw
@@ -4615,6 +4718,7 @@ Several devices have the possibility to add a box around them with the \IndexKey
 
 
 \paragraph{Dash optional parts}
+\label{par:dash-optional-parts}
 To show that a device is optional, you can dash it. The inner symbol will be kept with solid lines, unless you set the key \IndexKey{inner blocks dashed} to true.
 Moreover, the key \IndexKey{dashed blocks pattern} (default \verb|{{1mm}{1mm}}|), be careful with the number of braces!.
 \begin{LTXexample}[varwidth=true]
@@ -4634,6 +4738,7 @@ Moreover, the key \IndexKey{dashed blocks pattern} (default \verb|{{1mm}{1mm}}|)
 \end{LTXexample}
 
 \paragraph{Dashing the DC symbol in blocks.}
+\label{par:dashing-the-dc}
 The symbol for the DC side can be different across countries,\footnote{Head-up from \href{https://github.com/circuitikz/circuitikz/issues/680}{user \texttt{@dbstf} on GitHub}} with different kind of dashing on the bottom line.
 Moreover, sometimes the dashing is used to convey different meanings (like rectified sinusoidal or stabilized DC).
 You can change the general style for the DC symbol using the key \IndexKey{blocks dc segments}; using~\texttt{1} (default) will use a continuous line; using \texttt{2} you will have the international-styled symbol, and with~\texttt{3} the English one (you can use higher numbers; the only restriction is that it must be strictly greater than \texttt{0}).  You can also change the input and output part separately with the keys \IndexKey{blocks dc in segments} and \IndexKey{blocks dc out segments} (see the following example). The \texttt{inner blocks dashed} can have strange interaction with these ones.
@@ -4655,6 +4760,7 @@ You can change the general style for the DC symbol using the key \IndexKey{block
 
 
 \paragraph{Blocks inner drawing.}
+\label{par:blocks-inner-drawing}
 Almost all of the inner block drawing style can be customized, without affecting the external box, with the keys \IndexKey{blocks/inner color} (default \texttt{default}, which means ``don't change color'') and \IndexKey{blocks/inner thickness} (default \texttt{1}; this is relative to the class-specified thickness).
 
 \begin{LTXexample}[varwidth=true]
@@ -4722,8 +4828,10 @@ Setting the key \IndexKey{ideal filter numbers} a small \texttt{0} and \texttt{1
 \end{LTXexample}
 
 \subsection{Transistors}
+\label{sec:transistors}
 
 \subsubsection{Standard bipolar transistors}
+\label{sec:standard-bipolar-transistors}
 
 \begin{groupdesc}
     \circuitdesc{npn}{npn}{Q}( B/180/0.2,C/0/0.2,E/0/0.2 )
@@ -4741,6 +4849,7 @@ Setting the key \IndexKey{ideal filter numbers} a small \texttt{0} and \texttt{1
 \end{groupdesc}
 
 \subsubsection{Multi-terminal bipolar transistors}
+\label{sec:multi-terminal-bipolar}
 
 In addition to the standard BJTs transistors, since version~\texttt{0.9.6} the \texttt{bjtnpn} and \texttt{bjtpnp} are also available; these are devices where you can have more collectors and emitters (on the other hand, they have no \texttt{photo} nor \texttt{bodydiode} options --- they are silently ignored).
 
@@ -4752,6 +4861,7 @@ Basically they are the same as the normal \texttt{npn} and \texttt{pnp}, and the
 \end{groupdesc}
 
 \subsubsection{Field-effect transistors}
+\label{sec:field-effect-transistors}
 
 \begin{groupdesc}
     \circuitdesc{nmos}{nmos}{Q}( G/180/0.2,D/0/0.2,S/0/0.2 )
@@ -4936,9 +5046,11 @@ The value of this flag is taken into account only for transistors (at least, for
 \subsubsection{Transistors customization}\label{sec:styling-transistors}
 
 \paragraph{Size.} You can change the scale of all the transistors by setting the key \IndexKey{transistors/scale} (default \texttt{1.0}).
+\label{par:size}
 The size of the arrows (if any) is controlled by the same parameters as \IndexKey{currarrow} (see section~\ref{sec:currarrow-size}) and the dots on P-type transistors (if any) are the same as the nodes/poles (see section~\ref{sec:bipole-nodes}).
 
 \paragraph{Arrows.} The default position of the arrows in transistors is somewhat in the middle of the terminal; if you prefer you can move them to the end with the style key \IndexKey[transistor/arrow pos]{transistors/arrow pos=end} (the default value is \texttt{legacy}).
+\label{par:arrows}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -5002,6 +5114,7 @@ You can also change\footnote{Thanks to the idea by \href{https://github.com/circ
 \end{LTXexample}
 
 \paragraph{Circles.} Since \texttt{1.2.6}, you can add a circle\footnote{Suggested by Dr. Matthias Jung \href{https://github.com/circuitikz/circuitikz/issues/442}{on GitHub}} to most of the transistor shapes --- with the exception of multi-terminal (\texttt{bjtnpn} and \texttt{bjtpnp}, where it would be awkward anyway) and graphene FETs. The circle is intended in some case as the component's housing, and used to distinguish discrete components from integrated ones.
+\label{par:circles}
 
 To add the circle to a single transistor, you use the \IndexKey{tr circle} keys in the node; if you want all of your transistors with a circle, you can set the property \texttt{tr circle} with a \verb|\ctikzset| command (it will respect normal grouping, of course); in that case, you can use \texttt{tr circle=false} to locally disable them.
 
@@ -5056,6 +5169,7 @@ For more complex snubs or protections, you can use the \IndexKey[bodydiode ancho
 \end{LTXexample}
 
 \paragraph{HEMT customization.\label{sec:hemt}} Since \texttt{v1.6.1} the shape of the \texttt{hemt} transistor can be customized.\footnote{After a suggestion from \href{https://github.com/circuitikz/circuitikz/issues/691}{user \texttt{@epsilon-phi} on GitHub}.}
+\label{par:hemt-customization-sec}
 There are several keys under the hierarchy \IndexKey{tripoles/hemt} that can be use to change the appearance; some of them are common to other transistors and some are specific.
 
 The main ones are \texttt{\dots/split gate} (boolean, default \texttt{false}) that will create a ``split'' gate, which sometimes is used to convey that the device is enhancement-type;
@@ -5089,6 +5203,7 @@ The main ones are \texttt{\dots/split gate} (boolean, default \texttt{false}) th
 \end{LTXexample}
 
 \paragraph{Schottky transistors.}
+\label{par:schottky-transistors}
 The Schottky transistors are generated by adding the \IndexKey{schottky base} key (there is also a \IndexKey{no schottky base} key that can be used if you use the other one as a default).
 You can change the size of the Schottky ``hook'' changing the parameter \IndexKey{tripoles/schottky base size} with \verb|\ctikzset{}| (default \texttt{\ctikzvalof{tripoles/schottky base size}}; the unit is the standard resistor length, scaled if needed.)
 
@@ -5106,6 +5221,7 @@ You can change the size of the Schottky ``hook'' changing the parameter \IndexKe
 \end{LTXexample}
 
 \paragraph{Ferroelectric transistors} You can add the \IndexKey{ferroel} ferroelectric modifier\footnote{suggested by \href{https://github.com/circuitikz/circuitikz/issues/515}{Mayeul Cantan}} to the \texttt{*mos} and \texttt{*fet} transistor  types. Similarly to the Schottky bipolar transistors, you activate it by adding the \IndexKey{ferroel gate} key (there is also a \IndexKey{no ferroel base} key that can be used if you use the other one as a default).
+\label{par:ferroelectric-transistors}
 
 The mark will follow the \texttt{transistors} class thickness, but you can adjust it independently using the class parameter \IndexKey{modifier thickness} as in passive components --- this value is relative to the class' thickness.
 
@@ -5123,6 +5239,7 @@ The mark will follow the \texttt{transistors} class thickness, but you can adjus
 
 
 \paragraph{IGBT outer base.}
+\label{par:igbt-outer-base}
 Normally, in bipolar IGBTs the outer base is the same size (height) of the inner one, and of the same thickness (which will depend on the class thickness value). You can change this by setting (via \verb|\ctikzset|) the keys \IndexKey{tripoles/igbt/outer base height} (default \texttt{0.4}, the same as \texttt{base height}), and \IndexKey{tripoles/igbt/outer base thickness} (default \texttt{1.0}), which will be relative to the class thickness.
 
 \begin{LTXexample}[varwidth=true, pos=t]
@@ -5165,6 +5282,7 @@ Normally, in bipolar IGBTs the outer base is the same size (height) of the inner
 \end{LTXexample}
 
 \paragraph{Base/Gate terminal.} The Base/Gate connection of all transistors can be disabled by the options \textit{nogate} or \textit{nobase}, respectively. The Base/Gate anchors are floating, but there is an additional anchor \IndexKey{nogate}/\IndexKey{nobase}, which can be used to point to the unconnected base:
+\label{par:base-gate-terminal}
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
    \draw (2,0) node[npn,nobase](npn){};
@@ -5176,6 +5294,7 @@ Normally, in bipolar IGBTs the outer base is the same size (height) of the inner
 \end{LTXexample}
 
 \paragraph{Bulk terminals.} You can add a bulk terminal\footnote{Thanks to Burak Kelleci <kellecib@hotmail.com>.} to \texttt{nmos} and \texttt{pmos} using the key \IndexKey{bulk} in the node (and \IndexKey{nobulk} if you set the bulk terminal by default); additional anchors \texttt{bulk} and \texttt{nobulk} are added (in the next example, \texttt{tripoles/mos style/arrows} is enacted, too):
+\label{par:bulk-terminals}
 
 \begin{groupdesc}
     \ctikzset{tripoles/mos style/arrows}
@@ -5221,6 +5340,7 @@ This is to convey the information that the connection is \emph{internal} to the 
 \end{LTXexample}
 
 \paragraph{Simplified symbols for depletion-mode MOSFETs}.
+\label{par:simplified-symbols-for}
 The \texttt{nmosd}, \texttt{pmosd} (symplified) symbols for depletion-mode MOSFET (introduced in \texttt{1.2.4}) behave exactly like the normal (without the final \texttt{d}) ones.
 
 By default, the thick bar (indicating the pre-formed channel) is filled with the same color as the drawing:
@@ -5261,6 +5381,7 @@ They also have path-style syntax, as the other transistors.
 \end{LTXexample}
 
 \paragraph{Gate/Base gap coloring.} You can color the space representing the gate capacitor or the insulated base by using the key \IndexKey{tr gap fill} (default \texttt{none}, which means nothing is drawn there). This fill is done \emph{after} any circle fill but before any additional modifier (see the example below). You can use it locally or set it globally (normal scoping works, as ever).
+\label{par:gate-base-gap}
 
 \begin{LTXexample}[varwidth=true]
     \begin{tikzpicture}
@@ -5273,6 +5394,7 @@ They also have path-style syntax, as the other transistors.
 \end{LTXexample}
 
 \subsubsection{Multiple terminal transistors customization}
+\label{sec:multiple-terminal-transistors}
 
 You can create completely ``bare'' transistors (without the connection leads to the \texttt{B}, \texttt{C} y \texttt{E} terminals), by changing the parameter \IndexKey{tripoles/bjt/pins width} (default \texttt{0.3}; it is expressed as a fraction of the basic (scaled) length) or using the style \IndexKey{bjt pins width}; and you can change the distance between multiple collectors/emitters setting with \verb|\ctikzset{}|  the parameter \IndexKey{tripoles/bjt/multi height}  (default \texttt{0.5}) or the style \IndexKey{bjt multi height}.
 
@@ -5284,6 +5406,7 @@ You can create completely ``bare'' transistors (without the connection leads to 
 \subsubsection{Transistor circle customization}\label{sec:trans-circle-custom}
 
 \paragraph{Position and size.} You can see in the following diagram where the circle is positioned --- when there is no bodydiode, it will pass through the anchors for the body diode and near the base connection. The dimension of the circle is bigger when the bodydiode is in, to encompass it.
+\label{par:position-and-size}
 The anchors are present even if there is no circle, so you can use them to draw different kinds of circles (say, encompassing two transistors) in a coherent way.
 
 \circuitdesc{npn, tr circle}{npn with a circle}{}(circle base/90/0.5, circle C/30/0.2, circle E/-30/0.2, circle center/0/0.5)
@@ -5302,6 +5425,7 @@ The position of the circle on collector and emitter by default is the one shown 
 \end{LTXexample}
 
 \paragraph{Line and color.} Normally the circle follows the style of the component --- the line thickness is fixed by the class element \texttt{transistors/thickness} and the color is the same as the component color. You can change, if you need, all of these things using the parameters of the following table (the parameters are under the \verb|\ctikzset| category root \IndexKey{transistor circle/}.
+\label{par:line-and-color}
 
 \begin{center}
     \begin{tabular}{>{\ttfamily}l>{\ttfamily}lp{8cm}}
@@ -5344,6 +5468,7 @@ Finally, using the class style you can do quite interesting things.
 \end{LTXexample}
 
 \paragraph{Partially drawn circle borders}
+\label{par:partially-drawn-circle}
 
 In some circuits, transistors are drawn with partial or dashed border (to convey the meaning of several active components encased in the same physical package, or to signify thermal contact). To achieve this effect, you can use the \IndexKey{transistor circle/partial border}\footnote{Suggested by \href{https://github.com/circuitikz/circuitikz/issues/602}{Jether Fernandes Reis} for tubes, implemented by Romano in \texttt{v1.5.2}.} key (default \texttt{none}). This key can be set to \texttt{none}, or must be a sequence of \textbf{exactly} 4 numbers, that can have value \texttt{0}, \texttt{1}, or \texttt{2}. Each number defines the style of a part of the border to be not drawn, solid or dashed respectively.
 
@@ -5432,6 +5557,7 @@ The following is a quite extensive example. Obviously, a good strategy in this c
 \end{LTXexample}
 
 \subsubsection{Transistors anchors}
+\label{sec:transistors-anchors}
 
 For \textsc{nmos}, \textsc{pmos}, \textsc{nfet}, \textsc{nigfete}, \textsc{nigfetd}, \textsc{pfet}, \textsc{pigfete}, and \textsc{pigfetd}  transistors  one has \texttt{base}, \texttt{gate}, \texttt{source} and \texttt{drain} anchors (which can be abbreviated with \texttt{B}, \texttt{G}, \texttt{S} and \texttt{D}):
 
@@ -5635,6 +5761,7 @@ The \IndexKey{name} property is available also for bipoles; this is useful mostl
 
 
 \subsection{Electronic Tubes}
+\label{sec:electronic-tubes}
 
 Electronic tubes, also known as vacuum tubes, control current flow between electrodes.  They come in many different flavours.
 \small{Contributed by J. op den Brouw (\texttt{J.E.J.opdenBrouw@hhs.nl}).}
@@ -5673,6 +5800,7 @@ If you want a full cathode to be drawn, use the \verb|fullcathode| option in the
 \end{groupdesc}
 
 \subsubsection{Tubes customization}
+\label{sec:tubes-customization}
 
 The tubes can be scaled using the key \IndexKey{tubes/scale}, default \texttt{1.0}. In addition, they are
 fully configurable, and the attributes are described below\IndexKey[tubes customization]{}:
@@ -5765,6 +5893,7 @@ Example triode amplifier:
 \end{circuitikz}
 
 \subsubsection{Tubes anchors}
+\label{sec:tubes-anchors}
 
 Apart from the geographic anchors, which take into account the leads of the components, you have several anchors on the border:
 \begin{quote}
@@ -5830,6 +5959,7 @@ The dashed line pattern can be changed by setting the key \texttt{tubes/partial 
 
 
 \subsubsection{Multi-anode tube}
+\label{sec:multi-anode-tube}
 
 The multi-anode tube (\texttt{matube}) is a component thought to be tailored for several different usages,\footnote{It was added in \texttt{v1.6.8} after suggestions by user \texttt{bogger33} on GitHub \href{https://github.com/circuitikz/circuitikz/issues/781}{here} and \href{https://github.com/circuitikz/circuitikz/issues/785}{here}.} as shown in the examples below.
 
@@ -5885,6 +6015,7 @@ And a 10-cathodes nixie tube:
 \end{LTXexample}
 
 \subsubsection{Other tubes-like components}
+\label{sec:other-tubes-like}
 
 The \texttt{magnetron} and \texttt{dynode} shapes will also scale with \texttt{tubes/scale}.
 
@@ -5910,6 +6041,7 @@ The \texttt{magnetron} and \texttt{dynode} shapes will also scale with \texttt{t
 
 
 \paragraph{Dynode customization.}
+\label{par:dynode-customization}
 The dynode element can be heavily customized. The parameters are the following (all of them under the \verb|\ctikzset| family \IndexKey[dynode customization]{monopoles/dynode}):
 
 \begin{center}
@@ -6004,10 +6136,12 @@ The \texttt{waves} and \texttt{harmonics} can help with RF block diagrams
 \end{LTXexample}
 
 \subsubsection{RF elements customization}
+\label{sec:rf-elements-customization}
 
 The RF elements can be scaled using the key \IndexKey{RF/scale}, default \texttt{1.0}.
 
 \subsubsection{Microstrip customization}
+\label{sec:microstrip-customization}
 
 The microstrip linear components' (\texttt{mstline}, \texttt{mslstub}, \texttt{msport}) heights can be changed by setting the parameter \IndexKey{bipoles/mstline/height} (for the three of them, default 0.3). The widths are specified in \IndexKey{bipoles/mstline/width} for the first two and by \IndexKey{monopoles/msport/width} for the port (defaults: 1.2, 0.5).
 Finally, you can change the size of the smaller circle (the connecting part) of \texttt{msrstub} with the parameter \IndexKey{monopoles/msrstub/radius} (default \texttt{0.25}; using \texttt{0} will suppress the smaller circle\footnote{suggested by \href{https://tex.stackexchange.com/a/757589/38080}{user cis on TeX.SX}}).
@@ -6040,6 +6174,7 @@ The legacy \texttt{tline} can be used as in the following example. You can chang
 \end{LTXexample}
 
 \subsection{Electro-Mechanical Devices}
+\label{sec:electro-mechanical-devices}
 
 The internal part of the motor and generator are, by default, filled with white (to avoid compatibility problems with older versions of the package).
 
@@ -6049,6 +6184,7 @@ The internal part of the motor and generator are, by default, filled with white 
 \end{groupdesc}
 
 \subsubsection{Electro-Mechanical Devices anchors}
+\label{sec:electro-mechanical-devices-anchors}
 
 Apart from the standard geographical anchors, \texttt{elmech} has the border anchors (situated on the inner circle) and the following anchors on the ``block'':
 
@@ -6134,6 +6270,7 @@ You can also build generic double bipoles\footnote{The idea of generic double bi
 \end{groupdesc}
 
 \subsubsection{Transformer anchors}
+\label{sec:transformer-anchors}
 
 All the double bipoles/quadrupoles have the four anchors, two for each port.
 The first port, to the left, is port \texttt{A}, having the anchors \texttt{A1} (up) and \texttt{A2} (down); same for port \texttt{B}.
@@ -6229,6 +6366,7 @@ Moreover, you can access the two internal coils (inductances); if your transform
 \end{circuitikz}
 \end{LTXexample}
 \subsubsection{Transformers customization}
+\label{sec:transformers-customization}
 
 Transformers are in the \texttt{inductors} class (also the gyrator\dots), so they scale with the key \IndexKey{inductors/scale}.
 
@@ -6309,6 +6447,7 @@ This can be useful if you want to put seamlessly something in series with either
 
 
 \subsubsection{Styling transformer's coils independently}
+\label{sec:styling-transformer-s}
 
 Since \texttt{0.9.6}, you can tweak the style of each of the coils of the transformers by
 changing the value of the two styles \IndexKey{transformer L1} and \IndexKey{transformer L2};
@@ -6572,6 +6711,7 @@ Amplifiers also have ``border''\IndexKey[amplifier border anchors]{} anchors (ju
 You can scale the amplifiers using the key \IndexKey{amplifiers/scale} and setting it to something different from \texttt{1.0}. The font used for symbols will not scale, so it's your responsibility to change it if the need arises.
 
 \paragraph{Input polarity.}
+\label{par:input-polarity}
 All these amplifiers have the possibility to flip input and output (if needed) polarity. You can change polarity of the input with the
 \IndexKey{noinv input down} (default) or \IndexKey{noinv input up} key; and the output with \IndexKey{noinv output up} (default) or \IndexKey{noinv output down} key:
 \begin{LTXexample}[varwidth=true]
@@ -6593,6 +6733,7 @@ All these amplifiers have the possibility to flip input and output (if needed) p
 When you use the \texttt{noinv input/output ...} keys the anchors (\texttt{+}, \texttt{-}, \texttt{out +}, \texttt{out -}) will change with the effective position of the terminals. You also have the anchors \IndexKey{in up}, \IndexKey{in down}, \IndexKey{out up}, \IndexKey{out down} that will not change with the positive or negative sign.
 
 \paragraph{Input and output pins symbols.}
+\label{par:input-and-output}
 You can change the symbols ``$+$'' or ``$-$'' appearing in the amplifiers if you want, both globally and on component-by-component basis. The plus and minus symbols can be changed with \verb|\ctikzset| of the keys \IndexKey{amplifiers/plus} and \IndexKey{amplifiers/minus} (which defaults to the math mode plus or minus cited before), or using the styles \IndexKey{amp plus} and \IndexKey{amp minus}.
 
 The font used is set in several keys, but you can change it globally with \IndexKey[amp symbol font]{}\texttt{\textbackslash tikzset\{amp symbol font\}}, which has a default of 10-point  (in \LaTeX, and the corresponding one in \ConTeXt). You can change it for example with
@@ -6637,7 +6778,9 @@ If you want different symbols for input and output you can use a null symbol and
 \end{circuitikz}
 \end{LTXexample}
 
-\paragraph{Input and output pins length.} The length of the wires that extends outside the main amplifier shape is not easily changed globally. You can use a trick\footnote{See the discussion with \href{https://github.com/circuitikz/circuitikz/issues/645}{user @erwindenboer on GitHub};notice that this method is using internal keys and can stop working in the future.} though if you want to remove them completely:
+\paragraph{Input and output pins length.}
+\label{par:input-and-output-pin-lengths}
+The length of the wires that extends outside the main amplifier shape is not easily changed globally. You can use a trick\footnote{See the discussion with \href{https://github.com/circuitikz/circuitikz/issues/645}{user @erwindenboer on GitHub};notice that this method is using internal keys and can stop working in the future.} though if you want to remove them completely:
 the size of an amplifier (included the pins) is set by the \texttt{circuitikz} key \texttt{tripoles/\emph{amplifier style}/width} and the size of the body of the amplifier, relative to it, is set by the key\texttt{tripoles/\emph{amplifier style}/port width}.
 Making the latter equal to one will set the length of the pin to zero\IndexKey[amplifier pin length]{}; if you want to maintain the same aspect ratio of the shape you need to compensate with the width.
 
@@ -6657,6 +6800,7 @@ For example, for the normal operational amplifier the key \IndexKey{tripoles/op 
 \end{LTXexample}
 
 \paragraph{Main amplifier label.} The amplifier label (given as the text  of the node) is normally more or less centered in the shape (in the case of the triangular shape, it is shifted a bit to the left to \emph{seem} visually centered); since version \texttt{1.1.0} you can move it at the left side plus a fixed offset setting the key \IndexKey{component text} or the style with the same name to \texttt{left}; by default the key is \texttt{center}.
+\label{par:main-amplifier-label}
 You can change the offset with the key \IndexKey{left text distance} (default \texttt{0.3em}; you must use a length here). These parameters are shared with IEEE-style logic ports.
 
 \begin{LTXexample}[varwidth=true]
@@ -6675,6 +6819,7 @@ You can change the offset with the key \IndexKey{left text distance} (default \t
 These keys are also used for the positioning of the labels in the label positioning of IEEE logic gates (see~\ref{sec:ieeestdports}).
 
 \paragraph{European-style amplifier customization.}
+\label{par:european-style-amplifier}
 Thanks to the suggestions from David Rouvel (\email{david.rouvel@iphc.cnrs.fr}) there are several possible customization for the European-style amplifiers.
 
 Since 0.9.0, the default appearance of the symbol has changed to be more in line with the standard; notice that to have a bigger triangle by default we should require more packages, and I fear {Con\TeX t} compatibility; but see later on how to change it. Notice that the font used for the symbol is defined in \IndexKey{tripoles/en amp/font2} and that the font used for the \texttt{+} and \texttt{-} symbols is  \IndexKey{tripoles/en amp/font}.
@@ -6791,12 +6936,14 @@ and \texttt{1.3.8} for the \texttt{draw only...} option).
 
 
 \subsection{Switches, buttons and jumpers}
+\label{sec:switches-buttons-and}
 
 Switches and buttons come in to-style (the simple ones and the pushbuttons), and as nodes.
 
 The switches can be scaled with the key \IndexKey{switches/scale} (default \texttt{1.0}). Notice that scaling the switches will not scale the poles, which are controlled with their own parameters (see section~\ref{sec:terminals}).
 
 \subsubsection{Traditional switches}
+\label{sec:traditional-switches}
 These are all of the to-style type:
 
 \begin{groupdesc}
@@ -6842,6 +6989,7 @@ while this is a node-style component:
 \end{LTXexample}
 
 \subsubsection{Cute switches}
+\label{sec:cute-switches}
 These switches have been introduced after version 0.9.0, and they come in also in to-style and in node-style, but they are size-matched so that they can be used together in a seamless way.
 
 The path element (to-style) are:
@@ -6863,6 +7011,7 @@ while the node-style components are the single-pole, double-throw (\texttt{spdt}
 
 
 \paragraph{Cute switches anchors}
+\label{par:cute-switches-anchors}
 
 The nodes-style switches have the following anchors:
 
@@ -6912,6 +7061,7 @@ The \texttt{mid} anchor in the cute switches (both path- and node-style) can be 
 \end{LTXexample}
 
 \paragraph{Cute switches customization}
+\label{par:cute-switches-customization}
 
 You can use the key \IndexKey{bipoles/cuteswitch/thickness} to decide the thickness of the switch lever.
 The units are the diameter of the \texttt{ocirc} connector, and the default is \texttt{1}.
@@ -6947,6 +7097,7 @@ Finally, the switches are normally drawn using the \texttt{ocirc} shape, but you
 \end{LTXexample}
 
 \subsubsection{Proximity switches}
+\label{sec:proximity-switches}
 
 \begin{groupdesc}
     \circuitdesc*{proximeter}{proximeter}{text}(hlines nw/135/0.4, hlines ne/45/0.4, hlines sw/-135/0.4, hlines se/-45/0.4, center/-90/0.4)
@@ -6973,6 +7124,7 @@ Notice in the following example that, as ever for node-type shape, the text is n
 \end{LTXexample}
 
 \subsubsection{Rotary switches}
+\label{sec:rotary-switches}
 
 Rotary switches are a kind of generic multipole switches; they are implemented as a strongly customizable element (and a couple of styles to simplify its usage). The basic element is the following one, and it has the same basic anchors of the cute switches, included the access to internal nodes (shown in blue here).
 
@@ -7007,6 +7159,7 @@ Notice that the defaults of the styles are the same as the default values of the
 \end{LTXexample}
 
 \paragraph{Rotary switch anchors}
+\label{par:rotary-switch-anchors}
 
 Rotary switches anchors are basically the same as the cute switches, including access (with the \texttt{\textsl{<node name>}-<anchor name>} notation) to the internal connection nodes. The geographical anchors work as expected, marking the limits of the component.
 
@@ -7074,6 +7227,7 @@ Finally, notice that the value of width for the rotary switches is taken from th
 \end{LTXexample}
 
 \paragraph{Rotary switch customization}
+\label{par:rotary-switch-customization}
 
 Apart from the basic customization seen above (number of channels, etc.) you can change, as in the cute switches, the shape used by the connection points with the parameter \IndexKey{multipoles/rotary/shape}, and the thickness of the wiper with \IndexKey{multipoles/rotary/thickness}; if you specify a negative value here, the wiper is not drawn at all\footnote{Suggested by users \texttt{kabenyuk} and \texttt{cis} on TeX-SX.com; see \href{https://tex.stackexchange.com/questions/755499/circuitkiz-customize-the-style-of-the-rotary-switch-position-display}{this question\&answer for an application}.}(but the anchors, and the additional arrow if you specify it, are still there).
 The optional arrow has thickness equal to the standard bipole thickness \texttt{bipoles/thickness} (default 2).
@@ -7103,6 +7257,7 @@ Finally, the size can be changed using the parameter \IndexKey{tripoles/spdt/wid
 \end{LTXexample}
 
 \subsubsection{Switch arrows\label{sec:switcharrows}}
+\label{sec:switch-arrows-sec}
 
 You can change the arrow tips used in all switches (traditional and ``cute'') with the key \IndexKey{switch end arrow} (by default the key is the word ``\texttt{default}'' to obtain the default arrow, which is \texttt{latexslim}).
 Also you can change the start arrow with the corresponding \IndexKey{switchable start arrow} or \IndexKey{wiper start arrow} (the default value ``\texttt{default}'' is equivalent to \texttt{\{\}}, which means no arrow). The keys are settable with \verb|\ctikzset| as with \verb|\tikzset| (to ease their usage in nodes).
@@ -7148,6 +7303,7 @@ You can also have the option to change the color, relative thickness, and dash p
 \end{LTXexample}
 
 \paragraph{Rotary switch arrows.} You can change the rotary switch arrow shape in the same way as you change the ones in regular switches. Notice however that if you set either \texttt{switch end arrow} or \texttt{switch start arrow} they will be followed only if you have set both arrows with \texttt{<->} or equivalent, otherwise just one will be used.
+\label{par:rotary-switch-arrows}
 
 \begin{LTXexample}[varwidth=true, pos=t]
 \begin{circuitikz}
@@ -7168,11 +7324,13 @@ You can also have the option to change the color, relative thickness, and dash p
 \end{LTXexample}
 
 \subsubsection{Jumpers}
+\label{sec:jumpers}
 
 You can think of jumpers like a kind of switches (they have the same function, just the way of operating them is different).
 \Circuitikz{} has two types of jumper symbols available, the simple ones and the three pins (or two-ways) ones.
 
 \paragraph{Simple jumpers.} These are the most common ones. They come in three variations, bare, open and closed.
+\label{par:simple-jumpers}
 
 \begin{groupdesc}
     \circuitdescbip*[bjumper]{bare jumper}{Bare jumper}{}(in/135/0.6, out/45/0.6)[out.n/90/0.2]
@@ -7207,6 +7365,7 @@ The kind of poles used in the diagram can be changed with the \verb!\ctikzset! k
 \end{LTXexample}
 
 \paragraph{Two-ways (three-pins) jumpers.} In this case, the symbol represent two-ways jumpers (normally, three pins that can be connected in a couple of ways).
+\label{par:two-ways-three}
 
 To maintain flexibility, every possible combination of bare, open or closed is available; but to avoid having to define too much different bipoles, a different approach is used here. You have to specify the style using a different key, namely \IndexKey{tjumper connections}.
 
@@ -7234,6 +7393,7 @@ The option is used as shown in the following example, or by setting the key usin
 \end{LTXexample}
 
 \subsubsection{Solder jumpers.} Solder jumpers are basically jumpers that can be closed or opened on the printed circuit board. Although electrically they behave exactly as jumpers, these are thought to change configurations in a more stable way (to change them from their default connection you have to use a cutter and/or a soldering iron).
+\label{sec:solder-jumpers}
 
 \begin{groupdesc}
     \circuitdescbip[osjumper]{open solder jumper}{Open solder jumper}{}(in/135/0.3, out/45/0.3)
@@ -7258,10 +7418,12 @@ The option is used as shown in the following example, or by setting the key usin
 
 
 \subsection{Logic gates}
+\label{sec:logic-gates}
 
 Logic gates, with two or more input, are supported. Albeit in principle these components are multipoles, the are considered tripoles here, for historical reasons (when they just had two inputs).
 
 \subsubsection{American Logic gates}
+\label{sec:american-logic-gates}
 \begin{groupdesc}
     \circuitdesc*{american and port}{American \textsc{and} port}{}( in 1/180/0.2, in 2/180/0.2, out/0/0.2 )
     \circuitdesc*{american or port}{American \textsc{or} port}{}( bin 1/135/0.2, bin 2/-135/0.2, bout/-45/0.2 )
@@ -7309,6 +7471,7 @@ The transmission gate (also known as ``bowtie'') components are not described in
 \end{groupdesc}
 
 \subsubsection{European Logic gates}
+\label{sec:european-logic-gates}
 \begin{groupdesc}
     \circuitdesc*{european and port}{European \textsc{and} port}{}( in 1/180/0.2, in 2/180/0.2, out/0/0.2 )
     \circuitdesc*{european or port}{European \textsc{or} port}{}( bin 1/135/0.2, bin 2/-135/0.2, bout/-45/0.2 )
@@ -7331,6 +7494,7 @@ Finally, for version \texttt{1.1.0} and up, you can use the style \IndexKey{ieee
 \end{framed}
 
 \subsubsection{Path-style logic ports}
+\label{sec:path-style-logic}
 
 The one-input, one-output ports have a handy path-style equivalent; they are the following:
 
@@ -7369,6 +7533,7 @@ you have to use the border pins to connect the gates.
 \end{LTXexample}
 
 \subsubsection{American ports usage}
+\label{sec:american-ports-usage}
 
 Since version \texttt{1.0.0}, the default shape of the family of american ``or'' ports has changed to a more ``pointy'' one, for better distinguish them from the ``and''-type ports. You can still go back to the previous aspect with the key \IndexKey{american or shape} that can be set to \texttt{pointy} or \texttt{roundy}. The \texttt{legacy} style will enact the old, roundy style also.
 
@@ -7394,6 +7559,7 @@ Since version \texttt{1.0.0}, the default shape of the family of american ``or''
 \end{LTXexample}
 
 \paragraph{American logic port customization}
+\label{par:american-logic-port}
 
 Logic port class is called \texttt{logic ports}, so you can scale them all with \IndexKey{logic ports/scale} (default \texttt{1.0}).
 
@@ -7467,6 +7633,7 @@ You can tweak the appearance of american ``or'' family (\texttt{or}, \texttt{nor
 \end{LTXexample}
 
 \paragraph{American logic port anchors}
+\label{par:american-logic-port-anchors}
 
 These are the anchors for logic ports:
 
@@ -7578,6 +7745,7 @@ This last circuit could be drawn also (and probably in a more natural manner) us
 \end{LTXexample}
 
 \subsubsection{IEEE logic gates usage.}
+\label{sec:ieee-logic-gates}
 
 \begingroup % for IEEE ports
 The rest of this section will assume you have issued the command \verb|\ctikzset{logic ports=ieee}|, so that the short form of the names is used.
@@ -7686,6 +7854,7 @@ Notice the key \IndexKey{component text=left} that moves the label near to the l
 
 
 \paragraph{Stacking and aligning IEEE standard gates.} The standard gates are designed so that they stacks up nicely when positioned using the external leads as anchors. Notice that the ports \textbf{do} have different sizes, but the leads lengths are designed to counter the differences.
+\label{par:stacking-and-aligning}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -7723,6 +7892,7 @@ The single input ports (\texttt{not port}, \texttt{buffer port} and their Schmit
 \end{LTXexample}
 
 \paragraph{IEEE standard ports customization}
+\label{par:ieee-standard-ports}
 
 There are several parameters that can be used to customize the IEEE standard ports, although less than the ones in the legacy american ones --- the basic shape is set to follow the IEEE recommendation. The basic parameters are shown in the following table, and they can be set via \IndexKey[ieeestd ports customizazion]{}\verb|\ctikzset{ieeestd ports/...}|
 
@@ -7777,6 +7947,7 @@ Changing the leads length must be done with a bit of care, because if the length
 \end{LTXexample}
 
 \paragraph{IEEE standard ports anchors} Geographical anchors define the rectangular space that the port is using, included the leads if presents.
+\label{par:ieee-standard-ports-anchors}
 
 \geocoord{ieeestd and port}
 \geocoord{ieeestd xnor port, number inputs=6, inner inputs=2,
@@ -7876,6 +8047,7 @@ The anchors for the tgate's control point are called \texttt{gate} and \texttt{n
 
 
 \subsubsection{European logic port usage}
+\label{sec:european-logic-port}
 
 European logic port are in the same class as american and IEEE-style ones, and they obey the same class modifier. Moreover, you can use the \IndexKey{no inputs pin} as in the other logic ports to suppress input pins.
 
@@ -7903,6 +8075,7 @@ For more complex customization, you can use the two ``blank'' European ports, an
 \end{LTXexample}
 
 \paragraph{European logic port customization} Normally the European-style logic port with inverted output are marked with a small triangle; if you want you can change it with the key \IndexKey{tripoles/european not symbol}; its default is \texttt{triangle} but you can set it to \texttt{circle} like in the following example. As you can see, the circle size is the same as the circuit poles; if you prefer the size used in the IEEE standard ports, you can use set it to \texttt{ieee circle}.
+\label{par:european-logic-port}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}[european]
@@ -7929,6 +8102,7 @@ You can switch to this if you like, with the key \IndexKey{european xnor style} 
 \end{LTXexample}
 
 \paragraph{European logic port anchors} The anchors are basically the same as in the american-style ports.
+\label{par:european-logic-port-anchors}
 
 \bigskip
 \begin{circuitikz} [american]
@@ -8026,6 +8200,7 @@ You can also  add ``vertical'' asynchronous set and reset (active low) adding th
 \end{groupdesc}
 
 \subsubsection{Custom flip-flops}
+\label{sec:custom-flip-flops}
 
 If you like different pin distributions, you can easily define different flip-flops to your taste. For example, somebody likes the clock pin on the bottom pin:
 
@@ -8066,6 +8241,7 @@ The standard definition of the default flip-flops are the following (in the file
 
 
 \subsubsection{Flip-flops anchors}
+\label{sec:flip-flops-anchors}
 
 Flip-flops have all the standard geometrical anchors, although it should be noticed that the external pins are \emph{outside} them. The pins are accessed by the number \texttt{1} to \texttt{6} for the lateral ones (like in DIP chips), and with the \texttt{up} and \texttt{down} anchors for the top and bottom one. All the pins have the ``border'' variant (add a \texttt{b} in front of them, no spaces).
 
@@ -8196,6 +8372,7 @@ Or a Arithmetic Logic Unit (again, already defined by default):
 \end{groupdesc}
 
 \subsubsection{Mux-Demux: design your own shape}
+\label{sec:mux-demux-design}
 
 \begin{minipage}{0.45\linewidth}
 \RaggedRight
@@ -8256,6 +8433,7 @@ All the distances are multiple of \IndexKey{multipoles/muxdemux/base len} (defau
 \end{LTXexample}
 
 \subsubsection{Mux-Demux customization}
+\label{sec:mux-demux-customization}
 
 Mux-demuxes have the normal parameters of their class (\texttt{muxdemuxes}):  you can scale them with the \verb|\ctikzset| key \IndexKey{muxdemuxes/scale}, control the border thickness with \IndexKey{muxdemuxes/thickness} and the default fill color with  \IndexKey{muxdemuxes/fill} --- they are set, by default, at the same values than \texttt{logic ports}.
 
@@ -8293,6 +8471,7 @@ with the \texttt{b\emph{x}pin \textit{n}} anchors for the suppressed pins.
 \end{LTXexample}
 
 \subsubsection{Mux-Demux anchors}
+\label{sec:mux-demux-anchors}
 
 Mux-demuxes have a plethora of anchors. As in the case of chips, the geographic anchors mark the rectangle occupied by the component, without taking into account the pin leads.
 
@@ -8364,6 +8543,7 @@ Additionally, you can set also \emph{border labels} on the four borders (more or
 All of these labels and symbols are added by specifying them in a \IndexKey[muxdemux label]{muxdemux label=\{\dots\}} clause. Notice that the key specified there are not checked for validity; if you misspell any of that, it will be simply ignored.
 
 \paragraph{Inner pin labels} will be printed in the inside of the shape, with the font specified in the \verb|\ctikzset| key \IndexKey{muxdemux/inner label font} (default is \verb|\tiny| in \LaTeX, other engine can have it different --- better set it in case of doubt) and with a padding setting with the keys \IndexKey{muxdemux/inner label xsep} and  \IndexKey{muxdemux/inner label ysep} (respectively for horizontal and vertical shifts; default for both \texttt{2pt}). You can also use the key \IndexKey{muxdemux/inner label sep} to set both at the same time.
+\label{par:inner-pin-labels}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -8399,6 +8579,7 @@ If you want some specific label rotated in a different way, you have to do it ma
 \end{LTXexample}
 
 \paragraph{Outer pin labels} will be printed on the outside of the pin position --- in the case of left and right pins, either above (``up'', identified by \texttt{LU} and \texttt{RU} labels), or below (``down'', \texttt{LD} and \texttt{RD} labels); in the case of top and bottom pin, either at the left (\texttt{TL} and \texttt{BL}) or at the right (\texttt{TR} and \texttt{BR}). The font is specified in the key \IndexKey{muxdemux/outer label font} (default \verb|\tiny|) and the padding with the corresponding \IndexKey{muxdemux/outer label xsep} and  \IndexKey{muxdemux/outer label ysep} (default for both \texttt{2pt}), or \IndexKey{muxdemux/outer label sep} to set both at the same time.
+\label{par:outer-pin-labels}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -8423,6 +8604,7 @@ If you want some specific label rotated in a different way, you have to do it ma
 \end{LTXexample}
 
 \paragraph{Border labels} are drawn \emph{before} the other labels along the external border (to be exact: in north, south, east, and west position) of the component.
+\label{par:border-labels}
 You set them with the key \texttt{N}, \texttt{S}, \texttt{W}, and \texttt{E} for the outer position, and \texttt{Ni}, \texttt{Si}, \texttt{Wi}, and \texttt{Ei} for the inner ones.
 The font is specified in the key \IndexKey{muxdemux/border label font} (default \verb|\tiny|) and the padding with the corresponding \IndexKey{muxdemux/border label xsep} and  \IndexKey{muxdemux/border label ysep} (default for both \texttt{2pt}), or \IndexKey{muxdemux/border label sep} to set both at the same time.
 \begin{LTXexample}[varwidth=true]
@@ -8446,6 +8628,7 @@ The font is specified in the key \IndexKey{muxdemux/border label font} (default 
 As you can see, you can locally change any label in a specific instance.
 
 \paragraph{Clock and negation symbols} are not exactly labels, but they can be added with the same mechanism. There are four symbols available:
+\label{par:clock-and-negation}
 \begin{description}
     \item [clock wedge:] activated by the key \texttt{c} followed by the position (for example, \texttt{cL2} will set the clock wedge on the second left pin); its size can be changed with the key \IndexKey{muxdemux/clock wedge size} (default \texttt{0.2}, relative to \texttt{muxdemux/base len});
     \item [not ball:] activated  by the key \texttt{n} followed by the position (for example, \texttt{nR1} will set the negation circle on the first right pin); the type and shape of the ball will depend on the logic port negation in use (basically it will use a \texttt{circleinv} shape unless you are using european ports with the small \texttt{ocirc} negation symbol);
@@ -8504,6 +8687,7 @@ Similarly, there is also a \texttt{circleinv} shape, which is basically the same
 \end{LTXexample}
 
 \subsubsection{Adding a background drawing to the muxdemux}
+\label{sec:adding-a-background}
 
 In a similar way to the oscilloscope waveform, you can add a drawing to the \texttt{muxdemux} component, provided you use basic-level \texttt{pgf} commands. You have to define a \texttt{.code} key named \IndexKey[muxdemux bgpicture]{bgpicture} in the \texttt{muxdemux def} definitions, as in the following example. The coordinate system is changed so that the horizontal axis of the shape is mapped between \SI{-1}{\cm} and \SI{+1}{\cm} and the origin at the center; the vertical extent will then depend on the form factor of the \texttt{muxdemux}: for example, the vertical coordinate of the top left border will be $\SI{1}{\cm}\cdot{\mathtt{Lh}/\mathtt{w}}$.
 
@@ -8550,6 +8734,7 @@ For more complex things, consider using a normal macro that draws on the backgro
 
 
 \subsubsection{Mux-Demux special usage}
+\label{sec:mux-demux-special}
 
 You can use these shapes  to draw a lot of symbols that are unavailable; using a bit of \LaTeX{} command trickery you can use them quite naturally too\dots. Examples with personalized amplifier shapes are listed in section~\ref{sec:muxdemux-amplis}.
 
@@ -8633,6 +8818,7 @@ In a version of \Circuitikz{} better or equal to \texttt{v1.6.5}, you can do thi
 \end{groupdesc}
 
 \subsubsection{DIP and QFP chips customization}
+\label{sec:dip-and-qfp}
 
 You can scale chips with the key \IndexKey{chips/scale}. As ever, that will \textbf{not} scale text size of the labels, when they are printed.
 
@@ -8729,6 +8915,7 @@ with the \texttt{bpin \textit{n}} anchors for the suppressed pins.
 \end{LTXexample}
 
 \subsubsection{Chip anchors}
+\label{sec:chip-anchors}
 
 Chips have anchors on pins and global anchors for the main shape.
 The pin anchors to be used to connect wires to the chip are called \texttt{pin 1}, \texttt{pin 2} , \dots, with just one space between \texttt{pin} and the number.
@@ -8780,6 +8967,7 @@ Notice that the main label has to be (counter-) rotated manually in this case.
 \end{LTXexample}
 
 \subsubsection{Chip special usage}
+\label{sec:chip-special-usage}
 
 You can use chips to have special, personalized blocks.
 Look at the following example, which is easily put into a macro.
@@ -8806,6 +8994,7 @@ Look at the following example, which is easily put into a macro.
 \end{circuitikz}\end{LTXexample}
 
 \subsection{Seven segment displays}
+\label{sec:seven-segment-displays}
 
 \begin{groupdesc}
     \circuitdesc*{bare7seg}{Seven segment display}{}
@@ -8836,6 +9025,7 @@ The option \texttt{box} (can be \texttt{on} or \texttt{off}) simply toggles the 
 You can use these option with the ``bare'' object \texttt{bare7seg} and the keys \IndexKey{seven seg/bits} (default \texttt{0000000}), \IndexKey{seven seg/dot} (default \texttt{none}) and \IndexKey{seven seg/box} (default \texttt{off}); there is no option equivalent to the \texttt{val} interface.
 
 \subsubsection{Seven segments anchors}
+\label{sec:seven-segments-anchors}
 
 These are the anchors for the seven-segment displays; notice that when the \texttt{dot} parameter is not \texttt{none}, the cell is a bit wider at the right side.
 
@@ -8854,6 +9044,7 @@ e/-129/0.4, f/145/0.4, g/190/0.4, dot/-45/0.2)
 \endgroup
 
 \subsubsection{Seven segments customization}
+\label{sec:seven-segments-customization}
 
 You can scale the seven segment  display with the key \IndexKey{displays/scale}. This will scale the size of the digit, but not the absolute sizes shown below --- if you want them to scale, yo have to do it manually.
 
@@ -8886,6 +9077,7 @@ A couple of examples are shown below.
 
 
 \section{Labels, voltages and currents}
+\label{sec:labels-voltages-and}
 
 You can add ``decorations'' to the path-style components; there are basically five types of them: labels, annotations, voltages, currents, and flows. Let's see an example of all of them\dots
 
@@ -8939,6 +9131,7 @@ Long names/styles for the bipoles can be used, of course, and there is a special
 Since Version 0.7, beside the original label (\IndexKey[l (label)]{l})  option, there is a new option to place a second label, called annotation (\IndexKey[a (annotation]{a}) at each bipole.
 
 \subsubsection{Label and annotation position}
+\label{sec:label-and-annotation}
 When drawing a component left-to-right, the label \texttt{l} is by default above the component, and the annotation \texttt{a} is by default below it. The position of annotations and labels can be adjusted adding the characters \verb|_| or \verb|^| to the key.
 
 \begin{LTXexample}[varwidth=true]
@@ -9017,6 +9210,7 @@ These two characters can be protected from the option parser using an extra set 
 
 
 \subsubsection{Labels and annotation orientation.}
+\label{sec:labels-and-annotation}
 The default orientation of labels is controlled by the options \IndexKey{smartlabels}, \IndexKey{rotatelabels} and \IndexKey{straightlabels} (or the corresponding \IndexKey{label/align} keys). Here are examples to see the differences:
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -9047,6 +9241,7 @@ The default orientation of labels is controlled by the options \IndexKey{smartla
 \end{LTXexample}
 
 \subsubsection{Stacked (two lines) labels.}
+\label{sec:stacked-two-lines}
 
 When using \texttt{circuitikz} in LaTeX, you can use stacked (two lines) labels.  The example should be self-explanatory: the two lines are specified as \IndexKey{l2=}\emph{line1}\texttt{ and }\emph{line2}. You can use the keys \IndexKey{l2 halign} to control horizontal position (\texttt{l}eft, \texttt{c}enter, \texttt{r}ight) and \IndexKey{l2 valign} to control the vertical one (\texttt{b}ottom, \texttt{c}enter, \texttt{t}op). The default values for alignments are thought for vertical components (where the stacke labels are more natural), in other positions you have to force them.
 
@@ -9476,6 +9671,7 @@ As an alternative for the current arrows, you can also use the following ``flows
 \end{LTXexample}
 
 \subsection{Voltages}
+\label{sec:voltages}
 See the introduction at Currents and Voltages (section~\ref{curr-and-volt}, page \pageref{curr-and-volt}) for the default direction of the voltage and currents.
 
 Voltages come in four different styles: European (with curved or straight arrows) and American (with signs that can stay near the wire or raised at the label level).
@@ -9483,6 +9679,7 @@ Voltages come in four different styles: European (with curved or straight arrows
 Direction and position of the symbols are controlled in the same way as for the currents (see section~\ref{sec:currents}) with the \verb|_^<>| symbols.
 
 \subsubsection{European style} The default, with curved arrows. Use option \IndexKey{europeanvoltage} or style \IndexKey{european voltages}, or setting (even locally) \IndexKey[voltage, european]{voltage=european}.
+\label{sec:european-style}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}[european voltages]
@@ -9573,6 +9770,7 @@ The following results from using the option \IndexKey{americanvoltage} or the st
 \end{LTXexample}
 
 \subsubsection{Straight European style} Using straight arrows. Use option \IndexKey{straightvoltages} or style \IndexKey{straight voltages}, or setting (even locally) \IndexKey[voltage, straight]{voltage=straight}.
+\label{sec:straight-european-style}
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}[straight voltages]
@@ -9622,6 +9820,7 @@ And you can override that with \texttt{bipole/is voltage} keeping into account t
 \end{LTXexample}
 
 \subsubsection{American style}
+\label{sec:american-style}
 Use option \IndexKey{americanvoltage} or set \IndexKey{american voltages} or use the option \IndexKey[voltage, american]{voltage=american}.
 
 \begin{LTXexample}[varwidth=true]
@@ -9662,6 +9861,7 @@ Use option \IndexKey{americanvoltage} or set \IndexKey{american voltages} or use
 
 
 \subsubsection{Raised American style}
+\label{sec:raised-american-style}
 
 Since version \texttt{1.2.1}, ``raised'' American voltages are available; to use them, set the style \IndexKey{raised voltages} or use the option \IndexKey[voltage, raised]{voltage=raised}.
 This is a version of the American-style voltage where the signs are raised to the level of the label.
@@ -9895,6 +10095,7 @@ The available styles and commands are \IndexKey{bipole label style}, \IndexKey{b
 \end{LTXexample}
 
 \subsection{Accessing labels text nodes}
+\label{sec:accessing-labels-text}
 
 Since 0.9.5, you can access all the labels nodes\footnote{The access to \texttt{label}s and \texttt{annotation}s was present before, but not documented.} using special node names. So, if you use \texttt{name} to give a name to the bipole node, you can also access the following nodes: \texttt{namelabel} (notice: no space nor any other symbol between \texttt{name} and \texttt{label}!), \texttt{nameannotation}, \texttt{namevoltage}, \texttt{namecurrent} and \texttt{nameflow}. Notice that the node names are available only if the bipole has an anchor or an annotation, of course.
 
@@ -10003,6 +10204,7 @@ Since \texttt{v1.4.1} you can also keep the voltage, current and flow labels and
 \end{LTXexample}
 
 \subsubsection{Activating the anchors}
+\label{sec:activating-the-anchors}
 
 You will have access to the anchors for voltages, currents and flows when, in the bipole, you have a \texttt{v}, \texttt{i}, \texttt{f} specification (one or more of them). If you have a \texttt{name} key, to give the bipole a name, they will be easily accessible. Without a \texttt{name} key, a temporary name is generated, to be used by the ``automatic v-i-f'' mechanism (see~\ref{sec:automatic-vif}). Otherwise, the anchors and the associated functions are not defined.
 To suppress the normal output of the \texttt{v}, \texttt{i}, \texttt{f} keys, you can use such keys without any argument, like in the previous example; notice that the \verb|_| and \verb|^| modifiers work as expected.
@@ -10177,6 +10379,7 @@ You can then define a kind of ``power flow'' style:
 
 
 \subsubsection{Fixed voltage arrows: an example of advanced voltage usage}
+\label{sec:fixed-voltage-arrows}
 
 \begingroup % to contain example definitions
 An interesting application of the advanced voltage is to have fixed length straight voltage arrows.\footnote{This was suggested by users  \texttt{Franklin} and \texttt{Zarko} in \href{https://tex.stackexchange.com/questions/574576/circuitikz-straight-voltage-arrows-with-fixed-length}{a question on \texttt{tex.stackexchange.com}}}
@@ -10474,6 +10677,7 @@ You can use this trick even with styles with more than one argument, but then yo
 You can see a full example at~\ref{sec:example-auto-vif}.
 
 \subsection{Integration with {\ttfamily siunitx}}
+\label{sec:integration-with-siunitx}
 
 If the option {\ttfamily siunitx} is active\footnote{This option is still experimental --- personally (Romano) I would advise using the normal \texttt{\textbackslash SI\{\}\{\}} syntax, or the \texttt{\textbackslash qty\{\}\{\}} one for \IndexKey{siunitx} \texttt{v3} and newer.}, then the following are equivalent (this will \textbf{not} work in \ConTeXt{}, it has been disabled in upstream \ConTeXt, in favor of \href{https://www.pragma-ade.nl/general/manuals/units-mkiv.pdf}{its own \texttt{units} module}):
 
@@ -10679,6 +10883,7 @@ You also have the similar keys for the ``full'' poles (albeit they are probably 
 
 
 \subsection{Mirroring and Inverting}
+\label{sec:mirroring-and-inverting}
 Bipole paths can also be mirrored and inverted (or reverted) to change the drawing direction.
 
 \begin{LTXexample}[varwidth=true]
@@ -10724,6 +10929,7 @@ Placing labels, currents and voltages also works, please note, that mirroring an
 
 
 \subsection{Putting them together}
+\label{sec:putting-them-together}
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
    \draw (0,0) to[R=1<\kilo\ohm>,
@@ -10812,6 +11018,7 @@ Nevertheless, if you really need to do strange things with colors you can read o
 Moreover, in some cases, also the engine you are using (as \texttt{pdflatex}, \texttt{xelatex}, and so on) can impact corner cases (or even not so corner, like in \href{https://tex.stackexchange.com/q/709273/38080}{american-style voltage source signs}).
 
 \subsection{Shape colors}
+\label{sec:shape-colors}
 
 The color of the components is stored in the key \verb!\circuitikzbasekey/color!. Circui\TikZ\ tries to follow the color set in \TikZ, although sometimes it fails. The following circuit will fail to draw the circuit in red if the patching of the inner commands of \TikZ{} fails, like for example in \ConTeXt{}.
 
@@ -10890,6 +11097,7 @@ In those cases, the only way out is to specify different paths (and/or using adv
 \end{LTXexample}
 
 \subsection{Fill colors}
+\label{sec:fill-colors}
 
 Since version 0.9.0, you can also fill most shapes with a color (the manual specifies which ones are fillable or not). The syntax is quite intuitive:
 
@@ -10944,6 +11152,7 @@ You can combine shape colors with fill colors, too, but you should use the expli
 \end{LTXexample}
 
 \subsubsection{Background colors different from white}
+\label{sec:background-colors-different}
 
 Notice also that the connection point is always filled, and the color \emph{tries} to follow the color of the filling of the component (but look at section~\ref{sec:transparent-poles}). Moreover, if you want to pass fill transparency down to path-style components, you \emph{have} to put it into the options of the \verb|\draw| command.
 
@@ -10996,6 +11205,7 @@ Also, since \texttt{v1.2.3}, you can set the key \IndexKey{open poles fill} (def
 
 
 \section{FAQ: Frequently asked questions}
+\label{sec:faq-frequently-asked}
 
 \def\faqQ{\par\medskip\noindent\textbf{Q: }}
 \def\faqA{\par\noindent\textbf{A: }}
@@ -11216,6 +11426,7 @@ Version 1.3.3 fixes the direction of the arrows in tunable elements; before this
 
 
 \section{Defining new components}
+\label{sec:defining-new-components}
 
 \begin{quote}
     Per me si va ne la città dolente,\\
@@ -11230,6 +11441,7 @@ Version 1.3.3 fixes the direction of the arrows in tunable elements; before this
 \textbf{Big fat warning}: this material is reserved for \TeX-hackers; do not delve into this if you have no familiarity with (at least) a bit of core \TeX{} programming and to the basic \TikZ{} layer. You have been warned.
 
 \subsection{Suggested setup}
+\label{sec:suggested-setup}
 
 Notice: the source code has been reorganized after release 1.2.7; if you are bound to use an older version check the corresponding manual.
 
@@ -11286,6 +11498,7 @@ The command \verb|circuitdescbip*| is used to show the component description (yo
 From now on, you can add the new commands for the component between the \verb|\makeatletter| and \verb|\makeatother| commands and, modifying the example, check the results.
 
 \subsection{Path-style component}
+\label{sec:path-style-component}
 
 Let's define for example a path style component, like the one suggested by the user \texttt{@alex} on \href{https://tex.stackexchange.com/questions/484268/combined-spring-damper-in-circuitikz}{\TeX{} stackexchange site}. The component will be a mix of the \texttt{damper} and the \texttt{spring} components already present.
 
@@ -11438,6 +11651,7 @@ Now you can save all the code between the \verb|\makeatletter| and \verb|\makeat
 As a final note, notice that the \texttt{viscoe} element is already added to the standard package.
 
 \subsection{Node-style component}
+\label{sec:node-style-component}
 
 Adding a node-style component is much more straightforward. Just define it by following examples in, for example, \texttt{pgfcirctripoles.tex} or the other files; be careful that you should define all the geographical anchors of the shape if you want that the \TikZ{} positioning options (like \texttt{left}, \texttt{above}, etc.) behave correctly with your component.
 
@@ -11490,6 +11704,7 @@ which means that, by  default, arrows parameters are reset to the default (no sh
 No \texttt{...@end@draw@...} hook is defined by default.
 
 \subsubsection{Finishing your work}
+\label{sec:finishing-your-work}
 
 Once you have a satisfactory element, you should
 \begin{itemize}
@@ -11501,10 +11716,12 @@ Once you have a satisfactory element, you should
 The best way of contributing is forking the project, adding your component in the correct files, modifying the manual and creating a pull request for the developers to merge.  Anyway, if this is a problem, just open an issue and someone (when they have time\dots) will answer.
 
 \section{Examples}
+\label{sec:examples}
 
 Here a series of examples, contributed by several people, is shown with their code.
 
 \subsection{A red diode}
+\label{sec:a-red-diode}
 
 \begin{LTXexample}[pos=t,varwidth=true]
 \begin{circuitikz}[scale=1.4]\draw
@@ -11520,6 +11737,7 @@ Here a series of examples, contributed by several people, is shown with their co
 
 \newpage
 \subsection{Using the (experimental) \texttt{siunitx} syntax}
+\label{sec:using-the-experimental}
 
 \begin{LTXexample}[pos=t,varwidth=true]
 \begin{circuitikz}[scale=1.2]\draw
@@ -11553,6 +11771,7 @@ Here a series of examples, contributed by several people, is shown with their co
 
 \newpage
 \subsection{Photodiodes}
+\label{sec:photodiodes}
 
 \begin{LTXexample}[pos=t,varwidth=true]
 \begin{circuitikz}[scale=1]\draw
@@ -11563,6 +11782,7 @@ Here a series of examples, contributed by several people, is shown with their co
 \end{LTXexample}
 
 \subsection{A Sallen-Key cell}
+\label{sec:a-sallen-key}
 
 \begin{LTXexample}[pos=t,varwidth=true]
 \begin{circuitikz}[scale=1]\draw
@@ -11578,6 +11798,7 @@ Here a series of examples, contributed by several people, is shown with their co
 
 \newpage
 \subsection{Mixing circuits and graphs}
+\label{sec:mixing-circuits-and}
 
 \begin{LTXexample}[pos=t,varwidth=true]
 \begin{circuitikz}[scale=1.2, american]\draw
@@ -11606,6 +11827,7 @@ Here a series of examples, contributed by several people, is shown with their co
 
 \newpage
 \subsection{RF circuit}
+\label{sec:rf-circuit}
 
 \begin{LTXexample}[pos=t,varwidth=true]
     \begin{circuitikz}[scale=1]
@@ -11638,6 +11860,7 @@ Here a series of examples, contributed by several people, is shown with their co
 \end{LTXexample}
 
 \subsection{A styled low noise input stage}
+\label{sec:a-styled-low}
 
 \ctikzloadstyle{romano}
 \scalebox{0.707}{%
@@ -11768,6 +11991,7 @@ Here a series of examples, contributed by several people, is shown with their co
 
 \newpage
 \subsection{3-phases block schematic}
+\label{sec:3-phases-block}
 
 \begin{LTXexample}[varwidth=true,pos=t]
 \begin{circuitikz}[smallR/.style={european resistor, resistors/scale=0.5}]
@@ -11888,6 +12112,7 @@ Here a series of examples, contributed by several people, is shown with their co
 
 % % changelog.tex will be updated by makefile from CHANGELOG.md
 \section{Changelog and Release Notes}
+\label{sec:changelog-and-release}
 \IfFileExists{changelog.tex}
 {\sloppy\input{changelog.tex}}
 {The file changelog.tex was not found, run 'make changelog' at toplevel to generate it with pandoc from CHANGELOG.md}
