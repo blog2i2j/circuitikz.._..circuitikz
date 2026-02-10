@@ -1,6 +1,10 @@
 <!--- CircuiTikz - Changelog --->
 The major changes among the different CircuiTikZ versions are listed here. See <https://github.com/circuitikz/circuitikz/commits> for a full list of changes.
 
+* Version 1.8.6 (unreleased)
+
+    - Bump version number
+
 * Version 1.8.5 (2026-02-4)
 
     The main highlight of this version is a new mechanism for managing advanced (that is, user-defined) voltage, current, and flow elements. Additionally, a new set of shapes for ideal filter blocks has been added.
