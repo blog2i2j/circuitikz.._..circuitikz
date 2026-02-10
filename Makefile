@@ -46,7 +46,13 @@ manual-git-fail:
 	rm -f doc/$(CTIKZ_GIT_FILENAME)
 	exit 1
 
-manual: manual-latex manual-context clean
+.PHONY: manual
+.NOTPARALLEL: manual
+manual:
+	$(MAKE) clean
+	$(MAKE) changelog
+	$(MAKE) manual-context
+	$(MAKE) manual-latex
 
 manual-context: changelog
 ifdef HAVE_CONTEXT

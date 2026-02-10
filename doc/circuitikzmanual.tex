@@ -12,17 +12,39 @@
 %
 
 \documentclass[a4paper, titlepage]{article}
+\usepackage{iftex}
+\usepackage{etoolbox}% for the fake-lwarp boolean
 
-\def\modern{
-	\usepackage{fontspec}
-	\defaultfontfeatures{
-      Ligatures=TeX,
-      Numbers=OldStyle,
-      Mapping=tex-text,
-      SmallCapsFeatures={LetterSpace=8, Numbers=OldStyle}
-	}
-	% \setmainfont{Gentium Book Basic}
-}
+\ifPDFTeX
+  % pdfLaTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc} % optional on newer LaTeX, harmless
+  \usepackage{lmodern}
+\else
+  % XeLaTeX or LuaLaTeX
+  \usepackage{fontspec}
+  \defaultfontfeatures{
+    Ligatures=TeX,
+    Numbers=OldStyle,
+    Mapping=tex-text,
+    SmallCapsFeatures={LetterSpace=8, Numbers=OldStyle}
+  }
+  % \setmainfont{Gentium Book Basic}
+\fi
+%%
+%%
+%% define a couple of fake conditional for lwarp support
+%%
+\providebool{warpingHTML}
+\providebool{warpingprint}
+% Default: PDF build
+\boolfalse{warpingHTML}
+\booltrue{warpingprint}
+%
+%% The early lwarp code will be inserted here.
+%% {{{lwarp-early}}}
+\InputIfFileExists{ctkiz-lwarp-early.tex}{}{}
+%
 % to check thanks to Max Chernoff https://tex.stackexchange.com/a/705682/38080
 % \usepackage[version=latest]{pgf}
 % do not split this line in more lines, otherwise "make git-manual" will show the wrong version
@@ -30,20 +52,6 @@
 % Let this be the same as the chosen voltage direction for coherence
 \def\chosenvoltoption{RPvoltages}
 %
-\usepackage{ifxetex,ifluatex}
-\ifxetex
-	\modern
-\else
-	\ifluatex
-		\modern
-	\else
-	% pdflatex
-		\usepackage[T1]{fontenc}
-		\usepackage[utf8]{inputenc}
-        \usepackage{lmodern}
-		% \usepackage{babel}
-	\fi
-\fi
 \def\tightlist{} % needed for latest pandoc-versions(pandoc used for including changelog)
 \usepackage{microtype}
 
@@ -53,6 +61,11 @@
 \renewcommand*\seealso[2]{#2, \emph{\alsoname} #1}
 % Local utilities packages
 \usepackage{ctikzmanutils}
+%
+%
+%% The late lwarp code will be inserted here.
+%% {{{lwarp-late}}}
+\InputIfFileExists{ctkiz-lwarp-late.tex}{}{}
 %
 
 \begin{document}
@@ -66,6 +79,11 @@
     Romano Giannetti (\email{romano.giannetti@gmail.com})}
 \date{\today}
 
+%%% the email-in-tikz explodes when trying to convert to HTML
+\newcommand{\emailintikz}[1]{%
+  \ifbool{warpingHTML}{\texttt{#1}}{\email{#1}}%
+}
+
 \pretitle{\begin{center}%
     \begin{circuitikz}
         \draw (0,0) node[dipchip, rotate=90, num pins=40, fill=cyan!20!white](C){%
@@ -75,22 +93,22 @@
         \draw (C.pin 7) to[D, fill=blue] ++(0,-1) -- ++(0.5,0) to[R] ++(2,0)
             coordinate(a1) to[short, -*]
             node[above left, blue, pos=1]{Massimo A. Redaelli}
-            node[below left, pos=1]{\email{m.redaelli@gmail.com}}
+            node[below left, pos=1]{\emailintikz{m.redaelli@gmail.com}}
             (a1-|GND);
             \draw (C.pin 5) to[D, fill=red] ++(0,-3)-- ++(0.5,0) to[R] ++(2,0)
             coordinate(a2) to[short, -*]
             node[above left, blue, pos=1]{Stefan Lindner}
-            node[below left, pos=1]{\email{stefan.lindner@fau.de}}
+            node[below left, pos=1]{\emailintikz{stefan.lindner@fau.de}}
             (a2-|GND);
             \draw (C.pin 3) to[D, fill=green] ++(0,-5)-- ++(0.5,0) to[R] ++(2,0)
             coordinate(a3) to[short, -*]
             node[above left, blue, pos=1]{Stefan Erhardt}
-            node[below left, pos=1]{\email{stefan.erhardt@fau.de}}
+            node[below left, pos=1]{\emailintikz{stefan.erhardt@fau.de}}
             (a3-|GND);
             \draw (C.pin 1) to[D, fill=yellow] ++(0,-7)-- ++(0.5,0) to[R] ++(2,0)
             coordinate(a4) to[short, -*]
             node[above left, blue, pos=1]{Romano Giannetti}
-            node[below left, pos=1]{\email{romano.giannetti@gmail.com}}
+            node[below left, pos=1]{\emailintikz{romano.giannetti@gmail.com}}
             (a4-|GND);
     \end{circuitikz}
     \par\bigskip\vfill}
@@ -156,9 +174,9 @@ Anyway, the easiest way of using whichever version of \Circuitikz\ is to point t
 
 Now you can just put this file in your local \texttt{texmf} tree, if you have one, or simply adding it into the same directory where your main file resides, and then use
 
-\begin{verbatim}
+\begin{lstlisting}
     \usepackage[...options...]{circuitikzgit}
-\end{verbatim}
+\end{lstlisting}
 
 instead of \texttt{circuitikz}. This is also advantageous for ``future resilience''; the authors try hard not to break backward compatibility with new versions, but sometimes, things happen.
 
@@ -273,17 +291,17 @@ If unsure, you can check the version in your local installation by using the mac
         The change avoids problems when using barriers on short pieces of path or as nodes, cf.~the details in \href{https://github.com/circuitikz/circuitikz/pull/835}{the relevant pull request on GitHub}.
         The new default values are chosen such that the components are identical to the default appearance before the change.
     \item Since version \texttt{1.6.3} the default symbol for the minus sign changed from the simple \verb|$-$| to \verb|$\vphantom{+}-$|. The reason is that in some (most?) font, the minus sign is enclosed in a smaller bounding box than the plus sign and that leads to poorly aligned minus symbols in \texttt{american} and \texttt{raised} voltages. This was not noticed before because the two symbols share the same bounding box in the default Computer Modern font. You can look at \href{https://github.com/circuitikz/circuitikz/issues/721}{this issue on GitHub} for more details; if you want to go back to the previous definitions you can write
+        % notice that you have to close listings in items on the last line
+        %see https://tex.stackexchange.com/a/167315/38080
         \begin{lstlisting}
             \ctikzset{amplifiers/minus=$-$}
             \ctikzset{bipoles/cvsourceam/inner minus=$-$}
             \ctikzset{bipoles/vsourceam/inner minus=$-$}
-            \ctikzset{voltage/american minus=$-$}
-        \end{lstlisting}
+            \ctikzset{voltage/american minus=$-$}\end{lstlisting}
     \item Since version \texttt{1.6.3} the size of the solder dot and the connection dot of the body diodes for transistors has changed (now they are the same and are configurable). The new default scale of~\texttt{0.7} makes the dots \emph{area} more or less one half the one of the external connections. You can go back to the previous values with
         \begin{lstlisting}
             \ctikzset{transistor bodydiode/dot scale=0.5,
-                transistor solderdot scale=1.0}
-        \end{lstlisting}
+                transistor solderdot scale=1.0}\end{lstlisting}
     \item Since version \texttt{1.6.2} \texttt{siunitx}  will \textbf{not}  work anymore with \ConTeXt{} (it was a very poor simulation layer, anyway); it has been disabled in upstream \ConTeXt, in favor of \href{https://www.pragma-ade.nl/general/manuals/units-mkiv.pdf}{its own \texttt{units} module}.
     \item Version \texttt{1.6.0} has a big rewrite of the block's code. In principle the changes are backward-compatible, but there were several bugs (wrong anchors, errors with rotations, and so on) that have been fixed in the process.
     \item Since \texttt{v1.5.1}\footnote{Do not use \texttt{v1.5.0}, it's buggy.} color management (see section~\ref{sec:colors}) and the details of how the shapes are drawn and protected by the external drawing options has changed. There should be no substantial changes to the circuits, though.
@@ -326,25 +344,23 @@ If you have older projects that show compatibility problems, you have two option
     \item if you are using \LaTeX, the distribution has embedded several important old versions: \texttt{0.4}, \texttt{0.6}, \texttt{0.7}, \texttt{0.8.3}, \texttt{0.9.3}, \texttt{0.9.6}, \texttt{1.0}, \texttt{1.1.2}, \texttt{1.2.7}, \texttt{1.4.6}, and \texttt{1.7.2}.
         To switch to use them, since \texttt{v1.4.0} you simply use the \href{https://www.latex-project.org/publications/2018-FMi-TUB-tb122mitt-version-rollback.pdf}{new LaTeX kernel rollback system}, changing your \verb|\usepackage| invocation to something like:
         \begin{lstlisting}[numbers=none]
-            \usepackage[]{circuitikz}[=v0.8.3] % or v0.4, v0.6, ...
-        \end{lstlisting}
+            % or v0.4, v0.6, ...
+            \usepackage[]{circuitikz}[=v0.8.3]\end{lstlisting}
         You can also specify a date instead of a version number: if you write
         \begin{lstlisting}[numbers=none]
-            \usepackage[]{circuitikz}[=2020/02/05]
-        \end{lstlisting}
+            \usepackage[]{circuitikz}[=2020/02/05]\end{lstlisting}
         the rollback system will load the version that was current on February 5th,~2020 (in this case it will be \texttt{v1.0} which was released the day before).
 
         If for whatever reasons your kernel is older, you can still use the old method of loading the \emph{package-version} package; for example:
         \begin{lstlisting}[numbers=none]
-            \usepackage[]{circuitikz-0.8.3} % or circuitikz-0.4, 0.6...
-        \end{lstlisting}
+            % or circuitikz-0.4, 0.6...
+            \usepackage[]{circuitikz-0.8.3}\end{lstlisting}
         which is an inferior solution because it can fool any package you use that depend on \texttt{circuitikz}.
 
         Either way, you have to take care of the options that may have changed between versions (and sometime styles, if you use them).
     \item   if you are using  \ConTeXt, only versions \texttt{0.8.3}, \texttt{0.9.3},  \texttt{0.9.6}, \texttt{1.0}, \texttt{1.1.2}, \texttt{1.2.7}, \texttt{1.4.6}, and \texttt{1.7.2} are packaged; you can use it with
         \begin{lstlisting}[numbers=none]
-            \usemodule[circuitikz-0.8.3]
-        \end{lstlisting}
+            \usemodule[circuitikz-0.8.3]\end{lstlisting}
 \end{itemize}
 
 
@@ -1616,8 +1632,8 @@ This code, with the default parameters, will render like the following image.
 
 \long\def\tmpcirc#1#2{% Define the circuit to reuse it
 % \begin{center}
-\begin{circuitikz}[american, cute inductors, #1]
-    #2
+\begin{circuitikz}[american, cute inductors, #1]%
+    #2 %
     \node [op amp](A1){\texttt{OA1}};
     \draw (A1.-) to[short] ++(0,1) coordinate(tmp) to[R, l_=$R$] (tmp -| A1.out) to[short] (A1.out);
     \draw (tmp) to[short] ++(0,1) coordinate(tmp) to[C=$C$] (tmp -| A1.out) to[short] (A1.out);
@@ -1627,8 +1643,10 @@ This code, with the default parameters, will render like the following image.
     \draw (bb) to[D, l=$D$, *-] ++(0,-2) coordinate(bb1) to[R=$R_m$] ++(0,-2) node[vee](VEE){};
     \draw (bb) --++(1,0) node[npn, anchor=B](Q1){Q1};
     \draw (bb1) --++(1,0) node[pnp, anchor=B](Q2){Q2};
-    \draw (Q1.E) -- (Q2.E) ($(Q1.E)!0.5!(Q2.E)$) to [short, *-o, name=S]  ++(2.5,0)
-    node[right]{$v_{o_Q}$};
+    % this explodes in LWARP. Too complex to solve correctly, let's cheat
+    % \draw (Q1.E) -- (Q2.E) ($(Q1.E)!0.5!(Q2.E)$) to [short, *-o, name=S]  ++(2.5,0) node[right]{$v_{o_Q}$};
+    \path (Q1.E) -- (Q2.E) coordinate[pos=0.5] (Qmid);
+    \draw (Q1.E) -- (Q2.E) (Qmid) to[short,*-o,name=S] ++(2.5,0) node[right]{$v_{o_Q}$};
     \draw (S.s) to[european resistor, l=$Z_L$, *-] (S.s|-GND) node[ground]{};
     \draw (Q1.C) -- (Q1.C|-VCC) node[vcc]{\SI{5}{V}};
     \draw (Q2.C) -- (Q2.C|-VEE) node[vee]{\SI{-5}{V}};

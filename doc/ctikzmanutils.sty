@@ -13,6 +13,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{ctikzmanutils}[2021/04/13 utilities for formatting circuitikz manual]
 \RequirePackage{ifthen}
+\RequirePackage{iftex}
+\RequirePackage{etoolbox}% easier lwarp support
 \RequirePackage{xparse}
 \RequirePackage{showexpl}
 \RequirePackage{ragged2e}
@@ -38,34 +40,45 @@
 \newcommand{\emptyaccsupp}[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}%
 %
 % The following trick is used to silence showexpl a bit, so that the
-% logs are readable...
+% logs are readable... Also, make the boxes cyan as the code background
 %
-\makeatletter
 \let\SX@Info=\relax % silence showexpl a bit...
-\makeatother
+\renewcommand\ResultBox{\fcolorbox{cyan}{white}}
+\setlength\ResultBoxSep{6pt}    % like \fboxsep
+\setlength\ResultBoxRule{0.8pt} % like \fboxrule
 %
-\RequirePackage{showexpl}
-\lstset{frameround=fttt}
-\lstloadlanguages{TeX}
-\lstset{pos=l,
-    width=-99pt,
-    overhang=0pt,
-    hsep=\columnsep,
-    vsep=\bigskipamount,
-    rframe=single,
-    xleftmargin=1em,
-    columns=flexible,
-    language=[LaTeX]TEX,
-    breaklines=true,
-    basicstyle=\small\ttfamily,
-    numbers=left,
-    numbersep=.3em,
-    numberstyle=\tiny\emptyaccsupp,
-    tabsize=3}
-% override explpreset to add the \emptyaccsupp macro
-\lstset{explpreset={numbers=left,numberstyle=\tiny\emptyaccsupp,numbersep=.3em,
-  xleftmargin=1em,columns=flexible,language=[LaTeX]TEX},pos=l,width=-99pt,
-  overhang=0pt,hsep=\columnsep,vsep=\bigskipamount,rframe=single}
+% --- Style for the code part  ---
+% cyan block, no numbers
+%
+\lstdefinestyle{expl-code}{
+  language=[LaTeX]TeX,
+  basicstyle=\small\ttfamily,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=3,
+  numbers=none,                 % <- no numbers
+  frame=none,                   % <- let background be the “box”
+  backgroundcolor=\color{cyan!10}, % <- light cyan box
+  xleftmargin=0.5em,
+  aboveskip=\bigskipamount,
+  belowskip=\bigskipamount,
+}
+% --- Style for the example output part  ---
+% ltxexample uses rframe=<...> for the *result* frame
+\lstset{
+  pos=l,
+  width=-99pt,
+  overhang=0pt,
+  hsep=\columnsep,
+  vsep=\bigskipamount,
+  rframe=single,                % <- frame around the *result*
+}
+
+% Tell showexpl/LTXexample which settings to use for the code listing
+\lstset{explpreset={style=expl-code},style=expl-code}
+
 
 \newcommand{\email}[1]{\href{mailto:#1}{#1}}
 \long\def\comment#1{}
@@ -105,9 +118,19 @@
     {\tikz [overlay, color=blue] \path (0,0) node[#1]{};}
 }
 %% New circuit description macros
+% changed for lwarp HTML compatibility
 \newcommand{\twopartbox}[2]{%
-    \leavevmode\null\par\noindent\fbox{\parbox[c]{0.3\linewidth}{#1} \parbox[c]{0.6\linewidth}{\RaggedRight\hbadness=9500 #2}\par\noindent}%
-}
+    \ifbool{warpingprint}{%
+            \leavevmode\null\par\noindent\fbox{\parbox[c]{0.3\linewidth}{#1} \parbox[c]{0.6\linewidth}{\RaggedRight\hbadness=9500 #2}\par\noindent}%
+        }{%
+            \par\noindent
+            \fbox{%
+                \makebox[0.30\linewidth][l]{#1}%
+                \hspace{1em}%
+                \makebox[0.66\linewidth][l]{\RaggedRight\hbadness=9500 #2}%
+        }}%
+        \par\medskip
+    }
 % filling color for filled-enabled component
 \colorlet{fillcol}{cyan!30!white}
 % find the class for the element. Thanks to Symbol 1
@@ -161,7 +184,8 @@
 %                                    1 2 3 4   5 6 7   8
 \NewDocumentCommand{\circuitdescbip}{s o m d<> m m d() d[]}
 {%
-    \index{#3} \tikz{\foreach \i in {#6} {\index{\i|seealso{#3}} }}%
+    \index{#3}%
+    \foreach \i in {#6} {\index{\i|seealso{#3}} }%
     \twopartbox{%
         \begin{circuitikz}
         \IfBooleanTF{#1}{%
