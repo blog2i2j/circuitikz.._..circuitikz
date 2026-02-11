@@ -385,11 +385,11 @@ There are arguably way too many options in \Circuitikz, as you can see in the fo
 The standard options are set by historical reason, and reflect the preferences of the author that introduced them. For example you get this:
 
 \begin{LTXexample}[varwidth=true]
-    \begin{circuitikz}
-        \draw (0,0) to[R=2<\ohm>, i=?, v=84<\volt>] (2,0) --
-        (2,2) to[V<=84<\volt>] (0,2)
-        -- (0,0);
-    \end{circuitikz}
+\begin{circuitikz}
+    \draw (0,0) to[R=2<\ohm>, i=?, v=84<\volt>] (2,0) --
+    (2,2) to[V<=84<\volt>] (0,2)
+    -- (0,0);
+\end{circuitikz}
 \end{LTXexample}
 
 Feel free to load the package with your own cultural options:
@@ -403,12 +403,12 @@ Feel free to load the package with your own cultural options:
 \end{center}
 
 \begin{LTXexample}[varwidth=true,linerange={1-1,3-6}]
-    \begin{circuitikz}
-        [circuitikz/voltage=american, circuitikz/resistor=american] % line not printed
-        \draw (0,0) to[R=2<\ohm>, i=?, v=84<\volt>] (2,0) --
-        (2,2) to[V<=84<\volt>] (0,2)
-        -- (0,0);
-    \end{circuitikz}
+\begin{circuitikz}
+    [circuitikz/voltage=american, circuitikz/resistor=american] % line not printed
+    \draw (0,0) to[R=2<\ohm>, i=?, v=84<\volt>] (2,0) --
+    (2,2) to[V<=84<\volt>] (0,2)
+    -- (0,0);
+\end{circuitikz}
 \end{LTXexample}
 
 \textbf{However}, most of the global package options are not available in \ConTeXt; in that case you can always use the appropriate \verb|\tikzset{}| or \verb|\IndexKey{}| command after loading the package.
@@ -1081,12 +1081,11 @@ I want a reusable block, so I will start from a coordinate and then use only rel
 
 \begin{minipage}{0.7\linewidth}
     The first thing is to define a suitable flip-flop. The standard SR~(see \ref{sec:flipflops}) is \emph{almost} what we need, but not exactly the same. So let's define a new one:
-    \begin{lstlisting}
+\begin{lstlisting}
 \tikzset{sr-ff/.style={flipflop, flipflop def={
     t1=S, t2=CP, t3=R, t4={\ctikztextnot{Q}},
     t6=Q, nd=1}},
-}
-    \end{lstlisting}
+}\end{lstlisting}
 \end{minipage}\hfill
 \begin{minipage}{0.2\linewidth}
     \begin{circuitikz}[scale=0.8, transform shape]
@@ -1655,8 +1654,8 @@ This code, with the default parameters, will render like the following image.
 
 \long\def\tmpcirc#1#2{% Define the circuit to reuse it
 % \begin{center}
-\begin{circuitikz}[american, cute inductors, #1]%
-    #2 %
+\begin{circuitikz}[american, cute inductors, #1]
+    #2
     \node [op amp](A1){\texttt{OA1}};
     \draw (A1.-) to[short] ++(0,1) coordinate(tmp) to[R, l_=$R$] (tmp -| A1.out) to[short] (A1.out);
     \draw (tmp) to[short] ++(0,1) coordinate(tmp) to[C=$C$] (tmp -| A1.out) to[short] (A1.out);

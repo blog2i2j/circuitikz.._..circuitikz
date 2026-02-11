@@ -58,9 +58,11 @@
   breaklines=true,
   showstringspaces=false,
   tabsize=3,
-  numbers=none,                 % <- no numbers
-  frame=none,                   % <- let background be the “box”
-  backgroundcolor=\color{cyan!10}, % <- light cyan box
+  numbers=none,
+  frame=single, % using none make framesep=0 which is ugly
+  framerule=0pt,% no frame but keep separation
+  framesep=4pt,
+  backgroundcolor=\color{cyan!10},
   xleftmargin=0.5em,
   aboveskip=\bigskipamount,
   belowskip=\bigskipamount,
@@ -71,7 +73,7 @@
   pos=l,
   width=-99pt,
   overhang=0pt,
-  hsep=\columnsep,
+  hsep=2\columnsep,
   vsep=\bigskipamount,
   rframe=single,                % <- frame around the *result*
 }
