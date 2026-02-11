@@ -43,7 +43,7 @@
 %
 %% The early lwarp code will be inserted here.
 %% {{{lwarp-early}}}
-\InputIfFileExists{ctkiz-lwarp-early.tex}{}{}
+\InputIfFileExists{ctikz-lwarp-early.tex}{}{}
 %
 % to check thanks to Max Chernoff https://tex.stackexchange.com/a/705682/38080
 % \usepackage[version=latest]{pgf}
@@ -65,7 +65,7 @@
 %
 %% The late lwarp code will be inserted here.
 %% {{{lwarp-late}}}
-\InputIfFileExists{ctkiz-lwarp-late.tex}{}{}
+\InputIfFileExists{ctikz-lwarp-late.tex}{}{}
 %
 
 \begin{document}
@@ -80,9 +80,7 @@
 \date{\today}
 
 %%% the email-in-tikz explodes when trying to convert to HTML
-\newcommand{\emailintikz}[1]{%
-  \ifbool{warpingHTML}{\texttt{#1}}{\email{#1}}%
-}
+\ifbool{warpingHTML}{\let\emailintikz\texttt}{\let\emailintikz\email}
 
 \pretitle{\begin{center}%
     \begin{circuitikz}
