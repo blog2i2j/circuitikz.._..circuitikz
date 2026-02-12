@@ -32,18 +32,16 @@
   % \setmainfont{Gentium Book Basic}
 \fi
 %%
-%%
-%% define a couple of fake conditional for lwarp support
-%%
-\providebool{warpingHTML}
-\providebool{warpingprint}
-% Default: PDF build
-\boolfalse{warpingHTML}
-\booltrue{warpingprint}
-%
 %% The early lwarp code will be inserted here.
-%% {{{lwarp-early}}}
-\InputIfFileExists{ctikz-lwarp-early.tex}{}{}
+\InputIfFileExists{ctikz-lwarp-early.tex}{}{%
+    %% define a couple of fake conditional for lwarp support
+    \providebool{warpingHTML}
+    \providebool{warpingprint}
+    % Default: PDF build
+    \boolfalse{warpingHTML}
+    \booltrue{warpingprint}
+}
+%
 %
 % to check thanks to Max Chernoff https://tex.stackexchange.com/a/705682/38080
 % \usepackage[version=latest]{pgf}
