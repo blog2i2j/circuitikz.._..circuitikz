@@ -141,4 +141,4 @@ flat:
 	sed -i 's/\r$$//' $(CTIKZ_CONTEXT_GIT_FILENAME)
 
 doc/enverb.sty:
-	cp $(shell kpsewhich enverb.sty) doc/enverb.sty || bash tools/install_enverb.sh
+	bash tools/install_enverb.sh
