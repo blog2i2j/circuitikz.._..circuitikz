@@ -79,8 +79,10 @@
     % is only used for pos=t or pos=b, for pos=l we always use variable width
     ,nmeta        varwidth  = box=varwidth
     ,choice       varwidth  =
-      {true=\ekvmorekv{box=varwidth}, false=\ekvmorekv{box=default}}
-    ,choice-aliases varwidth  = {t=true, f=false}
+      {
+        true=\ekvmorekv{box=varwidth}, t=\ekvmorekv{box=varwidth},
+        false=\ekvmorekv{box=default}, f=\ekvmorekv{box=default}
+      }
     ,boolTF       only code = \ctikz@ex@onlycodeTF
     ,boolTF       exec outside = \ctikz@ex@execOutsideTF
     ,dataT        store     = \ctikz@ex@store
