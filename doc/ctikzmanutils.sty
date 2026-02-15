@@ -11,7 +11,7 @@
 % See the files gpl-3.0_license.txt and lppl-1-3c_license.txt for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ctikzmanutils}[2021/04/13 utilities for formatting circuitikz manual]
+\ProvidesPackage{ctikzmanutils}[2026/02/15 utilities for formatting the circuitikz manual]
 \RequirePackage{ifthen}
 \RequirePackage{iftex}
 \RequirePackage{etoolbox}% easier lwarp support
@@ -359,19 +359,10 @@
     {\tikz [overlay, color=blue] \path (0,0) node[#1]{};}
 }
 %% New circuit description macros
-% changed for lwarp HTML compatibility
 \newcommand{\twopartbox}[2]{%
-    \ifbool{warpingprint}{%
-            \leavevmode\null\par\noindent\fbox{\parbox[c]{0.32\linewidth}{#1}\hfill\parbox[c]{0.66\linewidth}{\RaggedRight\hbadness=9500 #2}\par\noindent}%
-        }{%
-            \par\noindent
-            \fbox{%
-                \makebox[0.30\linewidth][l]{#1}%
-                \hspace{1em}%
-                \makebox[0.66\linewidth][l]{\RaggedRight\hbadness=9500 #2}%
-        }}%
-        \par\medskip
-    }
+    \leavevmode\null\par\noindent\fbox{\parbox[c]{0.32\linewidth}{#1}\hfill
+    \parbox[c]{0.66\linewidth}{\RaggedRight\hbadness=9500 #2}\par\noindent}%
+}
 % filling color for filled-enabled component
 \colorlet{fillcol}{cyan!30!white}
 % find the class for the element. Thanks to Symbol 1
