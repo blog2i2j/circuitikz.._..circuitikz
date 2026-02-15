@@ -11,10 +11,11 @@
 % See the files gpl-3.0_license.txt and lppl-1-3c_license.txt for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ctikzmanutils}[2021/04/13 utilities for formatting circuitikz manual]
+\ProvidesPackage{ctikzmanutils}[2026/02/15 utilities for formatting the circuitikz manual]
 \RequirePackage{ifthen}
-\RequirePackage{xparse}
-\RequirePackage{showexpl}
+\RequirePackage{iftex}
+\RequirePackage{etoolbox}% easier lwarp support
+\RequirePackage{listings}
 \RequirePackage{ragged2e}
 \RequirePackage{textcomp}
 \RequirePackage{booktabs}
@@ -29,43 +30,296 @@
 % for some example we need them...
 \usetikzlibrary{calc, fit, decorations, decorations.pathmorphing, tikzmark}
 \RequirePackage{upgreek}
+
 %
-% Thanks to Ulrike Fischer https://tex.stackexchange.com/a/57160/38080
-% make the listing line number invisible to copy and paste
-% it seems that sometimes it works, sometimes no!
+% Example definitions using `enverb`
 %
-\RequirePackage{accsupp}
-\newcommand{\emptyaccsupp}[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}%
+\RequirePackage{enverb,varwidth}
+\newcommand*\ctikz@ex@lstopts{} % collect options meant for lstlisting
+\newcommand*\ctikz@ex@codeOutside{} % collect code to execute after the env
+\newdimen\ctikz@ex@width % width available to the code
+\newsavebox\ctikz@ex@box % temporary box register
+% handle the 'store' key.
+% #1: the name of the storage
+% saves the contents currently in \enverbBody to the named storage.
+\newcommand*\ctikz@ex@dostore[1]
+  {%
+    \@ifundefined{ctikz@ex@storage@#1}%
+      {\global\expandafter\let\csname ctikz@ex@storage@#1\endcsname\@empty}%
+      {}%
+    \expandafter\gappto\csname ctikz@ex@storage@#1\expandafter\endcsname
+      \expandafter{\enverbBody}%
+  }
+% handle the 'restore' key.
+% #1: the name of the storage
+% prepends \enverbBody with the contents of the named storage.
+\newcommand*\ctikz@ex@dorestore[1]
+  {%
+    \@ifundefined{ctikz@ex@storage@#1}
+      {\PackageError{ctikz}{Unknown storage #1}{}}%
+      {%
+        \epreto\enverbBody
+          {%
+            \unexpanded\expandafter\expandafter\expandafter
+              {\csname ctikz@ex@storage@#1\endcsname}%
+          }%
+      }%
+  }
+\ekvdefinekeys{ctikz/examples}
+  {
+    % pos=<t|b|l>
+    %   where to output the results
+    %     t: on top of the code
+    %     b: below the code
+    %     l: left of the code
+     choice-store pos       = \ctikz@ex@pos{t,b,l}
+    ,initial      pos       = l
+    % hsep=<dimen>
+    %   how much separation to put between the results and the code for pos=l
+    ,dimen        hsep      = \ctikz@ex@hsep
+    ,initial      hsep      = 1.5\columnsep
+    % vsep=<dimen>
+    %   how much separation to put between the results and the code for pos=t/b
+    ,dimen        vsep      = \ctikz@ex@vsep
+    ,initial      vsep      = \bigskipamount
+    % aboveskip=<dimen>
+    %   how much space to put above the environment
+    ,dimen        aboveskip = \ctikz@ex@aboveskip
+    ,initial      aboveskip = \medskipamount
+    % belowskip=<dimen>
+    %   how much space to put below the environment
+    ,dimen        belowskip = \ctikz@ex@belowskip
+    ,initial      belowskip = \medskipamount
+    % width=<dimen> (late evaluation)
+    %   the width of the results box for box=varwidth/minipage, if this is 0pt
+    %   the default values will be
+    %     pos=l: 0.5\linewidth
+    %     pos=t/b: \linewidth
+    ,store        width     = \ctikz@ex@reswd
+    ,initial      width     = 0pt
+    % box=<hbox|varwidth|minipage|default>
+    %   the type of box put around the results box (not visually but how to
+    %   determine the width)
+    %     hbox: simply use a \hbox (so natural width, no \par, no vertical
+    %       material)
+    %     varwidth: Use a `varwidth` environment around it
+    %     minipage: Use a `minipage` environment around it
+    %     default: the used boxing mechanism depends on pos:
+    %       pos=l: hbox
+    %       pos=t/b: minipage
+    ,choice-store box       = \ctikz@ex@boxtype
+      {hbox=h, varwidth=v, minipage=m, default=d}
+    ,initial      box       = default
+    % varwidth=[<t|true|f|false>]
+    %   backwards compatibility, sets box=varwidth without a value or with
+    %   true/t, sets box=default with false/f.
+    ,nmeta        varwidth  = box=varwidth
+    ,choice       varwidth  =
+      {
+        true=\ekvmorekv{box=varwidth}, t=\ekvmorekv{box=varwidth},
+        false=\ekvmorekv{box=default}, f=\ekvmorekv{box=default}
+      }
+    % only code=[<true|false>]
+    %   true/-NoValue-: there'll be no results box
+    %   false: revert the setting
+    ,boolTF       only code = \ctikz@ex@onlycodeTF
+    % exec outside=[<true|false>]
+    %   true/-NoValue-: the code will be executed outside the environment (using
+    %     the generic env/<env>/after hook).
+    %   false: revert this setting
+    %   This will also call 'only code' with the same value!
+    ,boolTF       exec outside = \ctikz@ex@execOutsideTF
+    ,also meta    exec outside = {only code={#1}}
+    ,also nmeta   exec outside = only code
+    % store=<name>
+    %   if used the code will be stored in a named storage for later use (see
+    %   'restore'). Multiple environments using the same storage name will
+    %   result in the code being appended to the existing stored code in this
+    %   storage.
+    ,dataT        store     = \ctikz@ex@store
+    % restore=<name>
+    %   restore the code of the named storage, meaning it'll be prepended to the
+    %   code of this environment for the results box (but not for the listing!)
+    ,dataT        restore   = \ctikz@ex@restore
+    % clear storage=<name>
+    %   forget the contents of the named storage (handled on the spot, so a key
+    %   combination `store=foo, clear storage=foo` would first clear `foo` and
+    %   then store the environment contents into `foo` after the environment was
+    %   processed.
+    ,code         clear storage =
+      \global\expandafter\let\csname  ctikz@ex@storage@#1\endcsname\ctikz@undef
+    % collect unknown keys for lstlisting
+    ,unknown      code      = \appto\ctikz@ex@lstopts{,#1={#2}}
+    ,unknown      noval     = \appto\ctikz@ex@lstopts{,#1}
+  }
+% handle the boxing inside the results box
+% #1: default box type if 'box=default'
+% This will call \ctikz@ex@fbox with the argument based on the current
+% box-setting.
+\newcommand*\ctikz@ex@handleboxtype[1] % #1 = default case
+  {%
+    \if\ctikz@ex@boxtype d%
+      \def\ctikz@ex@boxtype{#1}%
+    \fi
+    \if\ctikz@ex@boxtype h%
+      \ctikz@ex@fbox{\enverbExecute}%
+    \else\if\ctikz@ex@boxtype v%
+      \ctikz@ex@fbox
+        {\begin{varwidth}{\dimeval\ctikz@ex@reswd}\enverbExecute\end{varwidth}}%
+    \else\if\ctikz@ex@boxtype m%
+      \ctikz@ex@fbox
+        {\begin{minipage}{\dimeval\ctikz@ex@reswd}\enverbExecute\end{minipage}}%
+    \else
+      \PackageError{ctikz}{Unknown example box type \ctikz@ex@boxtype}{}%
+    \fi\fi\fi
+  }
+% print the result of the collected code
+% Control will first be given to \ctikz@ex@handleboxtype which will call
+% \ctikz@ex@fbox eventually. But first we need to set a suitable default width
+% for 'width=0pt' (or anything that evaluates to 0pt inside \dimexpr).
+\newcommand*\ctikz@ex@printresult
+  {%
+    \if\ctikz@ex@pos l%
+      \ifdim\dimeval\ctikz@ex@reswd=\z@
+        \def\ctikz@ex@reswd{.5\linewidth}%
+      \fi
+      \ctikz@ex@handleboxtype{h}%
+    \else
+      \ifdim\dimeval\ctikz@ex@reswd=\z@
+        \def\ctikz@ex@reswd{\linewidth}%
+      \fi
+      \ctikz@ex@handleboxtype{m}%
+    \fi
+  }
+% output a vcentered framed box for the results
+% additionally the output (together with the framed box) will be in the box
+% register \ctikz@ex@box
+% #1: the contents to box up (should be \enverbExecute nested in a suitable box
+%     construct based on the 'box' key).
+\newcommand*\ctikz@ex@fbox[1]
+  {%
+    \sbox\ctikz@ex@box
+      {%
+        % fboxsep=6pt, fboxrule=0.8pt -> 13.6pt less for linewidth
+        \advance\linewidth-13.6pt
+        \ctikz@ex@restore\ctikz@ex@dorestore
+        \ignorespaces#1\unskip
+      }%
+    \sbox\ctikz@ex@box
+      {%
+        \fboxsep=6pt
+        \fboxrule=0.8pt
+        \rlap{\fcolorbox{cyan}{white}{\phantom{\usebox\ctikz@ex@box}}}%
+        \kern\fboxrule
+        \kern\fboxsep
+        \usebox\ctikz@ex@box
+      }%
+    $\vcenter{\copy\ctikz@ex@box}$% vcenter matches minipage [c]
+  }
+% output a vcentered code listing if pos=l, otherwise output a code listing
+\newcommand*\ctikz@ex@printcode
+  {%
+    \ctikz@ex@onlycodeTF{\@firstofone}%
+      {%
+        \if\ctikz@ex@pos l% only box up the code if necessary
+          \expandafter\@secondoftwo
+        \fi
+        \@secondoftwo{\parbox[c]{\ctikz@ex@width}}%
+      }%
+      {%
+        \ExpandArgs{ne}\enverbListing{lstlisting}%
+          {[%
+             style=expl-code
+            ,aboveskip=6pt% we don't want skips but need to compensate listings
+            ,belowskip=0pt%
+            \unexpanded\expandafter{\ctikz@ex@lstopts}%
+          ]}%
+      }%
+  }
+% \begin{ctikzExample}[<settings>]
+% the front level environment. <settings> can be any keys as described inside
+% \ekvdefinekeys{ctikz/examples}. The following paragraph will be indented if
+% there's a blank line between \end{ctikzExample} and the first line of the
+% paragraph (as with lists in LaTeX).
+\newenvironment{ctikzExample}
+  {\enverb{key-set=ctikz/examples, oarg-not-enverb, more-ignore=0}}
+  {%
+    \par
+    \vskip\ctikz@ex@aboveskip
+    \noindent
+    \ctikz@ex@width=\linewidth
+    \ctikz@ex@onlycodeTF
+      {}%
+      {%
+        \if\ctikz@ex@pos b
+        \else
+          \ctikz@ex@printresult
+          \if\ctikz@ex@pos t
+            \par
+            \vskip\ctikz@ex@vsep
+            \noindent
+          \else
+            \hfill
+            \advance\ctikz@ex@width-\wd\ctikz@ex@box
+            \advance\ctikz@ex@width-\ctikz@ex@hsep
+          \fi
+        \fi
+      }%
+    \ctikz@ex@printcode
+    \ctikz@ex@onlycodeTF
+      {}%
+      {%
+        \if\ctikz@ex@pos b
+          \par
+          \vskip\ctikz@ex@vsep
+          \noindent
+          \ctikz@ex@printresult
+        \fi
+      }%
+    \par
+    \vskip\ctikz@ex@belowskip
+    \ctikz@ex@store\ctikz@ex@dostore
+    \ctikz@ex@execOutsideTF
+      {\global\let\ctikz@ex@codeOutside\enverbBody}%
+      {}%
+    \@endparenv
+  }
+% handling of the 'exec outside' key. If there are contents inside
+% \ctikz@ex@codeOutside the key was used and we should rerun an \enverbExecute
+% (which only works on \enverbBody contents, so we restore those outside of the
+% environment).
+\AddToHook{env/ctikzExample/after}
+  {%
+    \ifx\ctikz@ex@codeOutside\@empty
+    \else
+      \let\enverbBody\ctikz@ex@codeOutside
+      \global\let\ctikz@ex@codeOutside\@empty
+      \enverbExecute
+    \fi
+  }
 %
-% The following trick is used to silence showexpl a bit, so that the
-% logs are readable...
+% --- Style for the code part  ---
+% cyan block, no numbers
 %
-\makeatletter
-\let\SX@Info=\relax % silence showexpl a bit...
-\makeatother
-%
-\RequirePackage{showexpl}
-\lstset{frameround=fttt}
-\lstloadlanguages{TeX}
-\lstset{pos=l,
-    width=-99pt,
-    overhang=0pt,
-    hsep=\columnsep,
-    vsep=\bigskipamount,
-    rframe=single,
-    xleftmargin=1em,
-    columns=flexible,
-    language=[LaTeX]TEX,
-    breaklines=true,
-    basicstyle=\small\ttfamily,
-    numbers=left,
-    numbersep=.3em,
-    numberstyle=\tiny\emptyaccsupp,
-    tabsize=3}
-% override explpreset to add the \emptyaccsupp macro
-\lstset{explpreset={numbers=left,numberstyle=\tiny\emptyaccsupp,numbersep=.3em,
-  xleftmargin=1em,columns=flexible,language=[LaTeX]TEX},pos=l,width=-99pt,
-  overhang=0pt,hsep=\columnsep,vsep=\bigskipamount,rframe=single}
+\lstdefinestyle{expl-code}{
+  language=[LaTeX]TeX,
+  basicstyle=\small\ttfamily,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=3,
+  numbers=none,
+  frame=single, % using none make framesep=0 which is ugly
+  framerule=0pt,% no frame but keep separation
+  framesep=4pt,
+  backgroundcolor=\color{cyan!10},
+  xleftmargin=0.5em,
+  aboveskip=\bigskipamount,
+  belowskip=\bigskipamount,
+}
+\lstset{style=expl-code}
+
 
 \newcommand{\email}[1]{\href{mailto:#1}{#1}}
 \long\def\comment#1{}
@@ -106,7 +360,8 @@
 }
 %% New circuit description macros
 \newcommand{\twopartbox}[2]{%
-    \leavevmode\null\par\noindent\fbox{\parbox[c]{0.3\linewidth}{#1} \parbox[c]{0.6\linewidth}{\RaggedRight\hbadness=9500 #2}\par\noindent}%
+    \leavevmode\null\par\noindent\fbox{\parbox[c]{0.32\linewidth}{#1}\hfill
+    \parbox[c]{0.66\linewidth}{\RaggedRight\hbadness=9500 #2}\par\noindent}%
 }
 % filling color for filled-enabled component
 \colorlet{fillcol}{cyan!30!white}
@@ -161,7 +416,8 @@
 %                                    1 2 3 4   5 6 7   8
 \NewDocumentCommand{\circuitdescbip}{s o m d<> m m d() d[]}
 {%
-    \index{#3} \tikz{\foreach \i in {#6} {\index{\i|seealso{#3}} }}%
+    \index{#3}%
+    \foreach \i in {#6} {\index{\i|seealso{#3}} }%
     \twopartbox{%
         \begin{circuitikz}
         \IfBooleanTF{#1}{%
