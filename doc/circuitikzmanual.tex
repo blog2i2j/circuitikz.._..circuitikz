@@ -33,13 +33,16 @@
 \fi
 %%
 %% The early lwarp code will be inserted here.
-\InputIfFileExists{ctikz-lwarp-early.tex}{}{%
-    %% define a couple of fake conditional for lwarp support
-    \providebool{warpingHTML}
-    \providebool{warpingprint}
-    % Default: PDF build
-    \boolfalse{warpingHTML}
-    \booltrue{warpingprint}
+\InputIfFileExists{ctikz-lwarp-early.tex}{%
+        % this comment seems to be needed to avoid confusing lwarpmk
+        % usepackage{lwarp}
+    }{%
+        %% define a couple of fake conditional for lwarp support
+        \providebool{warpingHTML}
+        \providebool{warpingprint}
+        % Default: PDF build
+        \boolfalse{warpingHTML}
+        \booltrue{warpingprint}
 }
 %
 %
@@ -63,9 +66,8 @@
 %
 %% The late lwarp code will be inserted here.
 %% {{{lwarp-late}}}
-\InputIfFileExists{ctikz-lwarp-late.tex}{}{}
+\ifbool{warpingprint}{}{\InputIfFileExists{ctikz-lwarp-late.tex}{}{}}
 %
-
 \begin{document}
 % change numbering to roman to avoid a duplicate hyperref target on page 1
 % Thanks to Ulrike Fischer for helping here
@@ -856,7 +858,7 @@ After that, let's add the input part. I will use a named node here, referring to
 Notice that the only absolute coordinate here is the first one, \texttt{(0,0)}; so the elements are connected with relative movements and can be moved by just changing one number (for example, changing the \verb| to[C=$C_1$] ++(0,-1.5) | will move \emph{all} the grounds down).
 
 This is the final circuit, with the nodes still marked:
-\begin{lstlisting}[basicstyle=\small\ttfamily, escapechar=@]
+\begin{lstlisting}[basicstyle=\small\ttfamily]
 % this is for the blue brackets under the circuit
 \tikzset{blockdef/.style={%
     {Straight Barb[harpoon, reversed, right, length=0.2cm]}-{Straight Barb[harpoon, reversed, left, length=0.2cm]},
@@ -877,7 +879,7 @@ This is the final circuit, with the nodes still marked:
     \draw (Q1.D) to[R, l2_=$R_D$ and \SI{10}{k\ohm}] ++(0,3) node[vcc](VCC){$V_{CC}=\SI{10}{V}$};
     \draw (Q1.D) to[short, -o] ++(1,0) node[right](vo1){$v_{o1}$};
     %
-    \path (vo1) -- ++(2,0) \coord(bjt); @\label{codeline:position-bjt}@
+    \path (vo1) -- ++(2,0) \coord(bjt);
     %
     \draw (bjt) node[npn, anchor=B](Q2){\killdepth{Q2}};
     \draw (Q2.B) to[short, -o] ++(-0.5,0) node[left](vi2){$v_{12}$};
@@ -938,7 +940,7 @@ This is the final circuit, with the nodes still marked:
           -- node[midway, fill=white]{bloque 2} (vo2|- tmp);
 \end{circuitikz}
 
-You can see that after having found the place where we want to put the BJT transistor (line~\ref{codeline:position-bjt}), we use the option \texttt{anchor=B} so that the base anchor will be put at the coordinate \texttt{bjt}.
+You can see that after having found the place where we want to put the BJT transistor, we use the option \texttt{anchor=B} so that the base anchor will be put at the coordinate \texttt{bjt}.
 
 Finally, if you like a more compact drawing, you can add the options (for example):
 \begin{lstlisting}
@@ -994,6 +996,7 @@ and you will obtain the following diagram with the exact same code (I just remov
         logic ports=ieee,
         logic ports/scale=0.7,
 }
+\pushdollarcat
 \newcommand*{\myblock}[1]{% the parameter will be prepended to the relevant node names
     node[sr-ff](#1-FF){} (#1-FF.bup) node[above]{SR-FF}
         (#1-FF.pin 1) -- ++(-1,0) node[and port, anchor=out](#1-AND1){}
@@ -1011,6 +1014,7 @@ and you will obtain the following diagram with the exact same code (I just remov
         to[inline not] (#1-in |- #1-AND2.in 2) -- (#1-AND2.in 2)
         % no ; to end the path, must add in usage!
 }
+\popdollarcat
 \newcommand*{\fullcirc}[1][]{%
 \begin{circuitikz}
     \draw (0,0) \myblock{A};
@@ -1940,8 +1944,8 @@ then you can additionally define:
 
 And finally do:
 \begin{ctikzExample}
-\ctikzsubcircuitactivate{divider}
 \begin{tikzpicture}
+\ctikzsubcircuitactivate{divider}
     \draw (0,0) \mydiv{a}{in}{$R_1$}{$R_2$};
     \draw (a-out) -- \mydiv{b}{in}{$R_3$}{$R_4$};
 \end{tikzpicture}
@@ -2062,7 +2066,7 @@ could be the best option for this task. Below, one possible example (not optimiz
 
 You can use this definition as follows, for example:
 
-\begin{ctikzExample}[pos=b, restore=ChopperByTerminals]
+\begin{ctikzExample}[pos=b, restore=ChopperByTerminals, dollar]
 \begin{tikzpicture}[]
     \node[op amp](A) at (0,0) {};
     \ChopperByTerminals[draw=red][-0.2cm]{A.-}{A.+}{chopper in}
@@ -2335,8 +2339,7 @@ We can call \emph{modifiers} the elements that are added to the basic shape to e
 \end{circuitikz}
 \end{ctikzExample}
 
-\paragraph{Arrows.\label{sec:tunablearrows}} You can change the arrow tips used in tunable resistors (\texttt{vR}, \texttt{tgeneric}) with the key \IndexKey{tunable end arrow}  and in potentiometers with the key \IndexKey{wiper end arrow} (by default the key is the word ``\texttt{default}'' to obtain the default arrow, which is \texttt{latexslim} for both).
-\label{par:arrows-sec-tunablearrows}
+\paragraph{Arrows}\label{sec:tunablearrows} You can change the arrow tips used in tunable resistors (\texttt{vR}, \texttt{tgeneric}) with the key \IndexKey{tunable end arrow}  and in potentiometers with the key \IndexKey{wiper end arrow} (by default the key is the word ``\texttt{default}'' to obtain the default arrow, which is \texttt{latexslim} for both).
 Also you can change the start arrow with the corresponding \IndexKey{tunable start arrow} or \IndexKey{wiper start arrow} (the default value ``\texttt{default}'' is equivalent to \texttt{\{\}} for both, which means no arrow).
 
 You can change that globally or locally, as ever. The tip specification is the one you can find in the \TikZ{} manual (``Arrow Tip Specifications'').
@@ -2362,11 +2365,13 @@ For the \texttt{photoresistor} and the two ``flavors'' of the light-dependent re
     \draw[ultra thick] (0,0) to[R, resistors/thickness=#1] ++(2,0);
 \end{tikzpicture}%
 }
+\ifbool{warpingprint}{}{\StartDefiningTabulars}
 \newcommand{\splat}{\begin{center}\ttfamily\scriptsize\begin{tabular}{cccc}
         \showjoin{1}&\showjoin{2}&\showjoin{3}&\showjoin{4}\\
         thickness=1 & thickness=2 & thickness=3 & thickness=4 \\
     \end{tabular}\end{center}%
 }
+\ifbool{warpingprint}{}{\StopDefiningTabulars}
 \newcommand{\rdivider}[1]{\begin{tikzpicture}
         \ctikzset{resistors/thickness=#1}
         \draw (0,0) node[ground]{} to[V] ++(0,2) to[R] ++(2,0)
@@ -2377,7 +2382,7 @@ For the \texttt{photoresistor} and the two ``flavors'' of the light-dependent re
     \rdivider{1}\rdivider{2}\rdivider{3}\rdivider{4}
 \end{center}}
 
-\paragraph{Details of American (``zig-zag'') resistors.\label{sec:zigzag-details}} American (zig-zag) resistors have a little joining problem\footnote{Noticed by \href{https://github.com/circuitikz/circuitikz/issues/811}{Jakob Leide on GitHub} and later \href{https://github.com/circuitikz/circuitikz/discussions/814}{discussed here}.} with the leading wires if the thickness is greater than two. In the following drawing you can see the problem when the thickness grows from 1 to 4.
+\paragraph{Details of American (``zig-zag'') resistors.}\label{sec:zigzag-details} American (zig-zag) resistors have a little joining problem\footnote{Noticed by \href{https://github.com/circuitikz/circuitikz/issues/811}{Jakob Leide on GitHub} and later \href{https://github.com/circuitikz/circuitikz/discussions/814}{discussed here}.} with the leading wires if the thickness is greater than two. In the following drawing you can see the problem when the thickness grows from 1 to 4.
 \label{par:details-of-american}
 
 \splat
@@ -5050,7 +5055,7 @@ You can tweak the appearance of transistor's bodydiodes; see ~\ref{sec:trans-bod
 
 For more complex snubs or protections, you can use the \IndexKey[bodydiode anchors]{body ...} anchors to add more or different things to the transistors in addition (or instead) of the flyback\IndexKey[flyback diode]{} diode.
 
-\begin{ctikzExample}
+\begin{ctikzExample}[dollar]
 \def\snubb#1#2{% add a snubber to a transistor
     \draw (#1.body C #2) to[short, *-, nodes width=0.02]
     ++(0.3,0) coordinate(tmp) to [R, resistors/scale=0.3]
@@ -5069,7 +5074,7 @@ For more complex snubs or protections, you can use the \IndexKey[bodydiode ancho
 \end{circuitikz}
 \end{ctikzExample}
 
-\paragraph{HEMT customization.\label{sec:hemt}} Since \texttt{v1.6.1} the shape of the \texttt{hemt} transistor can be customized.\footnote{After a suggestion from \href{https://github.com/circuitikz/circuitikz/issues/691}{user \texttt{@epsilon-phi} on GitHub}.}
+\paragraph{HEMT customization.}\label{sec:hemt} Since \texttt{v1.6.1} the shape of the \texttt{hemt} transistor can be customized.\footnote{After a suggestion from \href{https://github.com/circuitikz/circuitikz/issues/691}{user \texttt{@epsilon-phi} on GitHub}.}
 \label{par:hemt-customization-sec}
 There are several keys under the hierarchy \IndexKey{tripoles/hemt} that can be use to change the appearance; some of them are common to other transistors and some are specific.
 
@@ -7157,7 +7162,7 @@ Finally, the size can be changed using the parameter \IndexKey{tripoles/spdt/wid
 \end{circuitikz}
 \end{ctikzExample}
 
-\subsubsection{Switch arrows\label{sec:switcharrows}}
+\subsubsection{Switch arrows}\label{sec:switcharrows}
 \label{sec:switch-arrows-sec}
 
 You can change the arrow tips used in all switches (traditional and ``cute'') with the key \IndexKey{switch end arrow} (by default the key is the word ``\texttt{default}'' to obtain the default arrow, which is \texttt{latexslim}).
@@ -10257,7 +10262,7 @@ The normal voltage arrows length depends not on the component length but on the 
 Using the advanced voltage interface mechanism, you can for example design voltages that are of fixed lengths; in the example below the new \texttt{xparse} method for defining commands is used, so that we can have a couple of different optional arguments:
 
 
-\begin{ctikzExample}[basicstyle=\scriptsize\ttfamily, exec outside]
+\begin{ctikzExample}[basicstyle=\scriptsize\ttfamily, exec outside, dollar]
 \NewDocumentCommand{\fixedvlen}{O{0.5cm} m m O{}}{% [semilength]{node}{label}[extra options]
     % get the center of the standard arrow
     \coordinate (#2-Vcenter) at ($(#2-Vfrom)!0.5!(#2-Vto)$);
@@ -10285,7 +10290,7 @@ You can also notice that the arrow is not exactly the same as other arrows in th
 
 Another possibility is to have the arrow length based on the length of the component; for example you can use this code:
 
-\begin{ctikzExample}[basicstyle=\scriptsize\ttfamily, exec outside]
+\begin{ctikzExample}[basicstyle=\scriptsize\ttfamily, exec outside, dollar]
 \NewDocumentCommand{\compvlen}{O{1.5} m m O{}}{% [relative length]{node}{label}[extra options]
     % get the center of the standard arrow
     \coordinate (#2-Vcenter) at ($(#2-Vfrom)!0.5!(#2-Vto)$);
@@ -10356,7 +10361,7 @@ For example, let's suppose you like the \texttt{raised} voltage notation, but yo
 
 % TODO: Move this in the listing as well?
 \ctikzset{voltage=raised, !v sym/.style={no v symbols}}
-\begin{ctikzExample}[exec outside]
+\begin{ctikzExample}[exec outside, dollar]
 %% The voltage label (the text) will be managed normally by v...={}
 %% We need just one parameter to specify the coloa/styler of the signs; we
 %% set the other argument to nothing.
@@ -11658,7 +11663,7 @@ Here a series of examples, contributed by several people, is shown with their co
 \subsection{A styled low noise input stage}
 \label{sec:a-styled-low}
 
-\begin{ctikzExample}[pos=t, box=hbox]
+\begin{ctikzExample}[pos=t, box=hbox, dollar]
 \ctikzloadstyle{romano}
 \scalebox{0.707}{%
 \begin{circuitikz}[american, romano circuit style]
@@ -11713,7 +11718,7 @@ Here a series of examples, contributed by several people, is shown with their co
 \subsection{An example with the \texttt{compatibility} option}
 \label{ex:compatibility}
 
-\IfFileExists{compatibility.pdf}{\fbox{\includegraphics{compatibility.pdf}}}{}%
+\IfFileExists{compatibility.pdf}{\fbox{\includegraphics{compatibility.pdf}}}{}
 
 \begin{lstlisting}
 \documentclass{standalone}
@@ -11808,7 +11813,8 @@ Here a series of examples, contributed by several people, is shown with their co
 \label{sec:example-auto-vif}
 
 
-\begin{ctikzExample}[varwidth=true,pos=t, basicstyle=\footnotesize\ttfamily]
+\begin{ctikzExample}
+  [varwidth=true,pos=t, basicstyle=\footnotesize\ttfamily, dollar]
 %% This can go to your preamble and/or a style file!
 %% setup voltage drawing macro: european style, but adding "+" and "-"
 \newcommand\eurVPMstyled[4]{% node, label, style, one ignored arguments
