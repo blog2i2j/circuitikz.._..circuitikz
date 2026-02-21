@@ -304,11 +304,13 @@ If unsure, you can check the version in your local installation by using the mac
             \ctikzset{amplifiers/minus=$-$}
             \ctikzset{bipoles/cvsourceam/inner minus=$-$}
             \ctikzset{bipoles/vsourceam/inner minus=$-$}
-            \ctikzset{voltage/american minus=$-$}\end{lstlisting}
+            \ctikzset{voltage/american minus=$-$}
+        \end{lstlisting}
     \item Since version \texttt{1.6.3} the size of the solder dot and the connection dot of the body diodes for transistors has changed (now they are the same and are configurable). The new default scale of~\texttt{0.7} makes the dots \emph{area} more or less one half the one of the external connections. You can go back to the previous values with
         \begin{lstlisting}
             \ctikzset{transistor bodydiode/dot scale=0.5,
-                transistor solderdot scale=1.0}\end{lstlisting}
+                transistor solderdot scale=1.0}
+            \end{lstlisting}
     \item Since version \texttt{1.6.2} \texttt{siunitx}  will \textbf{not}  work anymore with \ConTeXt{} (it was a very poor simulation layer, anyway); it has been disabled in upstream \ConTeXt, in favor of \href{https://www.pragma-ade.nl/general/manuals/units-mkiv.pdf}{its own \texttt{units} module}.
     \item Version \texttt{1.6.0} has a big rewrite of the block's code. In principle the changes are backward-compatible, but there were several bugs (wrong anchors, errors with rotations, and so on) that have been fixed in the process.
     \item Since \texttt{v1.5.1}\footnote{Do not use \texttt{v1.5.0}, it's buggy.} color management (see section~\ref{sec:colors}) and the details of how the shapes are drawn and protected by the external drawing options has changed. There should be no substantial changes to the circuits, though.
@@ -352,22 +354,26 @@ If you have older projects that show compatibility problems, you have two option
         To switch to use them, since \texttt{v1.4.0} you simply use the \href{https://www.latex-project.org/publications/2018-FMi-TUB-tb122mitt-version-rollback.pdf}{new LaTeX kernel rollback system}, changing your \verb|\usepackage| invocation to something like:
         \begin{lstlisting}[numbers=none]
             % or v0.4, v0.6, ...
-            \usepackage[]{circuitikz}[=v0.8.3]\end{lstlisting}
+            \usepackage[]{circuitikz}[=v0.8.3]
+        \end{lstlisting}
         You can also specify a date instead of a version number: if you write
         \begin{lstlisting}[numbers=none]
-            \usepackage[]{circuitikz}[=2020/02/05]\end{lstlisting}
+            \usepackage[]{circuitikz}[=2020/02/05]
+        \end{lstlisting}
         the rollback system will load the version that was current on February 5th,~2020 (in this case it will be \texttt{v1.0} which was released the day before).
 
         If for whatever reasons your kernel is older, you can still use the old method of loading the \emph{package-version} package; for example:
         \begin{lstlisting}[numbers=none]
             % or circuitikz-0.4, 0.6...
-            \usepackage[]{circuitikz-0.8.3}\end{lstlisting}
+            \usepackage[]{circuitikz-0.8.3}
+        \end{lstlisting}
         which is an inferior solution because it can fool any package you use that depend on \texttt{circuitikz}.
 
         Either way, you have to take care of the options that may have changed between versions (and sometime styles, if you use them).
     \item   if you are using  \ConTeXt, only versions \texttt{0.8.3}, \texttt{0.9.3},  \texttt{0.9.6}, \texttt{1.0}, \texttt{1.1.2}, \texttt{1.2.7}, \texttt{1.4.6}, and \texttt{1.7.2} are packaged; you can use it with
         \begin{lstlisting}[numbers=none]
-            \usemodule[circuitikz-0.8.3]\end{lstlisting}
+            \usemodule[circuitikz-0.8.3]
+        \end{lstlisting}
 \end{itemize}
 
 
@@ -1072,7 +1078,8 @@ I want a reusable block, so I will start from a coordinate and then use only rel
 \tikzset{sr-ff/.style={flipflop, flipflop def={
     t1=S, t2=CP, t3=R, t4={\ctikztextnot{Q}},
     t6=Q, nd=1}},
-}\end{lstlisting}
+}
+\end{lstlisting}
 \end{minipage}\hfill
 \begin{minipage}{0.2\linewidth}
     \begin{circuitikz}[scale=0.8, transform shape]
